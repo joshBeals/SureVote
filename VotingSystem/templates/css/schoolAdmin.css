@@ -138,21 +138,32 @@ body{
     background: white;
     box-sizing: border-box;
     padding: 20px 30px;
+    display: flex;
 }
-.main .top h2{
+.main .top .topLeft{
+    flex: 1;
+}
+.main .top .topLeft h2{
     margin:0; padding:0;
 }
-.main .top p{
+.main .top .topLeft p{
     margin:0; padding:0;
+}
+.main .top i{
+    flex: 1;
+    margin: auto;
+    color: #010C17;
+    display: none;
 }
 .main .content{
+    display: none;
     background: white;
 }
 .main .content .mainDash{
     /* border: 1px solid red; */
 }
 .main .content .mainDash .analysis{
-    height: 8em;
+    min-height: 8em;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -217,7 +228,7 @@ body{
 }
 .cards{
     width: 47%;
-    height: 90%;
+    min-height: 90%;
     border: 1px solid grey;
     border-radius: 5px;
     display: flex;
@@ -234,4 +245,79 @@ body{
     text-align: right;
     box-sizing: border-box;
     padding: 10px;
+}
+
+.f_reg{
+    display: flex;
+    width: 100%;
+    height: 450px;
+    background: grey;
+}
+.f_reg .left{
+    flex: 1;
+    background: url('../app_images/');
+    background-position: center;
+}
+.f_reg .right{
+    flex: 1.5;
+}
+
+
+@media screen and (max-width: 768px){
+    .cont .sidebar{
+        position: fixed;
+        height: 100%;
+        z-index: 20;
+    }
+    .main{
+        padding: 0;
+    }
+    .main .top{
+        border-radius: 0;
+    }
+    .main .top i{
+        text-align: right;
+        display: block;
+    }
+    .main .content .mainDash .analysis{
+        padding: 0px 20px;
+    }
+    .main .content .mainDash .analysis .boxes{
+        width: 100%;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        padding-left: 10px;
+    }
+    .main .content .mainDash .analysis .boxes:last-of-type{
+        margin-bottom: 0;
+    }
+    .main .content .mainDash .analysis .boxes i{
+        text-align: left;
+    }
+    .main .content .pic{
+        display: block;
+    }
+    .main .content .pic .left{
+        margin-bottom: 10px;
+    }
+    .main .content .pic .right{
+        padding: 0;
+    }
+    .cards{
+        width: 100%;
+        max-height: 8em;
+        box-sizing: border-box;
+        padding-left: 20px;
+        margin-bottom: 11px;
+    }
+    .cards i{
+        text-align: left;
+    }
+    .first, .second{
+        display: block;
+    }
+    .footer{
+        background: #010C17;
+        color: #BFC0C2;
+    }
 }

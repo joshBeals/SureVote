@@ -1,4 +1,3 @@
-
 // DECLARING THE MAIN ELEMENTS
 let modal = document.getElementById('modal');
 let RegisterBtn = document.getElementById('RegisterBtn');
@@ -23,6 +22,7 @@ RegisterBtn.addEventListener('click', e => {
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
+            console.log(response);
             RegPOP(JSON.parse(response));
         }else{
             alert(this.status);

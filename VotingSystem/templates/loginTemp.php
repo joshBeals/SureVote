@@ -10,7 +10,7 @@
     <title>SureVote</title>
 </head>
 <body>
-    <div class="container">
+    <div class="cont">
         <div class="left">
             <div class="logo">
                 LOGO

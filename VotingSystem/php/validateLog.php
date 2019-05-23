@@ -34,7 +34,7 @@
                 $array = array('status'=>'1', 'message'=>'Login Successful');
                 echo(json_encode($array));
             }else{
-                $array = array('status'=>'0', 'message'=>'No Such LoginID/Password in the Database!');
+                $array = array('status'=>'0', 'message'=>'Invalid Login Details');
                 echo(json_encode($array));
             }
         }else{

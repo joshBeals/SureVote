@@ -2,25 +2,25 @@ body{
     font-family: 'Ubuntu', sans-serif;
     padding: 0;
     margin: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background: #F0F0F0;
 }
-.container{
+.cont{
     width: 100%;
     height: 100%;
     display: flex;
 }
-.container .left{
+.cont .left{
     flex: 1;
     box-sizing: border-box;
     padding: 20px;
 }
-.container .left .logo{
+.cont .left .logo{
     font-size: 30px;
     margin-bottom: 20px;
 }
-.container .left .main{
+.cont .left .main{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,29 +30,29 @@ body{
     box-sizing: border-box;
     padding: 30px;
 }
-.container .left .main div{
+.cont .left .main div{
     flex: 1;
     display: flex;
     flex-direction: column;
 }
-.container .left .main h3{
+.cont .left .main h3{
     flex: 1;
     color: #062A4A;
     margin-bottom: 60px;
     font-size: 30px;
     font-weight: lighter;
 }
-.container .left .main form{
+.cont .left .main form{
     flex: 7;
     display: flex;
     flex-direction: column;
     text-align: left;
 }
-.container .left .main form .remember{
+.cont .left .main form .remember{
     display: flex;
     flex-direction: row;
 }
-.container .left .main form label{
+.cont .left .main form label{
     color: #062A4A;
     font-size: 20px;
     margin-bottom: 10px;
@@ -69,7 +69,7 @@ body{
 #LoginBtn:hover{
     background: #0B508E;
 }
-.container .left .main form input{
+.cont .left .main form input{
     font-size: 20px;
     margin-bottom: 20px;
     box-sizing: border-box;
@@ -78,7 +78,7 @@ body{
     border: 1px solid #062A4A;
     border-radius: 5px;
 }
-.container .left .main p:last-of-type{
+.cont .left .main p:last-of-type{
     cursor: pointer;
 }
 a{
@@ -89,17 +89,17 @@ a{
 a:hover{
     color: #0B508E;
 }
-.container .left .main p i{
+.cont .left .main p i{
     color: #062A4A;
     text-align: center;
     font-size: 13px;
 }
-.container .right{
+.cont .right{
     position: relative;
     flex: 1.3;
     background: url('../app_images/32356290059-9726-city.jpg');
 }
-.container .right .wrapper{
+.cont .right .wrapper{
     box-sizing: border-box;
     padding: 40px;
     color: white;
@@ -111,18 +111,19 @@ a:hover{
     background: rgba(0,0,0,.4);
    /*background: rgba(105,102,153,.3);*/
 }
-.container .right .wrapper h3{
+.cont .right .wrapper h3{
     padding-bottom: 10px;
     margin: 0;
     font-size: 25px;
 }
-.container .right .wrapper p{
+.cont .right .wrapper p{
     padding: 0;
     margin: 0;
     font-size: 20px;
 }
-.container .modal{
+.cont .modal{
     position: absolute;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     top: 0;
@@ -137,19 +138,18 @@ a:hover{
 .hide{
     display: none;
 }
-.container .modal .inner{
+.cont .modal .inner{
     text-align: center;
     box-sizing: border-box;
-    border-radius: 20px;
+    border-radius: 3px;
     padding: 30px 50px;
     max-width: 40%;
     background: white;
-    box-shadow: 1px 1px 20px #062A4A;
 }
-.container .modal .inner h1, .container .modal .inner h3{
+.cont .modal .inner h1, .cont .modal .inner h3{
     color: #062A4A;
 }
-.container .modal .inner a{
+.cont .modal .inner a{
     box-sizing: border-box;
     padding: 10px 20px;
     margin-bottom: 50px;
@@ -160,6 +160,52 @@ a:hover{
     border-radius: 5px;
     transition: 300ms ease-in-out;
 }
-.container .modal .inner a:hover{
+.cont .modal .inner a:hover{
     background: #0B508E;
+}
+
+
+
+@media screen and (max-width: 768px){
+
+    body{
+        width: 100%;
+        height: 100%;
+        background: url('../app_images/32356290059-9726-city.jpg');
+    }
+    .cont{
+        display: block;
+    }
+    .cont .right{
+        display: none;
+    }
+    .cont .left{
+        background: rgba(0,0,0,.3);
+        padding: 10px;
+    }
+    .cont .left .logo{
+        color: white;
+    }
+    .cont .left .main form input[type='text'],
+    .cont .left .main form input[type='password']
+    {
+        border: 1px solid #062A4A;
+
+    }
+    a{
+        color: #062A4A;
+        text-decoration: none;
+        transition: 150ms ease-in-out;
+    }
+    .cont .modal .inner{
+        max-width: 80%;
+        padding: 20px;
+    }
+    .cont .modal .inner a{
+        margin-bottom: 30px;
+    }
+    .cont .modal .inner h1, .cont .modal .inner h3{
+        margin: 0;
+    }
+
 }

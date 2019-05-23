@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="cont">
-        <div class="sidebar">
+        <div class="sidebar show" id="sidebar">
             <!--Dashboard-->
             <div class="dashboard">
                 <h3>Admin Dashboard</h3>
@@ -86,8 +86,11 @@
         <div class="main">
             <!--Top of main-->
             <div class="top">
-                <h2>Overview</h2>
-                <p>Welcome Back,</p>
+                <div class="topLeft">
+                    <h2>Overview</h2>
+                    <p>Welcome Back,</p>
+                </div>
+                <i class="fas fa-bars" id="menuToogle"></i>
             </div>
             <!--Content of main-->
             <div class="content">
@@ -97,28 +100,28 @@
                         <div class="boxes" id="faculties">
                             <i class="fas fa-school"></i> 
                             <div class="info">
-                                <h2>0</h2>
+                                <h2 id='facultiesRegistered'>0</h2>
                                 <p>Faculties Registered</p>
                             </div>
                         </div>
                         <div class="boxes" id="departments">
                             <i class="far fa-building"></i> 
                             <div class="info">
-                                <h2>0</h2>
+                                <h2 id='departmemtsRegistered'>0</h2>
                                 <p>Departments Registered</p>
                             </div>
                         </div>
                         <div class="boxes" id="elections">
                             <i class="fas fa-poll-h"></i> 
                             <div class="info">
-                                <h2>0</h2>
+                                <h2 id='ElectionsConducted'>0</h2>
                                 <p>Elections Conducted</p>
                             </div>
                         </div>
                         <div class="boxes" id="voters">
                              <i class="fas fa-user-check"></i>
                              <div class="info">
-                                <h2>0</h2>
+                                <h2 id='RegisteredVoters'>0</h2>
                                 <p>Registered Voters</p>
                             </div>
                         </div>
@@ -128,7 +131,7 @@
                 <div class="pic">
                     <div class="left">
                         <?php
-                            include_once('carousel.php');
+                            include_once('vendors/carousel.php');
                         ?>
                     </div>
                     <div class="right">
@@ -136,14 +139,14 @@
                             <div class="cards">
                                 <i class="fas fa-landmark"></i>
                                 <div class="info">
-                                    <h2>0</h2>
+                                    <h2 id='SchoolsRegistered'>0</h2>
                                     <p>Schools On The Platform</p>
                                 </div>
                             </div>
                             <div class="cards">
                                 <i class="fas fa-users"></i>
                                 <div class="info">
-                                    <h2>0</h2>
+                                    <h2 id='TotalAppUsers'>0</h2>
                                     <p>Total App Users</p>
                                 </div>
                             </div>
@@ -152,33 +155,42 @@
                             <div class="cards">
                                 <i class="fas fa-person-booth"></i>
                                 <div class="info">
-                                    <h2>0</h2>
+                                    <h2 id='VotedNumbers'>0</h2>
                                     <p>Voted Numbers</p>
                                 </div>
                             </div>
                             <div class="cards">
                                 <i class="fas fa-play"></i>
                                 <div class="info">
-                                    <h2>0</h2>
+                                    <h2 id='ElectionsStarted'>0</h2>
                                     <p>Elections Started</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                 <!--Footer-->
-                 <div class="footer">
+            </div>
+
+            <!--Faculty Registration Form-->
+            <div class="f_reg">
+                <div class="left">
+
+                </div>
+                <div class="right">
+
                 </div>
             </div>
+
             <!--Main Content-->
             <div class="footer">
                 <?php
-                    include_once('footer.php');
+                    include_once('vendors/footer.php');
                 ?>
             </div>
         </div>
     </div>
 
-    <script src="schoolAdmin.js"></script>
+    <script src="DashboardJS/schoolAdmin.js"></script>
+    <script src="DashboardJS/AdminAPI.js"></script>
 </body>
 </html>

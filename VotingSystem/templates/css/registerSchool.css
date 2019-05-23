@@ -2,8 +2,8 @@ body{
     font-family: 'Ubuntu', sans-serif;
     padding: 0;
     margin: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background: #F0F0F0;
 }
 .container{
@@ -138,11 +138,10 @@ a:hover{
 .container .modal .inner{
     text-align: center;
     box-sizing: border-box;
-    border-radius: 20px;
+    border-radius: 3px;
     padding: 30px 50px;
     max-width: 40%;
     background: white;
-    box-shadow: 1px 1px 20px #062A4A;
 }
 .container .modal .inner h1, .container .modal .inner h3{
     color: #062A4A;
@@ -172,5 +171,57 @@ a:hover{
         opacity: 0;
     }100%{
         opacity: 1;
+    }
+}
+
+
+@media screen and (max-width: 768px){
+
+    body{
+        width: 100%;
+        height: 100%;
+        background: url('../app_images/beautiful-city-9.jpg');
+    }
+    .container{
+        display: block;
+    }
+    .container .left{
+        display: none;
+    }
+    .container .right{
+        display: flex;
+        flex-direction: column;
+        background: rgba(0,0,0,.4);
+        padding: 10px;
+    }
+    .container .right .logo{
+        text-align: left;
+        color: white;
+    }
+    .container .right .main{
+        display: flex;
+        justify-content: center;align-items: center;
+        padding: 0px;
+        overflow: hidden;
+    }
+    .container .right .main form input[type='text'],
+    .container .right .main form input[type='email']
+    {
+        border: 1px solid #062A4A;
+    }
+    a{
+        color: #062A4A;
+        text-decoration: none;
+        transition: 150ms ease-in-out;
+    }
+    .container .modal .inner{
+        max-width: 80%;
+        padding: 20px 10px;
+    }
+    .container .modal .inner a{
+        margin-bottom: 30px;
+    }
+    .container .modal .inner h1, .container .modal .inner h3{
+        margin: 0;
     }
 }
