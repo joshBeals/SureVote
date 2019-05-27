@@ -226,10 +226,17 @@
                                 <textarea rows="6" cols="0" id="descrip">
                                 </textarea>
                            </div>
+                           <input type="submit" name="addElec" value="Add Election" id="addElec">
                         </form>
                     </div>
                     <div class="right">
-                    
+                        <h5>Additional Background</h5>
+                        <div class="backpic">
+                            <div class="backwrap">
+                                <h1>16 x 6</h1>
+                            </div>
+                        </div>
+                        <button>Upload</button>
                     </div>
                 </div>
             </div>
