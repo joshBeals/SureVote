@@ -79,7 +79,7 @@
                         FOREIGN KEY (school_id) REFERENCES schools(school_id)
                     ) ";
                     $db->query($query);
-                    $array = array('status'=>'1', 'message'=>'Registration Successful', 'adminusername'=>$adminUser, 'adminpassword'=>$adminPassword);
+                    $array = array('status'=>'1', 'message'=>'Registration Successful', 'adminusername'=>$newSchoolEmail[0], 'adminpassword'=>$adminPassword);
                     echo(json_encode($array)); 
                     $adminPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
                     $query = "INSERT INTO school_admins (admin_name, admin_password, school_id) VALUES ('$adminUser', '$adminPassword', '$id')";

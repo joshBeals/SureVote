@@ -23,7 +23,7 @@ LoginBtn.addEventListener('click', e => {
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
-            //alert(response);
+            alert(response);
             LogPOP(JSON.parse(response));
             // POPING OUT THE MODAL
             modal.classList.remove('hide');
@@ -44,7 +44,7 @@ function LogPOP(result){
     let p = document.createElement('p');
     let a = document.createElement('a');
 
-
+    19084708
     // POPULATING THE MODAL DOM ACCORDING TO THE MESSAGE STATUS
     if(result['status'] === '1'){
         inner.innerHTML = '';
@@ -52,7 +52,7 @@ function LogPOP(result){
         p.innerHTML = 'You can continue to your Dashboard.';
         a.innerHTML = 'Continue';
         a.setAttribute('id', 'continue');
-        a.setAttribute('href', 'dashboards/schoolAdmin.php');
+        a.setAttribute('href', 'dashboards/schoolAdmin.php?school='+result['school']);
         inner.appendChild(h1);
         inner.innerHTML += '<br>';
         inner.appendChild(p);

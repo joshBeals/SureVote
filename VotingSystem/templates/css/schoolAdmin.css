@@ -1,13 +1,13 @@
 body{
     font-family: 'Alegreya Sans SC', sans-serif;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     margin : 0;
     padding: 0;
 }
 .cont{
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     display: flex;
     position: relative;
 }
@@ -25,6 +25,11 @@ body{
     font-size: 20px;
     background: rgba(0,0,0,.3);
     margin-bottom: 30px;
+    transition: 300ms ease-in-out;
+    cursor: pointer;
+}
+.cont .sidebar .dashboard:hover{
+    background: #0B508E;
 }
 .cont .sidebar .dashboard h3{
     letter-spacing: 0px;
@@ -59,6 +64,10 @@ body{
     color: #BFC0C2;
     transition: 100ms ease-in-out;
 }
+.division .holder h4 a{
+    text-decoration: none;
+    color: #BFC0C2;
+}
 .division .holder p{
     margin: auto;
     padding: 0;
@@ -68,6 +77,7 @@ body{
     transition: 100ms ease-in-out;
 }
 .division .holder h4:hover,
+.division .holder h4 a:hover,
 .division .holder i:hover
 {
     color: white;
@@ -119,14 +129,6 @@ body{
 .show{
     display: block;
 }
-.hidebackground{
-    background: rgba(0,0,0,0);
-}
-.showbackground{
-    background: rgba(0,0,0,.3);
-}
-
-
 .main{
     box-sizing: border-box;
     padding: 20px 30px;
@@ -155,59 +157,59 @@ body{
     color: #010C17;
     display: none;
 }
-.main .content{
-    display: none;
+.main #content{
     background: white;
+    animation: anim 300ms;
 }
-.main .content .mainDash{
+.main #content .mainDash{
     /* border: 1px solid red; */
 }
-.main .content .mainDash .analysis{
+.main #content .mainDash .analysis{
     min-height: 8em;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
 }
-.main .content .mainDash .analysis .boxes{
+.main #content .mainDash .analysis .boxes{
     width: 22%;
     height: 6em;
     border-radius: 5px;
     background: #010C17;
     display: flex;
 }
-.main .content .mainDash .analysis .boxes i{
+.main #content .mainDash .analysis .boxes i{
     flex: 1;
     text-align: center;
     margin: auto;
     color: #BFC0C2;
     font-size: 30px;
 }
-.main .content .mainDash .analysis .boxes .info{
+.main #content .mainDash .analysis .boxes .info{
     flex: 1;
     text-align: right;
     box-sizing: border-box;
     padding: 10px;
     color: white;
 }
-.main .content .mainDash .analysis .boxes .info h2{
+.main #content .mainDash .analysis .boxes .info h2{
     margin:0; padding:0;
     font-size: 30px;
 }
-.main .content .mainDash .analysis .boxes .info p{
+.main #content .mainDash .analysis .boxes .info p{
     margin:0; padding:0;
 }
-.main .content .pic{
+.main #content .pic{
     display: flex;
     box-sizing: border-box;
     padding: 20px;
 }
-.main .content .pic .left{
+.main #content .pic .left{
     flex: 1;
     margin: auto;
     overflow: hidden;
 }
-.main .content .pic .right{
+.main #content .pic .right{
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -246,20 +248,209 @@ body{
     box-sizing: border-box;
     padding: 10px;
 }
-
-.f_reg{
+#f_reg{
+    width: 100%;
+    min-height: 450px;
+    animation: anim 300ms; 
+}
+#f_reg .fff{
     display: flex;
     width: 100%;
-    height: 450px;
-    background: grey;
+    height: 100%;
+    border-right: 1px solid white;
 }
-.f_reg .left{
+#f_reg .fff .left{
     flex: 1;
-    background: url('../app_images/');
+    display: flex;
+    background-image: 
+    /* top, transparent red */
+    linear-gradient(
+      rgba(0, 0, 0, 0.5), 
+      rgba(0, 0, 0, 0.5)
+    ),
+    /* your image */
+    url('../app_images/background5.jpg');
     background-position: center;
+    justify-content: center;
+    align-items: center;
+    color: #BFC0C2;
+    box-sizing: border-box;
+    padding: 30px;
 }
-.f_reg .right{
+#f_reg .fff .left div{
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px;
+}
+#f_reg .fff .right {
     flex: 1.5;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 30px;
+}
+#f_reg .fff .right  div{
+    flex: 1;
+    box-sizing: border-box;
+}
+#f_reg .fff .right  h3{
+    flex: 1;
+    color: #062A4A;
+    margin-bottom: 60px;
+    font-size: 30px;
+    font-weight: lighter;
+}
+#f_reg .fff .right  p{
+    margin-bottom: 0;
+}
+a{
+    color: #696699;
+    text-decoration: none;
+    transition: 150ms ease-in-out;
+}
+a:hover{
+    color: #0B508E;
+}
+#f_reg .fff .right  form{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+#f_reg .fff .right  form label{
+    color: #062A4A;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+#RegisterBtn{
+    box-sizing: border-box;
+    padding: 15px;
+    margin-top: 10px;
+    border: none;
+    color: white;
+    background: #062A4A;
+    transition: 300ms ease-in-out;
+}
+#RegisterBtn:hover{
+    background: #0B508E;
+}
+#f_reg .fff .right form input{
+    font-size: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    border: none;
+    border: 1px solid #062A4A;
+    border-radius: 5px;
+}
+.showTemp{
+    display: block;
+}
+.hideTemp{
+    display: none;
+}
+
+#AddElection{
+    box-sizing: border-box;
+    padding: 20px 0px;
+    flex: 3.5;
+    background: #F0F0F0;
+}
+#AddElection .comb{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+#AddElection .comb .left{
+    flex-basis: 63%;
+    background: white;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 20px;
+}
+#AddElection .comb .left h5{
+    margin-bottom: 30px;
+}
+#AddElection .comb .left form{
+    display: flex;
+    flex-direction: column;
+}
+#AddElection .comb .left form .norm{
+   display: flex;
+   flex-direction: column;
+   margin-bottom: 20px;
+}
+#AddElection .comb .left form .norm input{
+    box-sizing: border-box;
+    padding: 10px 20px;
+}
+#AddElection .comb .left form .notnorm{
+   display: flex;
+   flex-direction: column;
+}
+#AddElection .comb .left form .notnorm input{
+    box-sizing: border-box;
+    padding: 10px 20px;
+    height: 200px;
+}
+#AddElection .comb .right{
+    flex-basis: 35%;
+    background: white;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+
+
+
+
+
+
+.cont .modal{
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.8);
+    z-index: 100;
+}
+.cont .modal .inner{
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 30px 50px;
+    max-width: 40%;
+    background: white;
+}
+.cont .modal .inner h1, .cont .modal .inner h3{
+    color: #062A4A;
+}
+.cont .modal .inner a{
+    padding: 10px 20px;
+    background: #062A4A;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 300ms ease-in-out;
+}
+.cont .modal .inner a:hover{
+    background: #0B508E;
+}
+
+@keyframes anim{
+    0%{
+        opacity: 0;
+    }100%{
+        opacity: 1;
+    }
 }
 
 
@@ -279,28 +470,28 @@ body{
         text-align: right;
         display: block;
     }
-    .main .content .mainDash .analysis{
+    .main #content .mainDash .analysis{
         padding: 0px 20px;
     }
-    .main .content .mainDash .analysis .boxes{
+    .main #content .mainDash .analysis .boxes{
         width: 100%;
         margin-bottom: 10px;
         box-sizing: border-box;
         padding-left: 10px;
     }
-    .main .content .mainDash .analysis .boxes:last-of-type{
+    .main #content .mainDash .analysis .boxes:last-of-type{
         margin-bottom: 0;
     }
-    .main .content .mainDash .analysis .boxes i{
+    .main #content .mainDash .analysis .boxes i{
         text-align: left;
     }
-    .main .content .pic{
+    .main #content .pic{
         display: block;
     }
-    .main .content .pic .left{
+    .main #content .pic .left{
         margin-bottom: 10px;
     }
-    .main .content .pic .right{
+    .main #content .pic .right{
         padding: 0;
     }
     .cards{

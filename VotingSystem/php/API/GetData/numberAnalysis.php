@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+$id = $_GET['id'];
 // Headers
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
@@ -17,11 +18,15 @@ $data = new Data($db);
 
 // Getting the school Details
 $schData = $data->readSchools();
+$TotFac = $data->readFaculties();
+$facData = $data->readFaculty($id);
 
 // Get number of schools
-$num = $schData->rowCount();
+$numSch = $schData->rowCount();
+$numFac = $facData->rowCount();
+$TotFacData = $TotFac->rowCount();
 
 // Sending number of schools
-echo(json_encode(array('NumberOfSchools'=>$num)));
+echo(json_encode(array('NumberOfSchools'=>$numSch, 'NumberOfFaculties'=>$numFac, 'TotalFaculties'=>$TotFacData)));
 
 ?>

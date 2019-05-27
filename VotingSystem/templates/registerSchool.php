@@ -44,7 +44,6 @@
             </div>
         </div>
     </div>
-    92056414
     <script src="../javascript/AjaxRegister.js"></script>
 </body>
 </html>

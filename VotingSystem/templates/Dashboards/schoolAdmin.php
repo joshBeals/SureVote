@@ -10,10 +10,20 @@
     <title>SchoolAdmin</title>
 </head>
 <body>
+    <?php
+    session_start();
+    if(!isset($_GET['school'])){
+        session_unset();
+    }
+    if(!isset($_SESSION['login'])){
+        header('location: ../loginTemp.php');
+    }
+    ?>
+
     <div class="cont">
         <div class="sidebar show" id="sidebar">
             <!--Dashboard-->
-            <div class="dashboard">
+            <div class="dashboard" id="dashboard">
                 <h3>Admin Dashboard</h3>
             </div>
             <!--Registration Division-->
@@ -26,11 +36,7 @@
                 <ul class='hide' id='regul'>
                     <li class="dropdown">
                         <i class="fas fa-school"></i> 
-                        <p>Register Faculty</p>
-                    </li>
-                    <li class="dropdown">
-                        <i class="far fa-building"></i> 
-                        <p>Register Department</p>
+                        <p id="registerFaculty">Register Faculty</p>
                     </li>
                 </ul>       
             </div>
@@ -44,19 +50,19 @@
                 <ul  class='hide' id='voteul'>
                     <li class="dropdown">
                         <i class="fas fa-person-booth"></i>
-                        <p>View Voters</p>
+                        <p id="viewVoters">View Voters</p>
                     </li>
                     <li class="dropdown">
                         <i class="far fa-plus-square"></i>
-                        <p>Add an election</p>
+                        <p id="addElection">Add an election</p>
                     </li>
                     <li class="dropdown">
                         <i class="fas fa-list-ol"></i> 
-                        <p>Voting list</p>
+                        <p id="votingList">Voting list</p>
                     </li>
                     <li class="dropdown">
                         <i class="far fa-plus-square"></i> 
-                        <p>Add a voter</p>
+                        <p id="addVoter">Add a voter</p>
                     </li>
                 </ul>         
             </div>
@@ -64,21 +70,21 @@
             <div class="division changepass">
                 <div class="holder">
                     <i class="fas fa-lock"></i> 
-                    <h4>Change Password</h4>
+                    <h4 id="changepassword">Change Password</h4>
                 </div>
             </div>
             <!--Settings Division-->
             <div class="division settings">
                 <div class="holder">
                     <i class="fas fa-cog"></i>
-                    <h4>Settings</h4>
+                    <h4 id="settings">Settings</h4>
                 </div>
             </div>
             <!--Sign Out Division-->
             <div class="division signout">
                 <div class="holder">
                     <i class="fas fa-sign-out-alt"></i>
-                    <h4>Sign Out</h4>
+                    <h4 id="signout"><a href='schoolAdmin.php'>Sign Out</a></h4>
                 </div>
             </div>
         </div>
@@ -93,7 +99,7 @@
                 <i class="fas fa-bars" id="menuToogle"></i>
             </div>
             <!--Content of main-->
-            <div class="content">
+            <div class="hideTemp" id="content">
                 <!--Main Dash-->
                 <div class="mainDash">
                     <div class="analysis">
@@ -172,12 +178,59 @@
             </div>
 
             <!--Faculty Registration Form-->
-            <div class="f_reg">
+            <div class="hideTemp" id="f_reg">
+                <div class="fff">
                 <div class="left">
-
+                    <div>
+                    Register Faculties under your school here.
+                    These would enable the reistered faculties conduct 
+                    their sub elections without disturbing the school authority
+                    </div>
                 </div>
                 <div class="right">
+                    <div>
+                    <h3>Register Faculty on SureVote</h3>
+                    <form action="" method="POST">
+                        <input type="hidden" id="school_id" value=
+                        <?php 
+                        if (isset($_GET['school'])){
+                            echo($_GET['school']);
+                        }else{
+                            session_unset();
+                        }
+                        ?>>
+                        <label for="faculty_name">Faculty Name</label>
+                        <input type="text" name="faculty_name" id="faculty_name" required>
+                        <label for="faculty_email">Faculty Email</label>
+                        <input type="email" name="faculty_email" id="faculty_email" required>
+                        <input type="submit" name="register" value="Register" id="RegisterBtn">
+                    </form>
+                    <p>Do you have an account? <a href="">LOGIN</a></p>   
+                    </div>
+                </div>
+                </div>
+            </div>
 
+            <!--Add Election-->
+            <div class="showTemp" id="AddElection">
+                <div class="comb">
+                    <div class="left">
+                        <h5>Add Election</h5>
+                        <form action="" method="POST">
+                           <div class="norm">
+                                <label for="title">Title</label>
+                                <input type="text" name="title" id="title" required>
+                           </div>
+                           <div class="notnorm">
+                                <label for="descrip">Description</label>
+                                <textarea rows="6" cols="0" id="descrip">
+                                </textarea>
+                           </div>
+                        </form>
+                    </div>
+                    <div class="right">
+                    
+                    </div>
                 </div>
             </div>
 
@@ -186,6 +239,13 @@
                 <?php
                     include_once('vendors/footer.php');
                 ?>
+            </div>
+        </div>
+
+
+        <div class="modal" id="modal">
+            <div class="inner" id="inner">
+                
             </div>
         </div>
     </div>

@@ -10,6 +10,23 @@ let regul = document.getElementById('regul');
 let votedrop = document.getElementById('votedrop');
 let regdrop = document.getElementById('regdrop');
 
+// Sidebar Targets
+let dashboard = document.getElementById('dashboard');
+let registerFaculty = document.getElementById('registerFaculty');
+let viewVoters = document.getElementById('viewVoters');
+let addElection = document.getElementById('addElection');
+let votingList = document.getElementById('votingList');
+let addVoter = document.getElementById('addVoter');
+let changepassword = document.getElementById('changepassword');
+let settings = document.getElementById('signout');
+let signout = document.getElementById('signout');
+
+// Templates
+let content = document.getElementById('content');
+let f_reg = document.getElementById('f_reg');
+let AddElection = document.getElementById('AddElection');
+
+
 // Event Listeners for menu dropdowns
 voteclick.addEventListener('click', () => {
     if(votedrop.className == 'hidedrop'){
@@ -34,13 +51,30 @@ regclick.addEventListener('click', () => {
 // Event Listener for sidebar toogle
 menuToogle.addEventListener('click', () => {
     if(sidebar.classList.contains('show')){
-        console.log('contains');
         sidebar.classList.add('hide');
         sidebar.classList.remove('show');
     }else{
-        console.log('not contains');
         sidebar.classList.remove('hide');
         sidebar.classList.add('show');
     }
     
+});
+
+// Event Listener for Templating
+dashboard.addEventListener('click', () => {
+    content.className = 'showTemp';
+    f_reg.className = 'hideTemp';
+    AddElection.className = 'hideTemp';
+});
+
+registerFaculty.addEventListener('click', () => {
+    f_reg.className = 'showTemp';
+    content.className = 'hideTemp';
+    AddElection.className = 'hideTemp';
+});
+
+addElection.addEventListener('click', () => {
+    AddElection.className = 'showTemp';
+    content.className = 'hideTemp';
+    f_reg.className = 'hideTemp';
 });

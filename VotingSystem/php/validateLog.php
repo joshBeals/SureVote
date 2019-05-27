@@ -26,12 +26,15 @@
             while($row = $stmt->fetch_array()){
                 $pass = password_verify($password, $row['admin_password']);
                 if(password_verify($password, $row['admin_password'])){
-                    $data = true;                 
+                    $data = true; 
+                    $id =  $row['school_id'];               
                 }
             }
 
             if($data == true){
-                $array = array('status'=>'1', 'message'=>'Login Successful');
+                session_start();
+                $_SESSION['login'] = true;
+                $array = array('status'=>'1', 'message'=>'Login Successful', 'school'=>$id);
                 echo(json_encode($array));
             }else{
                 $array = array('status'=>'0', 'message'=>'Invalid Login Details');

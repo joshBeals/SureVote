@@ -16,7 +16,7 @@
     $data = new Data($db);
 
     // Getting the school Details
-    $schData = $data->readSchools();
+    $schData = $data->readSchools('schools');
 
     // Get number of schools
     $num = $schData->rowCount();
