@@ -1,5 +1,4 @@
 <?php
-    // 17480423
     // Headers
     // header('Access-Control-Allow-Origin: *');
     // header('Content-Type: application/json');
@@ -22,7 +21,7 @@
         if($data[2] == 'none'){
             header('location: ..../templates/loginTemp.php');
         }else{
-            if(($data[0] == '') || ($data[0] == '')){
+            if(($data[0] == '') || ($data[1] == '')){
                 echo(json_encode(array('status'=>'0', 'message' => "All Fields are required")));
             }else{
                 $post->faculty_name = $data[0];

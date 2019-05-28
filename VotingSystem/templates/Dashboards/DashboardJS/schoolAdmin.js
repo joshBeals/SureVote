@@ -16,7 +16,9 @@ let registerFaculty = document.getElementById('registerFaculty');
 let viewVoters = document.getElementById('viewVoters');
 let addElection = document.getElementById('addElection');
 let votingList = document.getElementById('votingList');
-let addVoter = document.getElementById('addVoter');
+let ResultBlock = document.getElementById('addVoResultBlockter');
+let addPositions = document.getElementById('addPositions');
+let addCandidates = document.getElementById('addCandidates');
 let changepassword = document.getElementById('changepassword');
 let settings = document.getElementById('signout');
 let signout = document.getElementById('signout');
@@ -25,6 +27,7 @@ let signout = document.getElementById('signout');
 let content = document.getElementById('content');
 let f_reg = document.getElementById('f_reg');
 let AddElection = document.getElementById('AddElection');
+let viewElections = document.getElementById('viewElections');
 
 
 // Event Listeners for menu dropdowns
@@ -65,16 +68,26 @@ dashboard.addEventListener('click', () => {
     content.className = 'showTemp';
     f_reg.className = 'hideTemp';
     AddElection.className = 'hideTemp';
+    viewElections.className = 'hideTemp';
 });
 
 registerFaculty.addEventListener('click', () => {
     f_reg.className = 'showTemp';
     content.className = 'hideTemp';
     AddElection.className = 'hideTemp';
+    viewElections.className = 'hide';
 });
 
 addElection.addEventListener('click', () => {
     AddElection.className = 'showTemp';
+    content.className = 'hideTemp';
+    f_reg.className = 'hideTemp';
+    viewElections.className = 'hideTemp';
+});
+
+votingList.addEventListener('click', () => {
+    viewElections.className = 'showTemp';
+    AddElection.className = 'hideTemp';
     content.className = 'hideTemp';
     f_reg.className = 'hideTemp';
 });

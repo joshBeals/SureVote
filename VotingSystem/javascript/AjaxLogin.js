@@ -40,7 +40,7 @@ LoginBtn.addEventListener('click', e => {
 function LogPOP(result){
 
     // ELEMENTS TO POPULATE THE MODAL
-    let h1 = document.createElement('h1');
+    let h3 = document.createElement('h3');
     let p = document.createElement('p');
     let a = document.createElement('a');
 
@@ -48,27 +48,23 @@ function LogPOP(result){
     // POPULATING THE MODAL DOM ACCORDING TO THE MESSAGE STATUS
     if(result['status'] === '1'){
         inner.innerHTML = '';
-        h1.innerHTML = result['message'];
+        h3.innerHTML = result['message'];
         p.innerHTML = 'You can continue to your Dashboard.';
         a.innerHTML = 'Continue';
         a.setAttribute('id', 'continue');
         a.setAttribute('href', 'dashboards/schoolAdmin.php?school='+result['school']);
-        inner.appendChild(h1);
-        inner.innerHTML += '<br>';
+        inner.appendChild(h3);
         inner.appendChild(p);
-        inner.innerHTML += '<br>';
         inner.appendChild(a);
     }else{
         inner.innerHTML = '';
-        h1.innerHTML = result['message'];
+        h3.innerHTML = result['message'];
         p.innerHTML = 'Something went wrong in your Login. Try again';
         a.innerHTML = 'Retry';
         a.setAttribute('id', 'retry');
         a.setAttribute('href', 'loginTemp.php');
-        inner.appendChild(h1);
-        inner.innerHTML += '<br>';
+        inner.appendChild(h3);
         inner.appendChild(p);
-        inner.innerHTML += '<br>';
         inner.appendChild(a);
     }
 

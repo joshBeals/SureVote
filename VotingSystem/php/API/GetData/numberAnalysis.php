@@ -20,13 +20,15 @@ $data = new Data($db);
 $schData = $data->readSchools();
 $TotFac = $data->readFaculties();
 $facData = $data->readFaculty($id);
+$ElecCr = $data->readElections($id);
 
 // Get number of schools
 $numSch = $schData->rowCount();
 $numFac = $facData->rowCount();
 $TotFacData = $TotFac->rowCount();
+$ElecCreated = $ElecCr->rowCount();
 
 // Sending number of schools
-echo(json_encode(array('NumberOfSchools'=>$numSch, 'NumberOfFaculties'=>$numFac, 'TotalFaculties'=>$TotFacData)));
+echo(json_encode(array('NumberOfSchools'=>$numSch, 'NumberOfFaculties'=>$numFac, 'TotalFaculties'=>$TotFacData, 'NumberOfElectionsCreated'=>$ElecCreated)));
 
 ?>

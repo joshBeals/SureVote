@@ -42,7 +42,7 @@ RegisterBtn.addEventListener('click', e => {
 function RegPOP(result){
 
     // ELEMENTS TO POPULATE THE MODAL
-    let h1 = document.createElement('h1');
+    let h3 = document.createElement('h3');
     let p = document.createElement('p');
     let h3a = document.createElement('h3');
     let h3b = document.createElement('h3');
@@ -51,34 +51,30 @@ function RegPOP(result){
 
     // POPULATING THE MODAL DOM ACCORDING TO THE MESSAGE STATUS
     if(result['status'] === '1'){
-        h1.innerHTML = result['message'];
+        h3.innerHTML = result['message'];
         p.innerHTML = 'Your School has been successfully registered on the SureVote platform. Your admin Login details are given below. You would also receive a mail to activate your account. The admin Login details can be changed after Login.';
         h3a.innerHTML = "LoginID :  "+result['adminusername'];   
         h3b.innerHTML = "Password :  "+result['adminpassword'];
         a.innerHTML = 'Login';
         a.setAttribute('id', 'continue');
         a.setAttribute('href', 'loginTemp.php');
-        inner.appendChild(h1);
-        inner.innerHTML += '<br>';
+        inner.appendChild(h3);
         inner.appendChild(p);
         inner.appendChild(h3a);
         inner.appendChild(h3b);
-        inner.innerHTML += '<br>';
         inner.appendChild(a);
     }else{
-        h1.innerHTML = result['message'];
+        h3.innerHTML = result['message'];
         p.innerHTML = 'Something went wrong in your registration. Try again';
         h3a.innerHTML = '';   
         h3b.innerHTML = '';
         a.innerHTML = 'Retry';
         a.setAttribute('id', 'retry');
         a.setAttribute('href', 'registerSchool.php');
-        inner.appendChild(h1);
-        inner.innerHTML += '<br>';
+        inner.appendChild(h3);
         inner.appendChild(p);
         inner.appendChild(h3a);
         inner.appendChild(h3b);
-        inner.innerHTML += '<br>';
         inner.appendChild(a);
     }
 }

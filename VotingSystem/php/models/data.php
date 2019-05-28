@@ -6,10 +6,13 @@
         private $conn;
         private $schooltable = 'schools';
         private $facultytable = 'faculties';
+        private $school_elections = 'school_elections';
 
         // Variables
         public $faculty_name;
         public $faculty_email;
+        public $election_title;
+        public $election_description;
         public $school_id;
 
         public function __construct($db){
@@ -18,7 +21,6 @@
 
         // Get Schools
         public function readSchools(){
-
             $query = 'SELECT * FROM '. $this->schooltable .'';
 
             // Prepred statement
@@ -33,11 +35,9 @@
             }else{
                 return null;
             }
-
         }
         // Get All Faculties
         public function readFaculties(){
-
             $query = 'SELECT * FROM '. $this->facultytable .'';
 
             // Prepred statement
@@ -52,12 +52,10 @@
             }else{
                 return null;
             }
-
         }
 
         // Get Faculties of a particular school
         public function readFaculty($schID){
-
             $query = "SELECT * FROM ". $this->facultytable ." WHERE school_id=$schID";  
 
             // Prepared statement
@@ -72,8 +70,39 @@
             }else{
                 return null;
             }
+        }
 
+        // Get Elections from a particular school
+        public function readElections($schID){
+            // Create Table
+            $query = "CREATE TABLE IF NOT EXISTS school_elections (
+                election_id INT(11) NOT NULL AUTO_INCREMENT,
+                election_title VARCHAR(255) NOT NULL,
+                election_description VARCHAR(255) NOT NULL,
+                school_id INT(11),
+                created_at DATETIME NOT NULL,
+                PRIMARY KEY(election_id),
+                FOREIGN KEY (school_id) REFERENCES schools(school_id)
+            )";
+            
+            $stmt = $this->conn->prepare($query);
 
+            if($stmt->execute()){
+                $query = "SELECT * FROM ". $this->school_elections ." WHERE school_id=$schID";  
+
+                // Prepared statement
+                $stmt = $this->conn->prepare($query);
+
+                // Execute the statement
+                $stmt->execute();
+
+                // Return the data
+                if($stmt){
+                    return $stmt;
+                }else{
+                    return null;
+                }
+            }
         }
 
         // Create Faculty
@@ -126,6 +155,56 @@
                 return false;
             }
            
+        }
+
+        // Add Election to the SchoolAcct
+        public function addElection(){
+            // Create Table
+            $query = "CREATE TABLE IF NOT EXISTS school_elections (
+                election_id INT(11) NOT NULL AUTO_INCREMENT,
+                election_title VARCHAR(255) NOT NULL,
+                election_description VARCHAR(255) NOT NULL,
+                school_id INT(11),
+                created_at DATETIME NOT NULL,
+                PRIMARY KEY(election_id),
+                FOREIGN KEY (school_id) REFERENCES schools(school_id)
+            )";
+            
+            $stmt = $this->conn->prepare($query);
+
+            if($stmt->execute()){
+               // Insert into the table
+               $query = 'INSERT INTO school_elections
+               SET 
+                election_title = :election_title,
+                election_description = :election_description,
+                school_id = :school_id,
+                created_at = CURRENT_TIMESTAMP';
+
+               // Prepre Statement
+               $stmt = $this->conn->prepare($query);
+
+               // Clean data
+               $this->election_title = htmlspecialchars(strip_tags($this->election_title));
+               $this->election_description = htmlspecialchars(strip_tags($this->election_description));
+               $this->school_id = htmlspecialchars(strip_tags($this->school_id));
+
+               // Bind data
+               $stmt->bindParam(':election_title', $this->election_title);
+               $stmt->bindParam(':election_description', $this->election_description);
+               $stmt->bindParam(':school_id', $this->school_id);
+
+               if($stmt->execute()){
+                    echo(json_encode(array('status'=>'1', 'message' => "Election added successfully!")));
+               }else{
+                    echo(json_encode(array('status'=>'0', 'message' => "Election wasn't added!")));
+               }
+            }else{
+                echo(json_encode(array('status'=>'0', 'message' => "Election wasn't added!")));
+            }
+
+
+
         }
 
     }

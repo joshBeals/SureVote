@@ -122,15 +122,16 @@ a:hover{
     font-size: 20px;
 }
 .cont .modal{
-    position: absolute;
+    position: fixed;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     top: 0;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,.8);
     z-index: 5;
+    font-family: 'Alegreya Sans SC', sans-serif;
 }
 .show{
     display: flex;
@@ -145,6 +146,7 @@ a:hover{
     padding: 30px 50px;
     max-width: 40%;
     background: white;
+    margin-top: 20px;
 }
 .cont .modal .inner h1, .cont .modal .inner h3{
     color: #062A4A;
@@ -159,9 +161,11 @@ a:hover{
     border: none;
     border-radius: 5px;
     transition: 300ms ease-in-out;
+    cursor: pointer;
 }
 .cont .modal .inner a:hover{
     background: #0B508E;
+    color: white;
 }
 
 

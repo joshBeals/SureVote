@@ -22,16 +22,19 @@ body{
     align-items: center;
     box-sizing: border-box;
     padding: 20px 10px;
-    font-size: 20px;
+    font-size: 15px;
     background: rgba(0,0,0,.3);
     margin-bottom: 30px;
     transition: 300ms ease-in-out;
     cursor: pointer;
 }
 .cont .sidebar .dashboard:hover{
-    background: #0B508E;
+    background: #062A4A;
 }
-.cont .sidebar .dashboard h3{
+.cont .sidebar .dashboard h5 i{
+    margin-right: 20px;
+}
+.cont .sidebar .dashboard h5{
     letter-spacing: 0px;
     text-align: left;
     color: white;
@@ -388,16 +391,25 @@ a:hover{
 #AddElection .comb .left form .norm input{
     box-sizing: border-box;
     padding: 10px 20px;
+    background: rgba(0,0,0,0);
+    border: none;
+    border: 1px solid grey;
+}
+#AddElection .comb .left form .norm input:focus{
+    background: white;
 }
 #AddElection .comb .left form .notnorm{
    display: flex;
    flex-direction: column;
    margin-bottom: 20px;
 }
-#AddElection .comb .left form .notnorm input{
+#AddElection .comb .left form .notnorm textarea{
     box-sizing: border-box;
     padding: 10px 20px;
     height: 200px;
+    background: rgba(0,0,0,0);
+    border: none;
+    border: 1px solid grey;
 }
 #addElec{
     box-sizing: border-box;
@@ -437,7 +449,6 @@ a:hover{
 }
 #AddElection .comb .right button{
     border: none;
-    border-radius: 3px;
     background: #062A4A;
     color: white;
     box-sizing: border-box;
@@ -447,7 +458,17 @@ a:hover{
 #AddElection .comb .right button:hover{
     background: #0B508E;
 }
-
+#viewElections{
+    min-height: 400px;
+    box-sizing: border-box;
+    padding: 20px 0px;
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+.elecAdded{height: 100%;
+    background: white;
+    box-sizing: border-box;
+    padding: 20px;
+}
 
 
 
@@ -456,9 +477,9 @@ a:hover{
 
 
 .cont .modal{
-    position: absolute;
+    position: fixed;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     top: 0;
     width: 100%;
     height: 100%;
@@ -472,22 +493,26 @@ a:hover{
     padding: 30px 50px;
     max-width: 40%;
     background: white;
+    margin-top: 20px;
+    font-family: 'Alegreya Sans SC', sans-serif;
 }
-.cont .modal .inner h1, .cont .modal .inner h3{
+.cont .modal .inner h3, .cont .modal .inner h5{
     color: #062A4A;
 }
 .cont .modal .inner a{
-    padding: 10px 20px;
+    padding: 5px 10px;
     background: #062A4A;
     color: white;
-    font-size: 20px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     text-decoration: none;
     transition: 300ms ease-in-out;
+    cursor: pointer;
 }
 .cont .modal .inner a:hover{
     background: #0B508E;
+    color: white;
 }
 
 @keyframes anim{

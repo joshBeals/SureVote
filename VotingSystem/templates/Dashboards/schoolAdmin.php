@@ -24,7 +24,7 @@
         <div class="sidebar show" id="sidebar">
             <!--Dashboard-->
             <div class="dashboard" id="dashboard">
-                <h3>Admin Dashboard</h3>
+                <h5><i class="fas fa-warehouse"></i> Admin Dashboard</h5>
             </div>
             <!--Registration Division-->
             <div class="division registrations hidebackground" id='reg'>
@@ -61,8 +61,16 @@
                         <p id="votingList">Voting list</p>
                     </li>
                     <li class="dropdown">
-                        <i class="far fa-plus-square"></i> 
-                        <p id="addVoter">Add a voter</p>
+                        <i class="fas fa-user-tag"></i>
+                        <p id="addPositions">Add Positions</p>
+                    </li>
+                    <li class="dropdown">
+                        <i class="far fa-plus-square"></i>
+                        <p id="addCandidates">Add Candidates</p>
+                    </li>
+                    <li class="dropdown">
+                        <i class="far fa-file"></i> 
+                        <p id="ResultBlock">Result Block</p>
                     </li>
                 </ul>         
             </div>
@@ -99,7 +107,7 @@
                 <i class="fas fa-bars" id="menuToogle"></i>
             </div>
             <!--Content of main-->
-            <div class="hideTemp" id="content">
+            <div class="showTemp" id="content">
                 <!--Main Dash-->
                 <div class="mainDash">
                     <div class="analysis">
@@ -121,7 +129,7 @@
                             <i class="fas fa-poll-h"></i> 
                             <div class="info">
                                 <h2 id='ElectionsConducted'>0</h2>
-                                <p>Elections Conducted</p>
+                                <p>Elections Created</p>
                             </div>
                         </div>
                         <div class="boxes" id="voters">
@@ -212,19 +220,26 @@
             </div>
 
             <!--Add Election-->
-            <div class="showTemp" id="AddElection">
+            <div class="hideTemp" id="AddElection">
                 <div class="comb">
                     <div class="left">
                         <h5>Add Election</h5>
                         <form action="" method="POST">
+                        <input type="hidden" id="sch_id" value=
+                        <?php 
+                        if (isset($_GET['school'])){
+                            echo($_GET['school']);
+                        }else{
+                            session_unset();
+                        }
+                        ?>>
                            <div class="norm">
                                 <label for="title">Title</label>
                                 <input type="text" name="title" id="title" required>
                            </div>
                            <div class="notnorm">
                                 <label for="descrip">Description</label>
-                                <textarea rows="6" cols="0" id="descrip">
-                                </textarea>
+                                <textarea rows="3" id="descrip"></textarea>
                            </div>
                            <input type="submit" name="addElec" value="Add Election" id="addElec">
                         </form>
@@ -238,6 +253,27 @@
                         </div>
                         <button>Upload</button>
                     </div>
+                </div>
+            </div>
+
+            <!--View Elections Added-->
+            <div class="hideTemp" id="viewElections">
+                <div class="elecAdded">
+                    <h4>Voting List</h4>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Created at</th>
+                            <th colspan="3">Operations</th>
+                        </tr>
+                        </thead>
+                        <tbody id='tbody'>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
