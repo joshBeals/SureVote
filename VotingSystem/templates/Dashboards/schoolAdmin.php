@@ -277,6 +277,50 @@
                 </div>
             </div>
 
+            <!--Add Positions-->
+            <div class="hideTemp" id="positions">
+                <div class="posInner">
+                    <div class="left">
+                        <div class="header">
+                            <h4>Add Positions</h4>
+                            <div class="listBox">
+                                Choose Election :
+                                <select name="elect" id="electList">
+                                </select>
+                            </div>
+                            <button class="btn btn-primary btn-sm" id="addP">Continue</button>
+                        </div>
+                        <div class="hide" id="posContent">
+                            <div class="texts">
+                                <input type="text" id="posTxt" placeholder="Enter Position...">
+                                <input type="button" value="Add" id="posBtn">
+                            </div>
+                            <div class="display">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Position</th>
+                                        <th>Created at</th>
+                                        <th colspan="2">Operations</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id='tbody1'>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+            </div>
+            
+            <!--Add Candidates-->
+            <div class="hideTemp" id="candidates">
+
+            </div>
+
             <!--Main Content-->
             <div class="footer">
                 <?php

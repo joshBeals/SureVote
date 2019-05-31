@@ -27,6 +27,7 @@ if($num > 0){
     while($row = $elections->fetch(PDO::FETCH_ASSOC)){
         extract($row);
         $elect_item = array(
+            'election_id' => $election_id,
             'election_title' => $election_title,
             'election_description' => $election_description,
             'created_at' => $created_at,

@@ -53,6 +53,7 @@ function getElectionsCreated(){
             let response = this.responseText;
             // alert(response);
             popElections(JSON.parse(response));
+            popPositions(JSON.parse(response));
         }else{
             alert(this.status);
         }
@@ -71,7 +72,6 @@ addElec.addEventListener('click', e => {
 
     // Creating the AJAX element to add election
     let xhr = new XMLHttpRequest();
-    alert(electArr);
     xhr.open('POST', '../../php/api/sendData/addSchoolElection.php', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.onload = function(){
@@ -101,7 +101,6 @@ RegisterBtn.addEventListener('click', e => {
 
     // Creating the AJAX element to receive data
     let xhr = new XMLHttpRequest();
-    alert(arr);
     xhr.open('POST', '../../php/api/sendData/registerFaculty.php', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.onload = function(){
@@ -125,6 +124,18 @@ function populateDom(result){
     TotalAppUsers.innerHTML = result['NumberOfSchools'] + result['TotalFaculties'];
     facultiesRegistered.innerHTML = result['NumberOfFaculties'];
     ElectionsConducted.innerHTML = result['NumberOfElectionsCreated'];
+}
+
+// Function to populate the elections on the positions board
+function popPositions(result){
+    let electList = document.getElementById('electList');
+    for(let i = 0; i < result.length; i++){
+        let opt = document.createElement('option');
+        electList.options.add(opt);
+        opt.text = result[i]['election_title'];
+        opt.value = result[i]['election_id'];
+        electList.appendChild(opt);
+    }
 }
 
 // Function to populate the viewElections DOM
@@ -237,6 +248,7 @@ function AddElectionPOP(result){
         p.innerHTML = 'Something went wrong';
         a.innerHTML = 'Retry';
         a.setAttribute('id', 'retry');
+        a.setAttribute('href', '');
         inner.appendChild(h3);
         inner.appendChild(p);
         inner.appendChild(a);

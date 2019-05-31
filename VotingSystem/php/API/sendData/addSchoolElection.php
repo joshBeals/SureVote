@@ -27,7 +27,6 @@
                 $post->election_title = $data[0];
                 $post->election_description = $data[1];
                 $post->school_id = $data[2];
-
                 $post->addElection();
             }
         }

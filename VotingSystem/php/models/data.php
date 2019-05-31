@@ -173,32 +173,49 @@
             $stmt = $this->conn->prepare($query);
 
             if($stmt->execute()){
-               // Insert into the table
-               $query = 'INSERT INTO school_elections
-               SET 
-                election_title = :election_title,
-                election_description = :election_description,
-                school_id = :school_id,
-                created_at = CURRENT_TIMESTAMP';
+                $elecTitle = $this->election_title;
+                $schID = $this->school_id;
+                $query = "SELECT * FROM school_elections WHERE election_title='$elecTitle' and school_id=$schID";
+                
+                // Prepared statement
+                $stmt = $this->conn->prepare($query);
+                
+                // Execute the statement
+                if($stmt->execute()){
+                    $num = $stmt->rowCount();
+                    if($num > 0){
+                        echo(json_encode(array('status'=>'0', 'message'=>'Election Already Exists!')));
+                    }else{
+                        // Insert into the table
+                        $query = 'INSERT INTO school_elections
+                        SET 
+                            election_title = :election_title,
+                            election_description = :election_description,
+                            school_id = :school_id,
+                            created_at = CURRENT_TIMESTAMP';
 
-               // Prepre Statement
-               $stmt = $this->conn->prepare($query);
+                        // Prepre Statement
+                        $stmt = $this->conn->prepare($query);
 
-               // Clean data
-               $this->election_title = htmlspecialchars(strip_tags($this->election_title));
-               $this->election_description = htmlspecialchars(strip_tags($this->election_description));
-               $this->school_id = htmlspecialchars(strip_tags($this->school_id));
+                        // Clean data
+                        $this->election_title = htmlspecialchars(strip_tags($this->election_title));
+                        $this->election_description = htmlspecialchars(strip_tags($this->election_description));
+                        $this->school_id = htmlspecialchars(strip_tags($this->school_id));
 
-               // Bind data
-               $stmt->bindParam(':election_title', $this->election_title);
-               $stmt->bindParam(':election_description', $this->election_description);
-               $stmt->bindParam(':school_id', $this->school_id);
+                        // Bind data
+                        $stmt->bindParam(':election_title', $this->election_title);
+                        $stmt->bindParam(':election_description', $this->election_description);
+                        $stmt->bindParam(':school_id', $this->school_id);
 
-               if($stmt->execute()){
-                    echo(json_encode(array('status'=>'1', 'message' => "Election added successfully!")));
-               }else{
-                    echo(json_encode(array('status'=>'0', 'message' => "Election wasn't added!")));
-               }
+                        if($stmt->execute()){
+                                echo(json_encode(array('status'=>'1', 'message' => "Election added successfully!")));
+                        }else{
+                                echo(json_encode(array('status'=>'0', 'message' => "Election wasn't added!")));
+                        }
+                    }
+                }else{
+                    echo(json_encode(array('status'=>'0', 'message'=>"Election wasn't added!")));
+                }   
             }else{
                 echo(json_encode(array('status'=>'0', 'message' => "Election wasn't added!")));
             }

@@ -431,7 +431,7 @@ a:hover{
     padding: 20px;
 }
 #AddElection .comb .right .backpic{
-    background: url('../app_images/2060480846.jpg');
+    background: url('../app_images/32356290059-9726-city.jpg');
     background-position: center;
     height: 150px;
     position: relative;
@@ -464,10 +464,95 @@ a:hover{
     padding: 20px 0px;
     font-family: 'Alegreya Sans SC', sans-serif;
 }
-.elecAdded{height: 100%;
+.elecAdded{
+    height: 100%;
     background: white;
     box-sizing: border-box;
     padding: 20px;
+}
+#positions{
+    box-sizing: border-box;
+    padding: 20px 0px;
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+#positions .posInner{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+#positions .posInner .left{
+    flex: 1;
+    background: white;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 5px;
+}
+#positions .posInner .left .header{
+    font-family: 'Alegreya Sans SC', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #010C17;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 10px;
+    color: white;
+}
+#positions .posInner .left .header h4{
+    flex: 1;
+    margin: auto;
+}
+#positions .posInner .left .header .listBox{
+    flex: 1;
+    text-align: left;
+}
+#positions .posInner .left .header button{
+    margin: auto;
+}
+#positions .posInner .left .header .listBox #electList{
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 3px;
+    background: white;
+}
+
+#posContent{
+    box-sizing: border-box;
+    padding: 20px;
+    background: white;
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    animation: anim 300ms;
+}
+#posContent .texts{
+    margin-bottom: 20px;
+}
+#posContent .texts #posTxt{
+    box-sizing: border-box;
+    padding: 2px 10px;
+    border: none;
+    border: 1px solid #062A4A;
+    border-radius: 3px;
+}
+#posContent .texts #posBtn{
+    background: #0B508E;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    transition: 300ms ease-in-out;
+    box-sizing: border-box;
+    padding: 3px 15px;
+}
+#posContent .texts #posBtn:hover{
+    color: white;
+    background: #062A4A;
+}
+
+#candidate{
+    box-sizing: border-box;
+    padding: 20px 0px;
+    font-family: 'Alegreya Sans SC', sans-serif;
 }
 
 
@@ -495,6 +580,7 @@ a:hover{
     background: white;
     margin-top: 20px;
     font-family: 'Alegreya Sans SC', sans-serif;
+    animation: anim 300ms;
 }
 .cont .modal .inner h3, .cont .modal .inner h5{
     color: #062A4A;
