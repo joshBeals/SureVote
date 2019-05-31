@@ -60,9 +60,8 @@ posBtn.addEventListener('click', () => {
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
-            // alert(response);
             popModal(JSON.parse(response));
-            showData(electList.value);
+            showData();
         }else{
             alert(this.status);
         }
@@ -106,16 +105,14 @@ function popModal(result){
 }
 
 // Showing the data on the table
-function showData(id){
+function showData(){
     // Creating the AJAX element to add positions
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../php/api/GetData/getPositions.php?id='+id, true);
+    xhr.open('POST', '../../php/api/GetData/getPositions.php?id='+electList.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
-            // alert(response);
             popData(JSON.parse(response));
-            showData(electList.value);
         }
     }
     xhr.send();
@@ -133,16 +130,18 @@ function popData(result){
         let td2 = document.createElement('td');
         td2.innerHTML = result[i]['created_at'];
         let td3 = document.createElement('button');
-        td3.setAttribute('class', 'btn btn-primary btn-sm disable');
+        td3.setAttribute('class', 'btn btn-primary btn-sm');
         td3.style.margin = '5px';
         td3.innerHTML = 'Edit';
+        td3.addEventListener('click', () => {
+            editPosition(result[i]['position_name'], result[i]['position_id']);
+        });
         let td4 = document.createElement('button');
         td4.setAttribute('class', 'btn btn-danger btn-sm');
         td4.style.margin = '5px';
         td4.innerHTML = 'delete';
         td4.addEventListener('click', () => {
-            let parent = td4.parentNode;
-            parent.parentNode.removeChild(parent);
+            deletePosition(result[i]['position_id']);
         });
 
 
@@ -152,6 +151,155 @@ function popData(result){
         tr.appendChild(td3);
         tr.appendChild(td4);
         tbody1.appendChild(tr);
+    }
+}
+
+// Editing the positions
+function editPosition(name, id){
+    pos_name = name;
+    pos_id = id;
+
+    // POPING OUT THE MODAL
+    inner1.innerHTML = '';
+    modal1.style.display = 'flex';
+    
+    let txtbox = document.createElement('input');
+    txtbox.setAttribute('type', 'text');
+    txtbox.style.padding = '3px';
+    txtbox.value = pos_name;
+
+    let btn = document.createElement('button'); 
+    btn. className = 'btn btn-primary btn-sm';
+    btn.style.margin = '5px';
+    btn.innerHTML = 'Edit';
+    btn.addEventListener('click', () => {
+        let arr = ['edit='+txtbox.value, pos_id];
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../php/api/sendData/editPositions.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function(){
+            if(this.status == 200){
+                let response = this.responseText;
+                editPosModal(JSON.parse(response));
+                showData();
+            }else{
+                alert(this.status);
+            }
+        }
+        xhr.send(arr);
+        // POPING OUT THE MODAL
+        inner1.innerHTML = '';
+        modal1.style.display = 'flex';
+    });
+
+    inner1.appendChild(txtbox);
+    inner1.appendChild(btn);
+}
+
+// Function to delete a position
+function deletePosition(id){
+    // POPING OUT THE MODAL
+    inner1.innerHTML = '';
+    modal1.style.display = 'flex';
+
+    let ok = document.createElement('button');
+    ok.style.margin = '10px';
+    ok.setAttribute('class', 'btn btn-primary btn-md');
+    ok.innerHTML = 'Yes';
+    ok.addEventListener('click', () => {
+        let arr = ['delete='+id];
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../php/api/sendData/deletePositions.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function(){
+            if(this.status == 200){
+                let response = this.responseText;
+                delPosModal(JSON.parse(response));
+                showData();
+            }else{
+                alert(this.status);
+            }
+        }
+        xhr.send(arr);
+        // POPING OUT THE MODAL
+        inner1.innerHTML = '';
+        modal1.style.display = 'flex';
+    });
+
+    let cancel = document.createElement('button');
+    cancel.style.margin = '10px';
+    cancel.setAttribute('class', 'btn btn-danger btn-md');
+    cancel.innerHTML = 'No';
+    cancel.addEventListener('click', () => {
+        removeModal();
+    });
+
+    inner1.innerHTML += 'Are You Sure You Want To Delete This Position?'+'<br>';
+    inner1.appendChild(ok);
+    inner1.appendChild(cancel);
+}
+
+// Edit Modal Pop up
+function editPosModal(result){
+    // ELEMENTS TO POPULATE THE MODAL
+    let h3 = document.createElement('h3');
+    let p = document.createElement('p');
+    let a = document.createElement('a');
+
+    if(result['status'] == '1'){
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'The position was edited successfully!';
+        a.innerHTML = 'Continue';
+        a.setAttribute('id', 'continue');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }else{
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'Something went wrong';
+        a.innerHTML = 'Retry';
+        a.setAttribute('id', 'retry');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }
+}
+
+// Delete Modal PoPup
+function delPosModal(result){
+    // ELEMENTS TO POPULATE THE MODAL
+    let h3 = document.createElement('h3');
+    let p = document.createElement('p');
+    let a = document.createElement('a');
+
+    if(result['status'] == '1'){
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'The position was deleted successfully!';
+        a.innerHTML = 'Continue';
+        a.setAttribute('id', 'continue');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }else{
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'Something went wrong';
+        a.innerHTML = 'Retry';
+        a.setAttribute('id', 'retry');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
     }
 }
 

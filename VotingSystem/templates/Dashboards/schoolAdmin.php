@@ -285,7 +285,7 @@
                             <h4>Add Positions</h4>
                             <div class="listBox">
                                 Choose Election :
-                                <select name="elect" id="electList">
+                                <select name="elect" id="electList" onchange='showData()'>
                                 </select>
                             </div>
                             <button class="btn btn-primary btn-sm" id="addP">Continue</button>

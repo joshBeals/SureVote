@@ -129,6 +129,7 @@ function populateDom(result){
 // Function to populate the elections on the positions board
 function popPositions(result){
     let electList = document.getElementById('electList');
+    electList.innerHTML = '';
     for(let i = 0; i < result.length; i++){
         let opt = document.createElement('option');
         electList.options.add(opt);
@@ -141,6 +142,7 @@ function popPositions(result){
 // Function to populate the viewElections DOM
 function popElections(result){
     let tbody = document.getElementById('tbody');
+    tbody.innerHTML = '';
     for(let i = 0; i < result.length; i++){
         let tr = document.createElement('tr');
         let td = document.createElement('td');
@@ -164,8 +166,7 @@ function popElections(result){
         td6.style.margin = '5px';
         td6.innerHTML = 'delete';
         td6.addEventListener('click', () => {
-            let parent = td6.parentNode;
-            parent.parentNode.removeChild(parent);
+            deleteElection(result[i]['election_id']);
         });
 
 
@@ -177,6 +178,81 @@ function popElections(result){
         tr.appendChild(td5);
         tr.appendChild(td6);
         tbody.appendChild(tr);
+    }
+}
+
+// Function to delete a position
+function deleteElection(id){
+    // POPING OUT THE MODAL
+    inner.innerHTML = '';
+    modal.style.display = 'flex';
+
+    let ok = document.createElement('button');
+    ok.style.margin = '10px';
+    ok.setAttribute('class', 'btn btn-primary btn-md');
+    ok.innerHTML = 'Yes';
+    ok.addEventListener('click', () => {
+        let arr = ['delete='+id];
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../php/api/sendData/deleteElections.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function(){
+            if(this.status == 200){
+                let response = this.responseText;
+                delElecModal(JSON.parse(response));
+                getElectionsCreated();
+            }else{
+                alert(this.status);
+            }
+        }
+        xhr.send(arr);
+        // POPING OUT THE MODAL
+        inner.innerHTML = '';
+        modal.style.display = 'flex';
+    });
+
+    let cancel = document.createElement('button');
+    cancel.style.margin = '10px';
+    cancel.setAttribute('class', 'btn btn-danger btn-md');
+    cancel.innerHTML = 'No';
+    cancel.addEventListener('click', () => {
+        removeModal();
+    });
+
+    inner1.innerHTML += 'Are You Sure You Want To Delete This Election?'+'<br>';
+    inner1.appendChild(ok);
+    inner1.appendChild(cancel);
+}
+
+// Delete Modal PoPup
+function delElecModal(result){
+    // ELEMENTS TO POPULATE THE MODAL
+    let h3 = document.createElement('h3');
+    let p = document.createElement('p');
+    let a = document.createElement('a');
+
+    if(result['status'] == '1'){
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'The election was deleted successfully!';
+        a.innerHTML = 'Continue';
+        a.setAttribute('id', 'continue');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }else{
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'Something went wrong';
+        a.innerHTML = 'Retry';
+        a.setAttribute('id', 'retry');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
     }
 }
 
