@@ -107,7 +107,7 @@
                 <i class="fas fa-bars" id="menuToogle"></i>
             </div>
             <!--Content of main-->
-            <div class="showTemp" id="content">
+            <div class="hideTemp" id="content">
                 <!--Main Dash-->
                 <div class="mainDash">
                     <div class="analysis">
@@ -317,8 +317,29 @@
             </div>
             
             <!--Add Candidates-->
-            <div class="hideTemp" id="candidates">
-
+            <div class="showTemp" id="candidates">
+                <div class="innerCand">
+                    <div class="left">
+                        <h4>Additional Photo</h4>
+                        <div class='hide'>Icons made by <a href="https://www.freepik.com/?__hstc=57440181.82c3db4f50de8346c088cecde6567bef.1559547720400.1559547720400.1559547720400.1&__hssc=57440181.1.1559547720401&__hsfp=2374548094" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+                        <div class="img">
+                            <img src="../app_images/user.svg" alt="dsf">
+                        </div>
+                        <button class='btn btn-info' id='uploadBtn'>Upload</button>
+                    </div>
+                    <div class="right">
+                        <h4>Candidate Registeration</h4><br>
+                        <h6>Candidate Name (FullName)</h6>
+                        <input type="text">
+                        <h6>Manifesto</h6>
+                        <textarea rows="4" id=""></textarea>
+                        <h6>Election</h6>
+                        <select id="candElec" onchange='showPos()'></select>
+                        <h6>Position</h6>
+                        <select id="candpos"></select>
+                        <button class='btn btn-info' id='addCand'>Add Candidate</button>
+                    </div>
+                </div>
             </div>
 
             <!--Main Content-->

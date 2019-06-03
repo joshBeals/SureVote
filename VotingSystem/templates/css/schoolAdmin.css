@@ -234,9 +234,14 @@ body{
 .cards{
     width: 47%;
     min-height: 90%;
-    border: 1px solid grey;
+    border: 1px solid #010C17;
     border-radius: 5px;
     display: flex;
+    transition: 300ms ease-in-out;
+}
+.cards:hover{
+    background: #010C17;
+    color: white;
 }
 .cards i{
     flex: 1;
@@ -548,13 +553,89 @@ a:hover{
     color: white;
     background: #062A4A;
 }
-
-#candidate{
+#candidates{
     box-sizing: border-box;
     padding: 20px 0px;
     font-family: 'Alegreya Sans SC', sans-serif;
 }
-
+#candidates .innerCand{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+#candidates .innerCand .left{
+    flex-basis: 35%;
+    border-radius: 5px;
+    background: white;
+    box-sizing: border-box;
+    padding: 20px;
+}
+#candidates .innerCand .left h4{
+    text-align: center;
+    margin-bottom: 10px;
+}
+#candidates .innerCand .left .img{
+    width: 100%;
+    height: 200px;
+    position: relative;
+    box-sizing: border-box;
+    padding: 10px 0px;
+    background: #F0F0F0;
+}
+#candidates .innerCand .left #uploadBtn{
+    display: flex;
+    margin: auto;
+    margin-top: 10px;
+}
+#candidates .innerCand .left .img img{
+    width: 100%;
+    height: 100%;
+    color: grey;
+}
+#candidates .innerCand .right{
+    flex-basis: 63%;
+    border-radius: 5px;
+    background: white;
+    box-sizing: border-box;
+    padding: 20px;
+}
+#candidates .innerCand .right h6{
+    margin: 5px 0px; padding: 0;
+    font-weight: lighter;
+}
+#candidates .innerCand .right input{
+    width: 100%;
+    background: white;
+    border: none;
+    border: 1px solid grey;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 5px 20px;
+    margin-bottom: 10px;
+}
+#candidates .innerCand .right textarea{
+    width: 100%;
+    border: none;
+    background: white;
+    border: 1px solid grey;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 5px 20px;
+    margin-bottom: 10px;
+}
+#candidates .innerCand .right select{
+    width: 100%;
+    background: white;
+    border: none;
+    border: 1px solid grey;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+#candidates .innerCand .right #addCand{
+    margin-top: 10px;
+}
 
 
 

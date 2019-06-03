@@ -54,6 +54,7 @@ function getElectionsCreated(){
             // alert(response);
             popElections(JSON.parse(response));
             popPositions(JSON.parse(response));
+            candidateElection(JSON.parse(response));
         }else{
             alert(this.status);
         }
@@ -136,6 +137,48 @@ function popPositions(result){
         opt.text = result[i]['election_title'];
         opt.value = result[i]['election_id'];
         electList.appendChild(opt);
+    }
+}
+
+// Function to populate the elections on the candidates board
+function candidateElection(result){
+    let candElec = document.getElementById('candElec');
+    candElec.innerHTML = '';
+    for(let i = 0; i < result.length; i++){
+        let opt = document.createElement('option');
+        candElec.options.add(opt);
+        opt.text = result[i]['election_title'];
+        opt.value = result[i]['election_id'];
+        candElec.appendChild(opt);
+        showPos();
+    }
+}
+
+// Function to populate the positions on the candidates board
+
+function showPos(){
+    // Creating the AJAX element to add positions
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '../../php/api/GetData/getPositions.php?id='+candElec.value, true);
+    xhr.onload = function(){
+        if(this.status == 200){
+            let response = this.responseText;
+            candidatePosition(JSON.parse(response));
+        }
+    }
+    xhr.send();
+}
+
+
+function candidatePosition(result){
+    let candpos = document.getElementById('candpos');
+    candpos.innerHTML = '';
+    for(let i = 0; i < result.length; i++){
+        let opt = document.createElement('option');
+        candpos.options.add(opt);
+        opt.text = result[i]['position_name'];
+        opt.value = result[i]['position_id'];
+        candpos.appendChild(opt);
     }
 }
 

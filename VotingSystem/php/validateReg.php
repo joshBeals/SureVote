@@ -58,7 +58,7 @@
 
                     $stmt = $db->query($query);
     
-                    $newSchoolEmail = explode('@', $school_name);  
+                    $newSchoolEmail = explode('@', $school_email);  
                     $adminUser = $newSchoolEmail[0];
                     $password = uniqid('', true);
                     $newPassword = explode('.', $password);

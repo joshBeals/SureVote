@@ -62,6 +62,7 @@ posBtn.addEventListener('click', () => {
             let response = this.responseText;
             popModal(JSON.parse(response));
             showData();
+            showPos();
         }else{
             alert(this.status);
         }
@@ -71,6 +72,32 @@ posBtn.addEventListener('click', () => {
     // POPING OUT THE MODAL
     modal1.style.display = 'flex';
 });
+
+function showPos(){
+    // Creating the AJAX element to add positions
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '../../php/api/GetData/getPositions.php?id='+candElec.value, true);
+    xhr.onload = function(){
+        if(this.status == 200){
+            let response = this.responseText;
+            candidatePosition(JSON.parse(response));
+        }
+    }
+    xhr.send();
+}
+
+
+function candidatePosition(result){
+    let candpos = document.getElementById('candpos');
+    candpos.innerHTML = '';
+    for(let i = 0; i < result.length; i++){
+        let opt = document.createElement('option');
+        candpos.options.add(opt);
+        opt.text = result[i]['position_name'];
+        opt.value = result[i]['position_id'];
+        candpos.appendChild(opt);
+    }
+}
 
 // show data on the modal
 function popModal(result){
