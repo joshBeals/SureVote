@@ -10,6 +10,7 @@ body{
     width: 100%;
     height: 100%;
     display: flex;
+    animation: anim 500ms;
 }
 .cont .left{
     flex: 1;
@@ -17,8 +18,16 @@ body{
     padding: 20px;
 }
 .cont .left .logo{
-    font-size: 30px;
+    font-size: 25px;
     margin-bottom: 20px;
+}
+.cont .left .logo h5{
+    margin:0;padding:0;
+    color: black;
+}
+.cont .left .logo i{
+    font-size: 30px;
+    color: #0B508E;
 }
 .cont .left .main{
     display: flex;
@@ -140,6 +149,7 @@ a:hover{
     display: none;
 }
 .cont .modal .inner{
+    font-family: 'Alegreya Sans SC', sans-serif;
     text-align: center;
     box-sizing: border-box;
     border-radius: 3px;
@@ -149,6 +159,7 @@ a:hover{
     margin-top: 20px;
 }
 .cont .modal .inner h1, .cont .modal .inner h3{
+    margin:0;padding:0;
     color: #062A4A;
 }
 .cont .modal .inner a{
@@ -166,6 +177,15 @@ a:hover{
 .cont .modal .inner a:hover{
     background: #0B508E;
     color: white;
+}
+
+
+@keyframes anim{
+    0%{
+        opacity: 0;
+    }100%{
+        opacity: 1;
+    }
 }
 
 

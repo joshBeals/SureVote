@@ -21,7 +21,7 @@
         </div>
         <div class="right">
             <div class="logo">
-                LOGO
+                <h5><i class="fas fa-thumbs-up"></i> SureVote</h5>
             </div>
             <div class="main">
                 <div>

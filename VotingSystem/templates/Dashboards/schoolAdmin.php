@@ -24,7 +24,7 @@
         <div class="sidebar show" id="sidebar">
             <!--Dashboard-->
             <div class="dashboard" id="dashboard">
-                <h5><i class="fas fa-warehouse"></i> Admin Dashboard</h5>
+                <h5><i class="fas fa-thumbs-up"></i> SureVote</h5>
             </div>
             <!--Registration Division-->
             <div class="division registrations hidebackground" id='reg'>
@@ -49,30 +49,46 @@
                 </div>
                 <ul  class='hide' id='voteul'>
                     <li class="dropdown">
-                        <i class="fas fa-person-booth"></i>
-                        <p id="viewVoters">View Voters</p>
-                    </li>
-                    <li class="dropdown">
                         <i class="far fa-plus-square"></i>
                         <p id="addElection">Add an election</p>
-                    </li>
-                    <li class="dropdown">
-                        <i class="fas fa-list-ol"></i> 
-                        <p id="votingList">Voting list</p>
                     </li>
                     <li class="dropdown">
                         <i class="fas fa-user-tag"></i>
                         <p id="addPositions">Add Positions</p>
                     </li>
                     <li class="dropdown">
+                        <i class="fas fa-list-ol"></i> 
+                        <p id="votingList">Voting list</p>
+                    </li>
+                    <li class="dropdown">
+                        <i class="fas fa-person-booth"></i>
+                        <p id="viewVoters">View Voters</p>
+                    </li>
+                </ul>         
+            </div>
+            <div class="division cand hidebackground" id='cand'>
+                <div class="holder" id='candclick'>
+                    <i class="fas fa-users"></i>
+                    <h4>Candidates</h4>
+                    <p id='canddrop' class='hidedrop'></p>
+                </div>
+                <ul  class='hide' id='candul'>
+                    <li class="dropdown">
                         <i class="far fa-plus-square"></i>
                         <p id="addCandidates">Add Candidates</p>
                     </li>
                     <li class="dropdown">
-                        <i class="far fa-file"></i> 
-                        <p id="ResultBlock">Result Block</p>
+                        <i class="fas fa-portrait"></i>
+                        <p id="viewCandidates">View Candidates</p>
                     </li>
-                </ul>         
+                </ul>
+            </div>
+            <!--Result Division-->
+            <div class="division result">
+                <div class="holder">
+                 <i class="far fa-file"></i> 
+                    <h4 id="ResultBlock">Results Block</h4>
+                </div>
             </div>
             <!--Change Password Division-->
             <div class="division changepass">
@@ -107,7 +123,7 @@
                 <i class="fas fa-bars" id="menuToogle"></i>
             </div>
             <!--Content of main-->
-            <div class="hideTemp" id="content">
+            <div class="showTemp" id="content">
                 <!--Main Dash-->
                 <div class="mainDash">
                     <div class="analysis">
@@ -317,7 +333,7 @@
             </div>
             
             <!--Add Candidates-->
-            <div class="showTemp" id="candidates">
+            <div class="hideTemp" id="candidates">
                 <div class="innerCand">
                     <div class="left">
                         <h4>Additional Photo</h4>
@@ -330,9 +346,9 @@
                     <div class="right">
                         <h4>Candidate Registeration</h4><br>
                         <h6>Candidate Name (FullName)</h6>
-                        <input type="text">
+                        <input type="text" id="candName">
                         <h6>Manifesto</h6>
-                        <textarea rows="4" id=""></textarea>
+                        <textarea rows="4" id="manifesto"></textarea>
                         <h6>Election</h6>
                         <select id="candElec" onchange='showPos()'></select>
                         <h6>Position</h6>
@@ -340,6 +356,11 @@
                         <button class='btn btn-info' id='addCand'>Add Candidate</button>
                     </div>
                 </div>
+            </div>
+
+            <!--View Candidates-->
+            <div class="hideTemp" id="viewCand">
+
             </div>
 
             <!--Main Content-->

@@ -23,7 +23,6 @@ LoginBtn.addEventListener('click', e => {
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
-            alert(response);
             LogPOP(JSON.parse(response));
             // POPING OUT THE MODAL
             modal.classList.remove('hide');
@@ -40,7 +39,7 @@ LoginBtn.addEventListener('click', e => {
 function LogPOP(result){
 
     // ELEMENTS TO POPULATE THE MODAL
-    let h3 = document.createElement('h3');
+    let h1 = document.createElement('h1');
     let p = document.createElement('p');
     let a = document.createElement('a');
 
@@ -48,22 +47,22 @@ function LogPOP(result){
     // POPULATING THE MODAL DOM ACCORDING TO THE MESSAGE STATUS
     if(result['status'] === '1'){
         inner.innerHTML = '';
-        h3.innerHTML = result['message'];
+        h1.innerHTML = result['message'];
         p.innerHTML = 'You can continue to your Dashboard.';
         a.innerHTML = 'Continue';
         a.setAttribute('id', 'continue');
         a.setAttribute('href', 'dashboards/schoolAdmin.php?school='+result['school']);
-        inner.appendChild(h3);
+        inner.appendChild(h1);
         inner.appendChild(p);
         inner.appendChild(a);
     }else{
         inner.innerHTML = '';
-        h3.innerHTML = result['message'];
+        h1.innerHTML = result['message'];
         p.innerHTML = 'Something went wrong in your Login. Try again';
         a.innerHTML = 'Retry';
         a.setAttribute('id', 'retry');
         a.setAttribute('href', 'loginTemp.php');
-        inner.appendChild(h3);
+        inner.appendChild(h1);
         inner.appendChild(p);
         inner.appendChild(a);
     }

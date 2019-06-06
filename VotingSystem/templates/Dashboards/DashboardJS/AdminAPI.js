@@ -1,4 +1,5 @@
 // Targetting DOM Elements
+// emma 90366418
 let facultiesRegistered = document.getElementById('facultiesRegistered');
 let departmentsRegistered = document.getElementById('departmentsRegistered');
 let ElectionsConducted = document.getElementById('ElectionsConducted');
@@ -21,6 +22,14 @@ let title = document.getElementById('title');
 let descrip = document.getElementById('descrip');
 let addElec = document.getElementById('addElec');
 let sch_id = document.getElementById('sch_id');
+
+// Targetting the Add Candidates
+let candElec = document.getElementById('candElec');
+let candpos = document.getElementById('candpos');
+let candName = document.getElementById('candName');
+let manifesto = document.getElementById('manifesto');
+let addCand = document.getElementById('addCand');
+
 
 // Calling functions
 getNumberAnalysis();
@@ -142,7 +151,6 @@ function popPositions(result){
 
 // Function to populate the elections on the candidates board
 function candidateElection(result){
-    let candElec = document.getElementById('candElec');
     candElec.innerHTML = '';
     for(let i = 0; i < result.length; i++){
         let opt = document.createElement('option');
@@ -171,7 +179,6 @@ function showPos(){
 
 
 function candidatePosition(result){
-    let candpos = document.getElementById('candpos');
     candpos.innerHTML = '';
     for(let i = 0; i < result.length; i++){
         let opt = document.createElement('option');
@@ -179,6 +186,58 @@ function candidatePosition(result){
         opt.text = result[i]['position_name'];
         opt.value = result[i]['position_id'];
         candpos.appendChild(opt);
+    }
+}
+
+// Ajax to addCandidates
+addCand.addEventListener('click', () => {
+    let arr = ['info='+candName.value,manifesto.value,candpos.value,candElec.value];
+    candName.value = '';
+    manifesto.value = '';
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '../../php/api/sendData/addCandidates.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onload = function(){
+        if(this.status == 200){
+            let response = this.responseText;
+            candDom(JSON.parse(response));
+        }
+    }
+    xhr.send(arr);
+
+    // POPING OUT THE MODAL
+    modal.style.display = 'flex';
+});
+
+// CANDIDATE DOM
+function candDom(result){
+    // ELEMENTS TO POPULATE THE MODAL
+    let h3 = document.createElement('h3');
+    let p = document.createElement('p');
+    let a = document.createElement('a');
+
+    if(result['status'] == '1'){
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'This candidate was added successfully!';
+        a.innerHTML = 'Continue';
+        a.setAttribute('id', 'continue');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }else{
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'Something went wrong';
+        a.innerHTML = 'Retry';
+        a.setAttribute('id', 'retry');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
     }
 }
 
@@ -203,7 +262,10 @@ function popElections(result){
         let td5 = document.createElement('button');
         td5.setAttribute('class', 'btn btn-info btn-sm');
         td5.style.margin = '5px';
-        td5.innerHTML = 'view candidates';
+        td5.innerHTML = 'Edit';
+        td5.addEventListener('click', () => {
+            editElection(result[i]['election_id'], result[i]['election_title'], result[i]['election_description']);
+        });
         let td6 = document.createElement('button');
         td6.setAttribute('class', 'btn btn-danger btn-sm');
         td6.style.margin = '5px';
@@ -224,7 +286,78 @@ function popElections(result){
     }
 }
 
-// Function to delete a position
+// Function to edit an election
+function editElection(id, name, descrip){
+    elec_id = id;
+    elec_name = name;
+    elec_descrip = descrip;
+
+    // POPING OUT THE MODAL
+    inner.innerHTML = '';
+    modal.style.display = 'flex';
+
+    // Creating the DOM elements
+    let lab1 = document.createElement('p');
+    lab1.innerHTML = 'Election Name';
+    lab1.style.padding = '0';
+    lab1.style.marginBottom = '3px';
+    lab1.style.textAlign = 'left';
+    lab1.style.fontWeight = 'bold';
+
+    let lab2 = document.createElement('p');
+    lab2.innerHTML = 'Election Description';
+    lab2.style.padding = '0';
+    lab2.style.marginBottom = '3px';
+    lab2.style.textAlign = 'left';
+    lab2.style.fontWeight = 'bold';
+
+    let txt1 = document.createElement('input');
+    txt1.setAttribute('type', 'text');
+    txt1.style.padding = '3px';
+    txt1.style.width = '100%';
+    txt1.style.marginBottom = '10px';
+    txt1.value = elec_name;
+
+    let txt2 = document.createElement('textarea');
+    txt2.setAttribute('row', '3');
+    txt2.style.padding = '3px';
+    txt2.style.width = '100%';
+    txt2.style.marginBottom = '10px';
+    txt2.value = elec_descrip;
+
+    let btn = document.createElement('button');
+    btn. className = 'btn btn-primary btn-sm';
+    btn.style.margin = '0';
+    btn.style.width = '100%';
+    btn.innerHTML = 'Save';
+    btn.addEventListener('click', () => {
+        let arr = ['editElec='+txt1.value, txt2.value, elec_id];
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../php/api/sendData/editElection.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function(){
+            if(this.status == 200){
+                let response = this.responseText;
+                editElecModal(JSON.parse(response));
+                getElectionsCreated();
+            }else{
+                alert(this.status);
+            }
+        }
+        xhr.send(arr);
+        // POPING OUT THE MODAL
+        inner1.innerHTML = '';
+        modal1.style.display = 'flex';
+    });
+
+    inner.appendChild(lab1);
+    inner.appendChild(txt1);
+    inner.appendChild(lab2);
+    inner.appendChild(txt2);
+    inner.appendChild(btn);
+}
+
+// Function to delete an election
 function deleteElection(id){
     // POPING OUT THE MODAL
     inner.innerHTML = '';
@@ -267,6 +400,38 @@ function deleteElection(id){
     inner1.appendChild(cancel);
 }
 
+// Edit Modal PoPup
+function editElecModal(result){
+    // ELEMENTS TO POPULATE THE MODAL
+    let h3 = document.createElement('h3');
+    let p = document.createElement('p');
+    let a = document.createElement('a');
+
+    if(result['status'] == '1'){
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'This election was edited successfully!';
+        a.innerHTML = 'Continue';
+        a.setAttribute('id', 'continue');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }else{
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'Something went wrong';
+        a.innerHTML = 'Retry';
+        a.setAttribute('id', 'retry');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }
+}
+
 // Delete Modal PoPup
 function delElecModal(result){
     // ELEMENTS TO POPULATE THE MODAL
@@ -276,7 +441,7 @@ function delElecModal(result){
 
     if(result['status'] == '1'){
         h3.innerHTML = result['message'];
-        p.innerHTML = 'The election was deleted successfully!';
+        p.innerHTML = 'This election was deleted successfully!';
         a.innerHTML = 'Continue';
         a.setAttribute('id', 'continue');
         inner.appendChild(h3);

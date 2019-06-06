@@ -51,8 +51,6 @@ if($stmt->execute()){
         }else{
             echo(json_encode($arr));
         }
-    }else{
-
     }
 }
 

@@ -3,12 +3,16 @@ let sidebar = document.getElementById('sidebar');
 let menuToogle = document.getElementById('menuToogle');
 let vote = document.getElementById('vote');
 let reg = document.getElementById('reg');
+let cand = document.getElementById('cand');
 let voteclick = document.getElementById('voteclick');
 let regclick = document.getElementById('regclick');
+let candclick = document.getElementById('candclick');
 let voteul = document.getElementById('voteul');
 let regul = document.getElementById('regul');
+let candul = document.getElementById('candul');
 let votedrop = document.getElementById('votedrop');
 let regdrop = document.getElementById('regdrop');
+let canddrop = document.getElementById('canddrop');
 
 // Sidebar Targets
 let dashboard = document.getElementById('dashboard');
@@ -19,6 +23,7 @@ let votingList = document.getElementById('votingList');
 let ResultBlock = document.getElementById('addVoResultBlockter');
 let addPositions = document.getElementById('addPositions');
 let addCandidates = document.getElementById('addCandidates');
+let viewCandidates = document.getElementById('viewCandidates');
 let changepassword = document.getElementById('changepassword');
 let settings = document.getElementById('signout');
 let signout = document.getElementById('signout');
@@ -30,6 +35,7 @@ let AddElection = document.getElementById('AddElection');
 let viewElections = document.getElementById('viewElections');
 let positions = document.getElementById('positions');
 let candidates = document.getElementById('candidates');
+let viewCand = document.getElementById('viewCand');
 
 // Positions
 let posContent = document.getElementById('posContent');
@@ -108,7 +114,7 @@ function popModal(result){
 
     if(result['status'] == '1'){
         h3.innerHTML = result['message'];
-        p.innerHTML = 'The position was added successfully!';
+        p.innerHTML = 'This position was added successfully!';
         a.innerHTML = 'Continue';
         a.setAttribute('id', 'continue');
         inner.appendChild(h3);
@@ -198,7 +204,7 @@ function editPosition(name, id){
     let btn = document.createElement('button'); 
     btn. className = 'btn btn-primary btn-sm';
     btn.style.margin = '5px';
-    btn.innerHTML = 'Edit';
+    btn.innerHTML = 'Save';
     btn.addEventListener('click', () => {
         let arr = ['edit='+txtbox.value, pos_id];
         let xhr = new XMLHttpRequest();
@@ -275,7 +281,7 @@ function editPosModal(result){
 
     if(result['status'] == '1'){
         h3.innerHTML = result['message'];
-        p.innerHTML = 'The position was edited successfully!';
+        p.innerHTML = 'This position was edited successfully!';
         a.innerHTML = 'Continue';
         a.setAttribute('id', 'continue');
         inner.appendChild(h3);
@@ -307,7 +313,7 @@ function delPosModal(result){
 
     if(result['status'] == '1'){
         h3.innerHTML = result['message'];
-        p.innerHTML = 'The position was deleted successfully!';
+        p.innerHTML = 'This position was deleted successfully!';
         a.innerHTML = 'Continue';
         a.setAttribute('id', 'continue');
         inner.appendChild(h3);
@@ -358,6 +364,16 @@ regclick.addEventListener('click', () => {
     reg.classList.toggle('showbackground');
 });
 
+candclick.addEventListener('click', () => {
+    if(canddrop.className == 'hidedrop'){
+        canddrop.className = 'showdrop';
+    }else{
+        canddrop.className = 'hidedrop'
+    }
+    candul.classList.toggle('show');
+    cand.classList.toggle('showbackground');
+});
+
 // Event Listener for sidebar toogle
 menuToogle.addEventListener('click', () => {
     if(sidebar.classList.contains('show')){
@@ -378,6 +394,7 @@ dashboard.addEventListener('click', () => {
     viewElections.className = 'hideTemp';
     positions.className = 'hideTemp';
     candidates.className = 'hideTemp';
+    viewCand.className = 'hideTemp';
 });
 
 registerFaculty.addEventListener('click', () => {
@@ -387,6 +404,7 @@ registerFaculty.addEventListener('click', () => {
     viewElections.className = 'hideTemp';
     positions.className = 'hideTemp';
     candidates.className = 'hideTemp';
+    viewCand.className = 'hideTemp';
 });
 
 addElection.addEventListener('click', () => {
@@ -396,6 +414,7 @@ addElection.addEventListener('click', () => {
     viewElections.className = 'hideTemp';
     positions.className = 'hideTemp';
     candidates.className = 'hideTemp';
+    viewCand.className = 'hideTemp';
 });
 
 votingList.addEventListener('click', () => {
@@ -405,6 +424,7 @@ votingList.addEventListener('click', () => {
     f_reg.className = 'hideTemp';
     positions.className = 'hideTemp';
     candidates.className = 'hideTemp';
+    viewCand.className = 'hideTemp';
 });
 
 addPositions.addEventListener('click', () => {
@@ -414,10 +434,22 @@ addPositions.addEventListener('click', () => {
     content.className = 'hideTemp';
     f_reg.className = 'hideTemp';
     candidates.className = 'hideTemp';
+    viewCand.className = 'hideTemp';
 });
 
 addCandidates.addEventListener('click', () => {
     candidates.className = 'showTemp';
+    positions.className = 'hideTemp';
+    viewElections.className = 'hideTemp';
+    AddElection.className = 'hideTemp';
+    content.className = 'hideTemp';
+    f_reg.className = 'hideTemp';
+    viewCand.className = 'hideTemp';
+});
+
+viewCandidates.addEventListener('click', () => {
+    viewCand.className = 'showTemp';
+    candidates.className = 'hideTemp';
     positions.className = 'hideTemp';
     viewElections.className = 'hideTemp';
     AddElection.className = 'hideTemp';

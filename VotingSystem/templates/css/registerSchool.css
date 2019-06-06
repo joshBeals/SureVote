@@ -11,6 +11,7 @@ body{
     height: 100%;
     display: flex;
     position: relative;
+    animation: anim 500ms;
 }
 .container .left{
     flex: 1;
@@ -53,8 +54,16 @@ body{
 }
 .container .right .logo{
     text-align: right;
-    font-size: 30px;
+    font-size: 25px;
     margin-bottom: 20px;
+}
+.container .right .logo h5{
+    margin:0;padding:0;
+    color: black;
+}
+.container .right .logo h5 i{
+    font-size: 30px;
+    color: #0B508E;    
 }
 .container .right .main{
     display: flex;
@@ -120,6 +129,7 @@ a:hover{
     border-radius: 5px;
 }
 .container .modal{
+    font-family: 'Alegreya Sans SC', sans-serif;
     position: fixed;
     justify-content: center;
     align-items: flex-start;
@@ -147,6 +157,7 @@ a:hover{
     margin-top: 20px;
 }
 .container .modal .inner h1, .container .modal .inner h3{
+    margin:0;padding:0;
     color: #062A4A;
 }
 .container .modal .inner a{
@@ -162,14 +173,8 @@ a:hover{
     background: #0B508E;
 }
 
-@keyframes show{
-    0%{
-        opacity: 0;
-    }100%{
-        opacity: 1;
-    }
-}
-@keyframes hide{
+
+@keyframes anim{
     0%{
         opacity: 0;
     }100%{

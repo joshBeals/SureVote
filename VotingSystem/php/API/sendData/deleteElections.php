@@ -13,7 +13,7 @@ include_once('../../models/data.php');
 $database = new Database();
 $db = $database->connect();
 
-if(isset($_POST)){
+if(isset($_POST)){ 
     $data = $_POST['delete'];
     
     // Query Statement
