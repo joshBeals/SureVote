@@ -19,7 +19,9 @@ $id = $_GET['id'];
 $query = "CREATE TABLE IF NOT EXISTS election_candidates (
     candidate_id INT(11) NOT NULL AUTO_INCREMENT,
     candidate_name VARCHAR(255) NOT NULL,
-    candidate_manifesto VARCHAR(255) NOT NULL,
+    candidate_matric VARCHAR(255) NOT NULL, 
+    faculty_id INT(11),
+    dept_id INT(11),
     position_id INT(11),
     election_id INT(11),
     created_at DATETIME NOT NULL,
@@ -33,15 +35,26 @@ if($stmt->execute()){
     $query = "SELECT 
                 election_candidates.candidate_id,
                 election_candidates.candidate_name,
-                election_candidates.candidate_manifesto, 
+                election_candidates.candidate_matric, 
+                election_candidates.faculty_id, 
+                faculties.faculty_name,
+                election_candidates.dept_id, 
                 election_positions.position_id,
                 election_positions.position_name
             FROM
-                election_candidates
+                ((election_candidates
             INNER JOIN
                 election_positions
             ON
-                election_candidates.position_id = election_positions.position_id"; 
+                election_candidates.position_id = election_positions.position_id)
+            INNER JOIN
+                faculties
+            ON
+                election_candidates.faculty_id = faculties.faculty_id)
+            WHERE
+                election_candidates.election_id = $id
+            ORDER BY
+                election_positions.position_name DESC"; 
 
     // Prepared statement
     $stmt = $db->prepare($query);
@@ -55,7 +68,10 @@ if($stmt->execute()){
             $data = array(
                 'candidate_id' => $candidate_id,
                 'candidate_name' => $candidate_name,
-                'candidate_manifesto' => $candidate_manifesto,
+                'candidate_matric' => $candidate_matric,
+                'faculty_id' => $faculty_id,
+                'faculty_name' => $faculty_name,
+                'dept_id' => $dept_id,
                 'position_id' => $position_id,
                 'position_name' => $position_name
             );

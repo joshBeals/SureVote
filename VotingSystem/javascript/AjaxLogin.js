@@ -51,7 +51,7 @@ function LogPOP(result){
         p.innerHTML = 'You can continue to your Dashboard.';
         a.innerHTML = 'Continue';
         a.setAttribute('id', 'continue');
-        a.setAttribute('href', 'dashboards/schoolAdmin.php?school='+result['school']);
+        a.setAttribute('href', 'dashboards/AdminDash.php?school='+result['school']);
         inner.appendChild(h1);
         inner.appendChild(p);
         inner.appendChild(a);

@@ -62,6 +62,7 @@ function RegPOP(result){
         inner.appendChild(p);
         inner.appendChild(h3a);
         inner.appendChild(h3b);
+        inner.innerHTML += '<br>';
         inner.appendChild(a);
     }else{
         h1.innerHTML = result['message'];
@@ -75,6 +76,7 @@ function RegPOP(result){
         inner.appendChild(p);
         inner.appendChild(h3a);
         inner.appendChild(h3b);
+        inner.innerHTML += '<br>';
         inner.appendChild(a);
     }
 }

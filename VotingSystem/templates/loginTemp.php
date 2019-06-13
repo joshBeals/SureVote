@@ -13,7 +13,7 @@
     <div class="cont">
         <div class="left">
             <div class="logo">
-                <h5><i class="fas fa-thumbs-up"></i> SureVote</h5>
+                LOGO
             </div>
             <div class="main">
                 <div>

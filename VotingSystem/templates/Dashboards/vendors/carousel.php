@@ -16,13 +16,13 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-            <img src="../app_images/city_railway-wallpaper-2560x1600.jpg" class="d-block w-100" alt="...">
+            <img src="../app_images/city-backgrounds-wallpaper3.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-            <img src="../app_images/canada-city-wallpaper-wallpaper-3.jpg" class="d-block w-100" alt="...">
+            <img src="../app_images/beautiful-city-9.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-            <img src="../app_images/49246265328-city-wallpapers-wallpaper-cities-animaatjes-picgifs.jpg" class="d-block w-100" alt="...">
+            <img src="../app_images/background5.jpg" class="d-block w-100" alt="...">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
