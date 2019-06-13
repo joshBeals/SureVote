@@ -355,6 +355,42 @@ function editCandidate(name, matric, id){
     opts.value = '1';
     depts.appendChild(opts);
 
+    let labelection = document.createElement('p');
+    labelection.innerHTML = 'Candidate Election';
+    labelection.style.color = '#062A4A';
+    labelection.style.textAlign = 'left';
+    labelection.style.padding = '0'; labelection.style.margin = '0';
+    labelection.style.fontWeight = 'bold';
+
+    let elect = document.createElement('select');
+    elect.addEventListener('change', showPos1);
+    elect.style.width = '100%';
+    elect.style.padding = '5px';
+    elect.style.marginBottom = '10px';
+    // Getting elections
+    function getElections(){
+        // Creating the AJAX element to receive data
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', '../../php/api/GetData/getElections.php?id='+schl_id.value, true);
+        xhr.onload = function(){
+            if(this.status == 200){
+                let result = JSON.parse(this.responseText);
+                elect.innerHTML = '';
+                for(let i = 0; i < result.length; i++){
+                    let opt = document.createElement('option');
+                    elect.options.add(opt);
+                    opt.text = result[i]['election_title'];
+                    opt.value = result[i]['election_id'];
+                    elect.appendChild(opt);
+                    showPos1();
+                }
+            }else{
+                alert(this.status);
+            }
+        }
+        xhr.send();
+    }
+
     let labpos = document.createElement('p');
     labpos.innerHTML = 'Candidate Position';
     labpos.style.color = '#062A4A';
@@ -389,48 +425,26 @@ function editCandidate(name, matric, id){
         }
     }
 
-    let labelection = document.createElement('p');
-    labelection.innerHTML = 'Candidate Election';
-    labelection.style.color = '#062A4A';
-    labelection.style.textAlign = 'left';
-    labelection.style.padding = '0'; labelection.style.margin = '0';
-    labelection.style.fontWeight = 'bold';
-
-    let elect = document.createElement('select');
-    elect.style.width = '100%';
-    elect.style.padding = '5px';
-    elect.style.marginBottom = '10px';
-    // Getting elections
-    function getElections(){
-        // Creating the AJAX element to receive data
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../php/api/GetData/getElections.php?id='+schl_id.value, true);
-        xhr.onload = function(){
-            if(this.status == 200){
-                let result = JSON.parse(this.responseText);
-                elect.innerHTML = '';
-                for(let i = 0; i < result.length; i++){
-                    let opt = document.createElement('option');
-                    elect.options.add(opt);
-                    opt.text = result[i]['election_title'];
-                    opt.value = result[i]['election_id'];
-                    elect.appendChild(opt);
-                    showPos1();
-                }
-            }else{
-                alert(this.status);
-            }
-        }
-        xhr.send();
-    }
+    let btnDiv = document.createElement('div');
+    btnDiv.style.display = 'flex';
 
     let edit = document.createElement('button');
     edit.innerHTML = 'Save';
     edit.className = 'btn btn-primary';
-    edit.style.width = '100%';
+    edit.style.marginRight = '10px';
     edit.addEventListener('click', () => {
         removeModal();
     });
+
+    let exit = document.createElement('button');
+    exit.innerHTML = 'Cancel';
+    exit.className = 'btn btn-danger';
+    exit.addEventListener('click', () => {
+        removeModal();
+    });
+
+    btnDiv.appendChild(edit);
+    btnDiv.appendChild(exit);
 
     getFaculties();
     getElections();
@@ -448,7 +462,7 @@ function editCandidate(name, matric, id){
     inner1.appendChild(elect);
     inner1.appendChild(labpos);
     inner1.appendChild(pos);
-    inner1.appendChild(edit);
+    inner1.appendChild(btnDiv);
 
 }
 

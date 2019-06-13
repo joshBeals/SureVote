@@ -419,10 +419,12 @@ function editFaculty(id, name, email){
     txt2.style.marginBottom = '10px';
     txt2.value = fac_name;
 
+    let btnDiv = document.createElement('div');
+    btnDiv.style.display = 'flex';
+
     let btn = document.createElement('button');
     btn. className = 'btn btn-primary btn-sm';
-    btn.style.margin = '0';
-    btn.style.width = '100%';
+    btn.style.marginRight = '10px';
     btn.innerHTML = 'Save';
     btn.addEventListener('click', () => {
         let arr = ['editFac='+txt1.value, txt2.value, fac_id];
@@ -443,12 +445,22 @@ function editFaculty(id, name, email){
         modal1.style.display = 'flex';
     });
 
+    let exit = document.createElement('button');
+    exit.innerHTML = 'Cancel';
+    exit.className = 'btn btn-danger btn-sm';
+    exit.addEventListener('click', () => {
+        removeModal();
+    });
+
+    btnDiv.appendChild(btn);
+    btnDiv.appendChild(exit);
+
     inner.appendChild(topic);
     inner.appendChild(lab1);
     inner.appendChild(txt1);
     inner.appendChild(lab2);
     inner.appendChild(txt2);
-    inner.appendChild(btn);
+    inner.appendChild(btnDiv);
 }
 
 // Function to edit an election
