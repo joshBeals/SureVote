@@ -23,6 +23,7 @@ LoginBtn.addEventListener('click', e => {
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
+            // alert(response);
             LogPOP(JSON.parse(response));
             // POPING OUT THE MODAL
             modal.classList.remove('hide');
@@ -43,15 +44,25 @@ function LogPOP(result){
     let p = document.createElement('p');
     let a = document.createElement('a');
 
-    19084708
     // POPULATING THE MODAL DOM ACCORDING TO THE MESSAGE STATUS
+    let redirect = ''; let text = '';
     if(result['status'] === '1'){
+        if(result['role'] == 'school_admins'){
+            redirect  = 'AdminDash';
+            text = 'school';
+        }else if(result['role'] == 'faculty_admins'){
+            redirect  = 'facultyDash';
+            text = 'faculty';
+        }else if(result['role'] == 'departments'){
+            redirect  = 'deptDash';
+            text = 'dept';
+        }
         inner.innerHTML = '';
         h1.innerHTML = result['message'];
         p.innerHTML = 'You can continue to your Dashboard.';
         a.innerHTML = 'Continue';
         a.setAttribute('id', 'continue');
-        a.setAttribute('href', 'dashboards/AdminDash.php?school='+result['school']);
+        a.setAttribute('href', `dashboards/${redirect}.php?${text}=${result['id']}`);
         inner.appendChild(h1);
         inner.appendChild(p);
         inner.appendChild(a);

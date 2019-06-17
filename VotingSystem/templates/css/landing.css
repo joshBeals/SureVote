@@ -25,7 +25,7 @@ body{
 .header .logo{
     flex: 1;
     /* font-family: 'Fresca', sans-serif; */
-    font-family: 'Pacifico', Maiandra Gd;
+    font-family: 'Pacifico', 'Maiandra Gd';
     font-size: 30px;
     color: #dce6dc;
     text-align: left;
@@ -36,7 +36,8 @@ body{
     flex: 1;
 }
 .wrapper .content{
-    font-family: 'Oleo Script Swash Caps', 'Maiandra Gd';
+    /* font-family: 'Oleo Script Swash Caps', 'Maiandra Gd'; */
+    font-family: 'Muli', 'Maiandra Gd';
     width: 100%;
     height: calc(100% - 61px);
     display: flex;
@@ -56,6 +57,7 @@ body{
     margin-bottom: 40px;
 }
 .wrapper .content .first p{
+    font-family: 'Muli', 'Maiandra Gd';
     font-size: 18px;
     margin-bottom: 30px;
 }
@@ -63,7 +65,7 @@ body{
     color: #ee6910;
 }
 .wrapper .content .first button{
-    font-family: 'Alegreya Sans SC', 'Maiandra Gd';
+    font-family: 'Muli', 'Maiandra Gd';
     padding: 10px 40px;
     background: #3226e2;
     box-shadow: 3px 3px 5px black;
@@ -115,7 +117,8 @@ body{
 }
 .wrapper .content .second .main .box i{
     flex: 1;
-    font-size: 18px;
+    font-size: 30px;
+    text-align: center;
 }
 .wrapper .content .second .main .box div{
     flex: 2;
@@ -127,10 +130,12 @@ body{
     margin: 0;
     padding: 0;
     font-size: 20px;
+    font-family: 'Alegreya Sans SC', 'Maiandra Gd';
 }
 .wrapper .content .second .main .box div p{
     margin: 0;
     padding: 0;
+    font-family: 'Muli', 'Maiandra Gd';
 }
 .wrapper .content .second .main .school{
     background: #3226e2;

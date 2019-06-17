@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Pacifico|Fauna+One|Gentium+Book+Basic|Josefin+Slab|Kodchasan|Lato|Macondo+Swash+Caps|Rubik|Stylish|Yeon+Sung&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/AdminDash.css">
-    <title>SchoolAdmin</title>
+    <link rel="stylesheet" href="../css/facultyDash.css">
+    <title>FacultyAdmin</title>
 </head>
 <body>
     <?php
     session_start();
-    if(!isset($_GET['school'])){
+    if(!isset($_GET['faculty'])){
         session_unset();
     }
     if(!isset($_SESSION['login'])){
@@ -24,7 +24,7 @@
         <div class="sidebar show" id="sidebar">
             <!--Dashboard-->
             <div class="dashboard" id="dashboard">
-                <h5>School's Dashboard</h5>
+                <h5>Faculty's Dashboard</h5>
             </div>
             <!--Registration Division-->
             <div class="division registrations hidebackground" id='reg'>
@@ -35,12 +35,12 @@
                 </div>
                 <ul class='hide' id='regul'>
                     <li class="dropdown">
-                        <i class="fas fa-school"></i> 
-                        <p id="registerFaculty">Register Faculty</p>
+                        <i class="fas fa-building"></i> 
+                        <p id="registerFaculty">Register Department</p>
                     </li>
                     <li class="dropdown">
                         <i class="far fa-eye"></i>
-                        <p id="viewFaculty">View Faculties</p>
+                        <p id="viewFaculty">View Departments</p>
                     </li>
                 </ul>       
             </div>
@@ -131,13 +131,6 @@
                 <!--Main Dash-->
                 <div class="mainDash">
                     <div class="analysis">
-                        <div class="boxes" id="faculties">
-                            <i class="fas fa-school"></i> 
-                            <div class="info">
-                                <h2 id='facultiesRegistered'>0</h2>
-                                <p>Faculties Registered</p>
-                            </div>
-                        </div>
                         <div class="boxes" id="departments">
                             <i class="far fa-building"></i> 
                             <div class="info">
@@ -149,7 +142,14 @@
                             <i class="fas fa-poll-h"></i> 
                             <div class="info">
                                 <h2 id='ElectionsConducted'>0</h2>
-                                <p>Elections Created</p>
+                                <p>School Elections Created</p>
+                            </div>
+                        </div>
+                        <div class="boxes" id="elections">
+                            <i class="fas fa-poll-h"></i> 
+                            <div class="info">
+                                <h2 id='ElectionsConducted'>0</h2>
+                                <p>Faculty Elections Created</p>
                             </div>
                         </div>
                         <div class="boxes" id="voters">
@@ -241,8 +241,8 @@
                     <form action="" method="POST">
                         <input type="hidden" id="school_id" value=
                         <?php 
-                        if (isset($_GET['school'])){
-                            echo($_GET['school']);
+                        if (isset($_GET['faculty'])){
+                            echo($_GET['faculty']);
                         }else{
                             session_unset();
                         }
@@ -267,8 +267,8 @@
                         <form action="" method="POST">
                         <input type="hidden" id="sch_id" value=
                         <?php 
-                        if (isset($_GET['school'])){
-                            echo($_GET['school']);
+                        if (isset($_GET['faculty'])){
+                            echo($_GET['faculty']);
                         }else{
                             session_unset();
                         }
@@ -441,7 +441,7 @@
         </div>
     </div>
 
-    <script src="DashboardJS/AdminDash.js"></script>
-    <script src="DashboardJS/AdminAPI.js"></script>
+    <script src="DashboardJS/facultyDash.js"></script>
+    <script src="DashboardJS/facultyAPI.js"></script>
 </body>
 </html>

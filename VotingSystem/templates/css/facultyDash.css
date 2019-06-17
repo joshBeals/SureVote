@@ -33,10 +33,11 @@ body{
 }
 .cont .sidebar .dashboard h5 i{
     margin-right: 20px;
+    box-sizing: border-box;
 }
 .cont .sidebar .dashboard h5{
-    font-size: 25px;
     letter-spacing: 0px;
+    font-size: 25px;
     text-align: left;
     color: white;
 }
