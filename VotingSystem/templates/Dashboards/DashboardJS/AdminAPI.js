@@ -47,7 +47,6 @@ function getNumberAnalysis(){
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
-            // alert(response);
             populateDom(JSON.parse(response));
         }else{
             alert(this.status);
@@ -433,6 +432,7 @@ function editFaculty(id, name, email){
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onload = function(){
             if(this.status == 200){
+                let response = this.responseText;
                 editFacModal(JSON.parse(response));
                 getFacultiesCreated();
             }else{

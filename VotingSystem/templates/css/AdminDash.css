@@ -14,7 +14,7 @@ body{
 .cont .sidebar{
     flex: 1;
     position: sticky;
-    background: #010C17;
+    background: #010c17;
 }
 .cont .sidebar .dashboard{
     display: flex;

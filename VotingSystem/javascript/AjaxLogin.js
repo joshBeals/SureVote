@@ -3,6 +3,7 @@
 let modal = document.getElementById('modal');
 let inner = document.getElementById('inner');
 let LoginBtn = document.getElementById('LoginBtn');
+let role = document.getElementById('role');
 let LoginID = document.getElementById('LoginID');
 let Password = document.getElementById('Password');
 
@@ -13,8 +14,7 @@ LoginBtn.addEventListener('click', e => {
     // REMOVE DEFAULT ACION
     e.preventDefault();
     
-    let array = ["logindetails=" + LoginID.value, Password.value];
-    //alert(array);
+    let array = ["logindetails=" + LoginID.value, Password.value, role.value];
 
     // CREATING THE AJAX OBJECT
     let xhr = new XMLHttpRequest();
@@ -61,7 +61,9 @@ function LogPOP(result){
         p.innerHTML = 'Something went wrong in your Login. Try again';
         a.innerHTML = 'Retry';
         a.setAttribute('id', 'retry');
-        a.setAttribute('href', 'loginTemp.php');
+        a.addEventListener('click', () => {
+            removeModal();
+        });
         inner.appendChild(h1);
         inner.appendChild(p);
         inner.appendChild(a);

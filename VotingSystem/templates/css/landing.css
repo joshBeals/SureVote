@@ -1,0 +1,171 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    background: url('../app_images/HD-Streets-of-Chicago-Wallpaper.jpg') center;
+    position: relative;
+    animation: anim 300ms ease-in-out;
+}
+.wrapper{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background: rgba(0,0,0,.8);
+}
+.header{
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+}
+.header .logo{
+    flex: 1;
+    /* font-family: 'Fresca', sans-serif; */
+    font-family: 'Pacifico', Maiandra Gd;
+    font-size: 30px;
+    color: #dce6dc;
+    text-align: left;
+    box-sizing: border-box;
+    padding: 10px 20px;
+}
+.header .menu{
+    flex: 1;
+}
+.wrapper .content{
+    font-family: 'Oleo Script Swash Caps', 'Maiandra Gd';
+    width: 100%;
+    height: calc(100% - 61px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    color: #dce6dc;
+}
+.wrapper .content .first{
+    flex: 1;
+    box-sizing: border-box;
+    padding-left: 50px;
+}
+.wrapper .content .first h3{
+    font-size: 50px;
+    padding: 0;
+    margin-bottom: 40px;
+}
+.wrapper .content .first p{
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+.wrapper .content h3 span{
+    color: #ee6910;
+}
+.wrapper .content .first button{
+    font-family: 'Alegreya Sans SC', 'Maiandra Gd';
+    padding: 10px 40px;
+    background: #3226e2;
+    box-shadow: 3px 3px 5px black;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    color: white;
+    transition: 300ms ease-in-out;
+    cursor: pointer;
+}
+.wrapper .content .first button:focus{
+    border: none;
+}
+.wrapper .content .first button:hover{
+    /* transform: scale(1.1); */
+    box-shadow: 5px 5px 5px black;
+    background: #ee6910;
+}
+.wrapper .content .second{
+    flex: 1;
+    box-sizing: border-box;
+    padding: 80px;
+}
+.wrapper .content .second .main{
+    width: 100%;
+    height: 100%;
+    /* background: #ee691098; */
+    color: black;
+    box-sizing: border-box;
+    padding: 20px;
+}
+.wrapper .content .second .main .box{
+    width: 100%;
+    height: 100px;
+    position: relative;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 300ms ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper .content .second .main .box a{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+.wrapper .content .second .main .box i{
+    flex: 1;
+    font-size: 18px;
+}
+.wrapper .content .second .main .box div{
+    flex: 2;
+    text-align: right;
+    box-sizing: border-box;
+    padding: 20px;
+}
+.wrapper .content .second .main .box div h4{
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
+.wrapper .content .second .main .box div p{
+    margin: 0;
+    padding: 0;
+}
+.wrapper .content .second .main .school{
+    background: #3226e2;
+    color: white;
+}
+.wrapper .content .second .main .school:hover{
+    background: white;
+    color: #3226e2;
+    transform: scale(1.1);
+}
+.wrapper .content .second .main .faculty{
+    background: #ee6910;
+    color: white;
+}
+.wrapper .content .second .main .faculty:hover{
+    background: white;
+    color: #ee6910;
+    transform: scale(1.1);
+}
+.wrapper .content .second .main .dept{
+    background: #0b996a;
+    color: white;
+    margin-bottom: 0px;
+}
+.wrapper .content .second .main .dept:hover{
+    background: white;
+    color: #0b996a;
+    transform: scale(1.1);
+}
+
+
+@keyframes anim{
+    0%{
+        opacity: 0;
+    }100%{
+        opacity: 1;
+    }
+}

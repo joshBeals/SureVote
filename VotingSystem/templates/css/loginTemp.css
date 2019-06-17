@@ -1,5 +1,5 @@
 body{
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Ubuntu', 'Maiandra Gd';
     padding: 0;
     margin: 0;
     width: 100%;
@@ -67,6 +67,7 @@ body{
     margin-bottom: 10px;
 }
 #LoginBtn{
+    font-family: 'Alegreya Sans SC', 'Maiandra Gd';
     box-sizing: border-box;
     padding: 15px;
     margin-top: 10px;
@@ -140,7 +141,7 @@ a:hover{
     height: 100%;
     background: rgba(0,0,0,.8);
     z-index: 5;
-    font-family: 'Alegreya Sans SC', sans-serif;
+    font-family: 'Alegreya Sans SC', 'Maiandra Gd';
 }
 .show{
     display: flex;
@@ -149,7 +150,7 @@ a:hover{
     display: none;
 }
 .cont .modal .inner{
-    font-family: 'Alegreya Sans SC', sans-serif;
+    font-family: 'Alegreya Sans SC', 'Maiandra Gd';
     text-align: center;
     box-sizing: border-box;
     border-radius: 3px;

@@ -15,19 +15,28 @@
         $username = $logindetails[0];
         $password = $logindetails[1];
 
+        $table = $logindetails[2];
+        if($table = 'school_admins'){
+            $val = 'school_id';
+        }else if($table = 'faculty_admins'){
+            $val = 'faculty_id';
+        }else if($table = 'departments'){
+            $val = 'dept_id';
+        }
+
         $mysqli = new mysqli('localhost', 'root', '', 'e-voting') or die(mysqli_error($mysqli));
         
-        $query1 = "SELECT COUNT(*) FROM school_admins WHERE admin_name = '$username'";
-        $query2 = "SELECT * FROM school_admins WHERE admin_name = '$username'";
-        $stmt = $mysqli->query($query2);
+        $query1 = "SELECT COUNT(*) FROM ".$table." WHERE admin_name = '$username'";
+        $query2 = "SELECT * FROM ".$table." WHERE admin_name = '$username'";
+        $stmt = $mysqli->query($query1);
         $result = $mysqli->query($query2);
         $data = false;
         if($result){           
-            while($row = $stmt->fetch_array()){
+            while($row = $result->fetch_array()){
                 $pass = password_verify($password, $row['admin_password']);
                 if(password_verify($password, $row['admin_password'])){
                     $data = true; 
-                    $id =  $row['school_id'];               
+                    $id =  $row[$val];               
                 }
             }
 
@@ -41,7 +50,7 @@
                 echo(json_encode($array));
             }
         }else{
-            $array = array('status'=>'0', 'message'=>'Your School isnt on the Database yet!');
+            $array = array('status'=>'0', 'message'=>"User isn't on the Database yet!");
             echo(json_encode($array));
         }
     }

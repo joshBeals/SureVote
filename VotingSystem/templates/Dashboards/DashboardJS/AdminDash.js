@@ -355,42 +355,6 @@ function editCandidate(name, matric, id){
     opts.value = '1';
     depts.appendChild(opts);
 
-    let labelection = document.createElement('p');
-    labelection.innerHTML = 'Candidate Election';
-    labelection.style.color = '#062A4A';
-    labelection.style.textAlign = 'left';
-    labelection.style.padding = '0'; labelection.style.margin = '0';
-    labelection.style.fontWeight = 'bold';
-
-    let elect = document.createElement('select');
-    elect.addEventListener('change', showPos1);
-    elect.style.width = '100%';
-    elect.style.padding = '5px';
-    elect.style.marginBottom = '10px';
-    // Getting elections
-    function getElections(){
-        // Creating the AJAX element to receive data
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../php/api/GetData/getElections.php?id='+schl_id.value, true);
-        xhr.onload = function(){
-            if(this.status == 200){
-                let result = JSON.parse(this.responseText);
-                elect.innerHTML = '';
-                for(let i = 0; i < result.length; i++){
-                    let opt = document.createElement('option');
-                    elect.options.add(opt);
-                    opt.text = result[i]['election_title'];
-                    opt.value = result[i]['election_id'];
-                    elect.appendChild(opt);
-                    showPos1();
-                }
-            }else{
-                alert(this.status);
-            }
-        }
-        xhr.send();
-    }
-
     let labpos = document.createElement('p');
     labpos.innerHTML = 'Candidate Position';
     labpos.style.color = '#062A4A';
@@ -403,26 +367,24 @@ function editCandidate(name, matric, id){
     pos.style.padding = '5px';
     pos.style.marginBottom = '20px';
     // Function to get all the positions registered
-    function showPos1(){
-        if(elect.value != ''){
-            // Creating the AJAX element to add positions
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', '../../php/api/GetData/getPositions.php?id='+elect.value, true);
-            xhr.onload = function(){
-                if(this.status == 200){
-                    let response = JSON.parse(this.responseText);
-                    pos.innerHTML = '';
-                    for(let i = 0; i < response.length; i++){
-                        let opt = document.createElement('option');
-                        pos.options.add(opt);
-                        opt.text = response[i]['position_name'];
-                        opt.value = response[i]['position_id'];
-                        pos.appendChild(opt);
-                    }
+    if(candElectList.value != ''){
+        // Creating the AJAX element to add positions
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../php/api/GetData/getPositions.php?id='+candElectList.value, true);
+        xhr.onload = function(){
+            if(this.status == 200){
+                let response = JSON.parse(this.responseText);
+                pos.innerHTML = '';
+                for(let i = 0; i < response.length; i++){
+                    let opt = document.createElement('option');
+                    pos.options.add(opt);
+                    opt.text = response[i]['position_name'];
+                    opt.value = response[i]['position_id'];
+                    pos.appendChild(opt);
                 }
             }
-            xhr.send();
         }
+        xhr.send();
     }
 
     let btnDiv = document.createElement('div');
@@ -433,7 +395,23 @@ function editCandidate(name, matric, id){
     edit.className = 'btn btn-primary';
     edit.style.marginRight = '10px';
     edit.addEventListener('click', () => {
-        removeModal();
+        let arr = ['editCand='+txtname.value, txtmatric.value, faculties.value, depts.value,pos.value, cand_id];
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../php/api/sendData/editCandidates.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function(){
+            if(this.status == 200){
+                let response = this.responseText;
+                editCandModal(JSON.parse(response));
+                showCand();
+            }else{
+                alert(this.status);
+            }
+        }
+        xhr.send(arr);
+        // POPING OUT THE MODAL
+        inner1.innerHTML = '';
+        modal1.style.display = 'flex';
     });
 
     let exit = document.createElement('button');
@@ -447,7 +425,6 @@ function editCandidate(name, matric, id){
     btnDiv.appendChild(exit);
 
     getFaculties();
-    getElections();
     
     inner1.appendChild(h3);
     inner1.appendChild(labname);
@@ -458,8 +435,6 @@ function editCandidate(name, matric, id){
     inner1.appendChild(faculties);
     inner1.appendChild(labdept);
     inner1.appendChild(depts);
-    inner1.appendChild(labelection);
-    inner1.appendChild(elect);
     inner1.appendChild(labpos);
     inner1.appendChild(pos);
     inner1.appendChild(btnDiv);
@@ -597,6 +572,38 @@ function deletePosition(id){
     inner1.innerHTML += 'Are You Sure You Want To Delete This Position?'+'<br>';
     inner1.appendChild(ok);
     inner1.appendChild(cancel);
+}
+
+// Edit Modal Pop up
+function editCandModal(result){
+    // ELEMENTS TO POPULATE THE MODAL
+    let h3 = document.createElement('h3');
+    let p = document.createElement('p');
+    let a = document.createElement('a');
+
+    if(result['status'] == '1'){
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'This candidate was updated successfully!';
+        a.innerHTML = 'Continue';
+        a.setAttribute('id', 'continue');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }else{
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'Something went wrong';
+        a.innerHTML = 'Retry';
+        a.setAttribute('id', 'retry');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }
 }
 
 // Edit Modal Pop up

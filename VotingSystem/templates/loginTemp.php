@@ -10,6 +10,24 @@
     <title>SureVote</title>
 </head>
 <body>
+<?php
+    if(isset($_GET['role'])){
+        $role = $_GET['role'];
+        switch($role){
+            case 101:
+                $tbName = 'school_admins';
+                break;
+            case 202:
+                $tbName = 'faculty_admins';
+                break;
+            case 303:
+                $tbName = 'departments';
+                break;
+        }
+    }else{
+        header('location: landing.php');
+    }
+?>
     <div class="cont">
         <div class="left">
             <div class="logo">
@@ -19,6 +37,7 @@
                 <div>
                 <h3>Login To SureVote</h3> 
                 <form action="../php/validate.php" method="POST">
+                    <input type="hidden" name="role" id="role" value="<?php echo($tbName) ?>">
                     <label for="loginID">LoginID</label>
                     <input type="text" name="loginID" id="LoginID" required>
                     <label for="password">Password</label>
