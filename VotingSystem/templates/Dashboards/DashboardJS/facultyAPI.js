@@ -1,9 +1,9 @@
 // Targetting DOM Elements
 // emma 81518022 // science 98110812
 // aaa 00840899
-let facultiesRegistered = document.getElementById('facultiesRegistered');
 let departmentsRegistered = document.getElementById('departmentsRegistered');
-let ElectionsConducted = document.getElementById('ElectionsConducted');
+let ElectionsCreated = document.getElementById('ElectionsCreated');
+let SchoolElections = document.getElementById('SchoolElections');
 let RegisteredVoters = document.getElementById('RegisteredVoters');
 let SchoolsRegistered = document.getElementById('SchoolsRegistered');
 let TotalAppUsers = document.getElementById('TotalAppUsers');
@@ -11,9 +11,9 @@ let VotersNumbers = document.getElementById('VotersNumbers');
 let ElectionsStarted = document.getElementById('ElectionsStarted');
 
 // Targetting the faculty registration 
-let faculty_name = document.getElementById('faculty_name');
-let faculty_email = document.getElementById('faculty_email');
-let school_id = document.getElementById('school_id');
+let dept_name = document.getElementById('dept_name');
+let dept_email = document.getElementById('dept_email');
+let faculty_id = document.getElementById('faculty_id');
 let RegisterBtn = document.getElementById('RegisterBtn');
 let modal = document.getElementById('modal');
 let inner = document.getElementById('inner');
@@ -22,7 +22,7 @@ let inner = document.getElementById('inner');
 let title = document.getElementById('title');
 let descrip = document.getElementById('descrip');
 let addElec = document.getElementById('addElec');
-let sch_id = document.getElementById('sch_id');
+let fac_id = document.getElementById('fac_id');
 
 // Targetting the Add Candidates
 let candFac = document.getElementById('candFac');
@@ -43,7 +43,7 @@ getFacultiesCreated();
 function getNumberAnalysis(){
     // Creating the AJAX element to receive data
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../php/api/GetData/numberAnalysis.php?id='+school_id.value, true);
+    xhr.open('GET', '../../php/api/GetData/numberAnalysisFac.php?id='+faculty_id.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
@@ -59,7 +59,7 @@ function getNumberAnalysis(){
 function getFacultiesCreated(){
     // Creating the AJAX element to receive data
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../php/api/GetData/getFaculties.php?id='+school_id.value, true);
+    xhr.open('GET', '../../php/api/GetData/getFaculties.php?id='+faculty_id.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
@@ -81,9 +81,9 @@ function viewFaculties(result){
         let td = document.createElement('td');
         td.innerHTML = (i+1);
         let td1 = document.createElement('td');
-        td1.innerHTML = result[i]['faculty_name'];
+        td1.innerHTML = result[i]['dept_name'];
         let td2 = document.createElement('td');
-        td2.innerHTML = result[i]['faculty_email'];
+        td2.innerHTML = result[i]['dept_email'];
         let td3 = document.createElement('td');
         td3.innerHTML = result[i]['created_at'];
         let td4 = document.createElement('button');
@@ -91,14 +91,14 @@ function viewFaculties(result){
         td4.style.margin = '5px';
         td4.innerHTML = 'Edit';
         td4.addEventListener('click', () => {
-            editFaculty(result[i]['faculty_id'], result[i]['faculty_name'], result[i]['faculty_email']);
+            editFaculty(result[i]['dept_id'], result[i]['dept_name'], result[i]['dept_email']);
         });
         let td5 = document.createElement('button');
         td5.setAttribute('class', 'btn btn-danger btn-sm');
         td5.style.margin = '5px';
         td5.innerHTML = 'delete';
         td5.addEventListener('click', () => {
-            deleteFaculty(result[i]['faculty_id']);
+            deleteFaculty(result[i]['dept_id']);
         });
 
 
@@ -116,7 +116,7 @@ function viewFaculties(result){
 function getElectionsCreated(){
     // Creating the AJAX element to receive data
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../php/api/GetData/getElections.php?id='+school_id.value, true);
+    xhr.open('GET', '../../php/api/GetData/getElections.php?id='+faculty_id.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
@@ -136,7 +136,7 @@ addElec.addEventListener('click', e => {
 
     e.preventDefault();
 
-    let electArr = ['election='+title.value, descrip.value, sch_id.value];
+    let electArr = ['election='+title.value, descrip.value, fac_id.value];
     title.value = '';
     descrip.value = '';
     sch_id.value = '';
@@ -165,10 +165,10 @@ RegisterBtn.addEventListener('click', e => {
 
     e.preventDefault();
 
-    let arr = ['arr='+faculty_name.value, faculty_email.value, school_id.value];
+    let arr = ['arr='+faculty_name.value, faculty_email.value, faculty_id.value];
     faculty_name.value = '';
     faculty_email.value = '';
-    school_id.value = '';
+    faculty_id.value = '';
 
     // Creating the AJAX element to receive data
     let xhr = new XMLHttpRequest();
@@ -192,9 +192,10 @@ RegisterBtn.addEventListener('click', e => {
 // Function to populate informations for the admin to see.
 function populateDom(result){
     SchoolsRegistered.innerHTML = result['NumberOfSchools'];
-    TotalAppUsers.innerHTML = result['NumberOfSchools'] + result['TotalFaculties'];
-    facultiesRegistered.innerHTML = result['NumberOfFaculties'];
-    ElectionsConducted.innerHTML = result['NumberOfElectionsCreated'];
+    TotalAppUsers.innerHTML = result['NumberOfSchools'] + result['TotalFaculties'] + result['TotalDepts'];
+    departmemtsRegistered.innerHTML = result['NumberOfDepartments'];
+    ElectionsCreated.innerHTML = result['NumberOfFacElectionsCreated'];
+    SchoolElections.innerHTML = result['NumberOfElectionsCreated'];
 }
 
 // Function to populate the elections on the positions board

@@ -17,7 +17,7 @@ body{
     background: #010c17;
 }
 .cont .sidebar .dashboard{
-    font-family: 'Pacifico', 'Maiandra Gd';
+    font-family: 'Maiandra Gd';
     display: flex;
     justify-content: flex-start;
     align-items: center;

@@ -43,7 +43,8 @@
 
             if($data == true){
                 session_start();
-                $_SESSION['login'] = '1';
+                $_SESSION['login'] = true;
+                $_SESSION['id'] = $id;
                 $array = array('status'=>'1', 'message'=>'Login Successful', 'id'=>$id, 'role'=>$logindetails[2]);
                 echo(json_encode($array));
             }else{

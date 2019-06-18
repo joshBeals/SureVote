@@ -12,7 +12,7 @@
 <body>
     <?php
     session_start();
-    if(!isset($_GET['school'])){
+    if(!isset($_GET['school']) || ($_GET['school'] != $_SESSION['id'])){
         session_unset();
     }
     if(!isset($_SESSION['login'])){
@@ -253,7 +253,7 @@
                         <input type="email" name="faculty_email" id="faculty_email" required>
                         <input type="submit" name="register" value="Register" id="RegisterBtn">
                     </form>
-                    <p>Do you have an account? <a href="">LOGIN</a></p>   
+                    <p>Do you have an account? <a href="../loginTemp.php">LOGIN</a></p>   
                     </div>
                 </div>
                 </div>

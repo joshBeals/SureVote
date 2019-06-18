@@ -12,9 +12,12 @@
 <body>
     <?php
     session_start();
-    if(!isset($_GET['faculty'])){
+    if(!isset($_GET['faculty']) || ($_GET['faculty'] != $_SESSION['id'])){
         session_unset();
+    }else{
+        
     }
+
     if(!isset($_SESSION['login'])){
         header('location: ../loginTemp.php');
     }
@@ -141,15 +144,15 @@
                         <div class="boxes" id="elections">
                             <i class="fas fa-poll-h"></i> 
                             <div class="info">
-                                <h2 id='ElectionsConducted'>0</h2>
-                                <p>School Elections Created</p>
+                                <h2 id='ElectionsCreated'>0</h2>
+                                <p>Elections Created</p>
                             </div>
                         </div>
                         <div class="boxes" id="elections">
                             <i class="fas fa-poll-h"></i> 
                             <div class="info">
-                                <h2 id='ElectionsConducted'>0</h2>
-                                <p>Faculty Elections Created</p>
+                                <h2 id='SchoolElections'>0</h2>
+                                <p>School Elections</p>
                             </div>
                         </div>
                         <div class="boxes" id="voters">
@@ -212,8 +215,8 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Faculty Name</th>
-                            <th>Faculty Email</th>
+                            <th>Department Name</th>
+                            <th>Department Email</th>
                             <th>Created at</th>
                             <th colspan="3">Operations</th>
                         </tr>
@@ -230,16 +233,16 @@
                 <div class="fff">
                 <div class="left">
                     <div>
-                    Register Faculties under your school here.
-                    These would enable the reistered faculties conduct 
+                    Register Departments under your Faculty here.
+                    These would enable the reistered departments conduct 
                     their sub elections without disturbing the school authority
                     </div>
                 </div>
                 <div class="right">
                     <div>
-                    <h3>Register Faculty on SureVote</h3>
+                    <h3>Register Department on SureVote</h3>
                     <form action="" method="POST">
-                        <input type="hidden" id="school_id" value=
+                        <input type="hidden" id="faculty_id" value=
                         <?php 
                         if (isset($_GET['faculty'])){
                             echo($_GET['faculty']);
@@ -247,13 +250,13 @@
                             session_unset();
                         }
                         ?>>
-                        <label for="faculty_name">Faculty Name</label>
-                        <input type="text" name="faculty_name" id="faculty_name" required>
-                        <label for="faculty_email">Faculty Email</label>
-                        <input type="email" name="faculty_email" id="faculty_email" required>
+                        <label for="dept_name">Department Name</label>
+                        <input type="text" name="dept_name" id="dept_name" required>
+                        <label for="dept_email">Department Email</label>
+                        <input type="email" name="dept_email" id="dept_email" required>
                         <input type="submit" name="register" value="Register" id="RegisterBtn">
                     </form>
-                    <p>Do you have an account? <a href="">LOGIN</a></p>   
+                    <p>Do you have an account? <a href="../loginTemp.php">LOGIN</a></p>   
                     </div>
                 </div>
                 </div>

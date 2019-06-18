@@ -6,14 +6,21 @@
         private $conn;
         private $schooltable = 'schools';
         private $facultytable = 'faculties';
+        private $deptable = 'departments';
+        private $faculty_elections = 'faculty_elections';
         private $school_elections = 'school_elections';
 
-        // Variables
+        // Faculty Variables
         public $faculty_name;
         public $faculty_email;
         public $election_title;
         public $election_description;
         public $school_id;
+
+        // Department Variables
+        public $dept_name;
+        public $dept_email;
+        public $faculty_id;
 
         public function __construct($db){
             $this->conn = $db;
@@ -36,9 +43,28 @@
                 return null;
             }
         }
+
         // Get All Faculties
         public function readFaculties(){
             $query = 'SELECT * FROM '. $this->facultytable .'';
+
+            // Prepred statement
+            $stmt = $this->conn->prepare($query);
+
+            // Execute the statement
+            $stmt->execute();
+
+            // Return the data
+            if($stmt){
+                return $stmt;
+            }else{
+                return null;
+            }
+        }
+
+        // Get All Faculties
+        public function readDepts(){
+            $query = 'SELECT * FROM '. $this->deptable .'';
 
             // Prepred statement
             $stmt = $this->conn->prepare($query);
@@ -72,6 +98,39 @@
             }
         }
 
+        // Get Faculties of a particular school
+        public function readDepartment($facID){
+            // Create Table
+            $query = "CREATE TABLE IF NOT EXISTS departments (
+                dept_id INT(11) NOT NULL AUTO_INCREMENT,
+                dept_name VARCHAR(255) NOT NULL,
+                dept_email VARCHAR(255) NOT NULL,
+                faculty_id INT(11),
+                created_at DATETIME NOT NULL,
+                PRIMARY KEY(dept_id),
+                FOREIGN KEY (faculty_id) REFERENCES faculties(faculty_id)
+            )";
+
+            $stmt = $this->conn->prepare($query);
+
+            if($stmt->execute()){
+                $query = "SELECT * FROM ". $this->deptable ." WHERE faculty_id=$facID";  
+
+                // Prepared statement
+                $stmt = $this->conn->prepare($query);
+    
+                // Execute the statement
+                $stmt->execute();
+    
+                // Return the data
+                if($stmt){
+                    return $stmt;
+                }else{
+                    return null;
+                }
+            }
+        }
+
         // Get Elections from a particular school
         public function readElections($schID){
             // Create Table
@@ -89,6 +148,38 @@
 
             if($stmt->execute()){
                 $query = "SELECT * FROM ". $this->school_elections ." WHERE school_id=$schID";  
+
+                // Prepared statement
+                $stmt = $this->conn->prepare($query);
+
+                // Execute the statement
+                $stmt->execute();
+
+                // Return the data
+                if($stmt){
+                    return $stmt;
+                }else{
+                    return null;
+                }
+            }
+        }
+
+        public function readFacElections($facID){
+            // Create Table
+            $query = "CREATE TABLE IF NOT EXISTS faculty_elections (
+                election_id INT(11) NOT NULL AUTO_INCREMENT,
+                election_title VARCHAR(255) NOT NULL,
+                election_description VARCHAR(255) NOT NULL,
+                faculty_id INT(11),
+                created_at DATETIME NOT NULL,
+                PRIMARY KEY(election_id),
+                FOREIGN KEY (faculty_id) REFERENCES faculties(faculty_id)
+            )";
+
+            $stmt = $this->conn->prepare($query);
+
+            if($stmt->execute()){
+                $query = "SELECT * FROM ". $this->faculty_elections ." WHERE faculty_id=$facID";  
 
                 // Prepared statement
                 $stmt = $this->conn->prepare($query);
