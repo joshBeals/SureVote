@@ -327,7 +327,32 @@ function candidateFaculties(result){
         opt.text = result[i]['faculty_name'];
         opt.value = result[i]['faculty_id'];
         candFac.appendChild(opt);
-        // showDept();
+        showDept();
+    }
+}
+
+function showDept(){
+    // Creating the AJAX element to add positions
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '../../php/api/GetData/getFacDept.php?id='+candFac.value, true);
+    xhr.onload = function(){
+        if(this.status == 200){
+            let response = this.responseText;
+            candidateDepts(JSON.parse(response));
+        }
+    }
+    xhr.send();
+}
+
+// Function to populate the faculties on the candidates board
+function candidateDepts(result){
+    candDept.innerHTML = '';
+    for(let i = 0; i < result.length; i++){
+        let opt = document.createElement('option');
+        candDept.options.add(opt);
+        opt.text = result[i]['dept_name'];
+        opt.value = result[i]['dept_id'];
+        candDept.appendChild(opt);
     }
 }
 

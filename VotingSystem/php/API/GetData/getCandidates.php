@@ -38,6 +38,7 @@ if($stmt->execute()){
                 election_candidates.candidate_matric, 
                 election_candidates.faculty_id, 
                 faculties.faculty_name,
+                departments.dept_name,
                 election_candidates.dept_id, 
                 election_positions.position_id,
                 election_positions.position_name
@@ -51,6 +52,10 @@ if($stmt->execute()){
                 faculties
             ON
                 election_candidates.faculty_id = faculties.faculty_id)
+            INNER JOIN
+                departments
+            ON
+                election_candidates.dept_id = departments.dept_id
             WHERE
                 election_candidates.election_id = $id
             ORDER BY
@@ -72,6 +77,7 @@ if($stmt->execute()){
                 'faculty_id' => $faculty_id,
                 'faculty_name' => $faculty_name,
                 'dept_id' => $dept_id,
+                'dept_name' => $dept_name,
                 'position_id' => $position_id,
                 'position_name' => $position_name
             );

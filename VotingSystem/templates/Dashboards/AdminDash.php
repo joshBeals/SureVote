@@ -440,11 +440,9 @@
                         <h6>Candidate Matric No.</h6>
                         <input type="text" id="candMatric">
                         <h6>Faculty</h6>
-                        <select id="candFac"></select>
+                        <select id="candFac" onchange='showDept()'></select>
                         <h6>Department</h6>
-                        <select id="candDept">
-                            <option value="1">default</option>
-                        </select>
+                        <select id="candDept"></select>
                         <h6>Election</h6>
                         <select id="candElec" onchange='showPos()'></select>
                         <h6>Position</h6>

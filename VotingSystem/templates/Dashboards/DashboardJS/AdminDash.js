@@ -235,7 +235,7 @@ function popCand(result){
         let td3 = document.createElement('td');
         td3.innerHTML = result[i]['faculty_name'];
         let td4 = document.createElement('td');
-        td4.innerHTML = 'Depertment';
+        td4.innerHTML = result[i]['dept_name'];
         let td5 = document.createElement('td');
         td5.innerHTML = result[i]['position_name'];
         let td6 = document.createElement('button');
@@ -315,6 +315,7 @@ function editCandidate(name, matric, id){
     labfaculty.style.fontWeight = 'bold';
 
     let faculties = document.createElement('select');
+    faculties.addEventListener('change', getDepts);
     faculties.style.width = '100%';
     faculties.style.padding = '5px';
     faculties.style.marginBottom = '10px';
@@ -334,6 +335,7 @@ function editCandidate(name, matric, id){
                     opt.value = response[i]['faculty_id'];
                     faculties.appendChild(opt);
                 }
+                getDepts();
             }else{
                 alert(this.status);
             }
@@ -352,11 +354,28 @@ function editCandidate(name, matric, id){
     depts.style.width = '100%';
     depts.style.padding = '5px';
     depts.style.marginBottom = '10px';
-    let opts = document.createElement('option');
-    depts.options.add(opts);
-    opts.text = 'default';
-    opts.value = '1';
-    depts.appendChild(opts);
+    // Function to get all the faculties registered
+    function getDepts(){
+        // Creating the AJAX element to receive data
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', '../../php/api/GetData/getFacDept.php?id='+faculties.value, true);
+        xhr.onload = function(){
+            if(this.status == 200){
+                let response = JSON.parse(this.responseText);
+                depts.innerHTML = '';
+                for(let i = 0; i < response.length; i++){
+                    let opt = document.createElement('option');
+                    depts.options.add(opt);
+                    opt.text = response[i]['dept_name'];
+                    opt.value = response[i]['dept_id'];
+                    depts.appendChild(opt);
+                }
+            }else{
+                alert(this.status);
+            }
+        }
+        xhr.send();
+    }
 
     let labpos = document.createElement('p');
     labpos.innerHTML = 'Candidate Position';
