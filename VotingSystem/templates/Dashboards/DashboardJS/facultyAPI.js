@@ -1,6 +1,5 @@
 // Targetting DOM Elements
-// emma 81518022 // science 98110812
-// aaa 00840899
+// bowenuniverity 28888505 SCH
 let departmentsRegistered = document.getElementById('departmentsRegistered');
 let ElectionsCreated = document.getElementById('ElectionsCreated');
 let SchoolElections = document.getElementById('SchoolElections');
@@ -10,13 +9,6 @@ let TotalAppUsers = document.getElementById('TotalAppUsers');
 let VotersNumbers = document.getElementById('VotersNumbers');
 let ElectionsStarted = document.getElementById('ElectionsStarted');
 
-// Targetting the faculty registration 
-let dept_name = document.getElementById('dept_name');
-let dept_email = document.getElementById('dept_email');
-let faculty_id = document.getElementById('faculty_id');
-let RegisterBtn = document.getElementById('RegisterBtn');
-let modal = document.getElementById('modal');
-let inner = document.getElementById('inner');
 
 // Targetting the Add Election
 let title = document.getElementById('title');
@@ -36,17 +28,18 @@ let addCand = document.getElementById('addCand');
 
 // Calling functions
 getNumberAnalysis();
-getElectionsCreated();
-getFacultiesCreated();
+// getElectionsCreated();
+getDeptCreated();
 
 // Function to get NumberAnalysis
 function getNumberAnalysis(){
     // Creating the AJAX element to receive data
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../php/api/GetData/numberAnalysisFac.php?id='+faculty_id.value, true);
+    xhr.open('GET', '../../php/api/GetData/numberAnalysisFac.php?id='+fac_id.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
+            alert(response);
             populateDom(JSON.parse(response));
         }else{
             alert(this.status);
@@ -56,10 +49,10 @@ function getNumberAnalysis(){
 }
 
 // Function to get all the faculties registered
-function getFacultiesCreated(){
+function getDeptCreated(){
     // Creating the AJAX element to receive data
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../php/api/GetData/getFaculties.php?id='+faculty_id.value, true);
+    xhr.open('GET', '../../php/api/GetData/getDept.php?id='+faculty_id.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
@@ -72,65 +65,25 @@ function getFacultiesCreated(){
     xhr.send();
 }
 
-// Function to view faculties
-function viewFaculties(result){
-    let tbodyF = document.getElementById('tbodyF');
-    tbodyF.innerHTML = '';
-    for(let i = 0; i < result.length; i++){
-        let tr = document.createElement('tr');
-        let td = document.createElement('td');
-        td.innerHTML = (i+1);
-        let td1 = document.createElement('td');
-        td1.innerHTML = result[i]['dept_name'];
-        let td2 = document.createElement('td');
-        td2.innerHTML = result[i]['dept_email'];
-        let td3 = document.createElement('td');
-        td3.innerHTML = result[i]['created_at'];
-        let td4 = document.createElement('button');
-        td4.setAttribute('class', 'btn btn-info btn-sm');
-        td4.style.margin = '5px';
-        td4.innerHTML = 'Edit';
-        td4.addEventListener('click', () => {
-            editFaculty(result[i]['dept_id'], result[i]['dept_name'], result[i]['dept_email']);
-        });
-        let td5 = document.createElement('button');
-        td5.setAttribute('class', 'btn btn-danger btn-sm');
-        td5.style.margin = '5px';
-        td5.innerHTML = 'delete';
-        td5.addEventListener('click', () => {
-            deleteFaculty(result[i]['dept_id']);
-        });
-
-
-        tr.appendChild(td);
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td4);
-        tr.appendChild(td5);
-        tbodyF.appendChild(tr);
-    }
-}
-
 // Function to get all the elections created
-function getElectionsCreated(){
-    // Creating the AJAX element to receive data
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../php/api/GetData/getElections.php?id='+faculty_id.value, true);
-    xhr.onload = function(){
-        if(this.status == 200){
-            let response = this.responseText;
-            // alert(response);
-            popElections(JSON.parse(response));
-            popPositions(JSON.parse(response));
-            candidateElection(JSON.parse(response));
-            viewCandElect(JSON.parse(response));
-        }else{
-            alert(this.status);
-        }
-    }
-    xhr.send();
-}
+// function getElectionsCreated(){
+//     // Creating the AJAX element to receive data
+//     let xhr = new XMLHttpRequest();
+//     xhr.open('GET', '../../php/api/GetData/getFacElections.php?id='+fac_id.value, true);
+//     xhr.onload = function(){
+//         if(this.status == 200){
+//             let response = this.responseText;
+//             alert(response);
+//             // popElections(JSON.parse(response));
+//             // popPositions(JSON.parse(response));
+//             // candidateElection(JSON.parse(response));
+//             viewCandElect(JSON.parse(response));
+//         }else{
+//             alert(this.status);
+//         }
+//     }
+//     xhr.send();
+// }
 
 addElec.addEventListener('click', e => {
 
@@ -159,34 +112,6 @@ addElec.addEventListener('click', e => {
     // POPING OUT THE MODAL
     modal.style.display = 'flex';
 
-});
-
-RegisterBtn.addEventListener('click', e => {
-
-    e.preventDefault();
-
-    let arr = ['arr='+faculty_name.value, faculty_email.value, faculty_id.value];
-    faculty_name.value = '';
-    faculty_email.value = '';
-    faculty_id.value = '';
-
-    // Creating the AJAX element to receive data
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../php/api/sendData/registerFaculty.php', true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.onload = function(){
-        if(this.status == 200){
-            let response = this.responseText;
-            // alert(response);
-            RegPOP(JSON.parse(response));
-        }else{
-            alert(this.status);
-        }
-    }
-    xhr.send(arr);
-
-    // POPING OUT THE MODAL
-    modal.style.display = 'flex';
 });
 
 // Function to populate informations for the admin to see.
@@ -364,7 +289,6 @@ function popElections(result){
             deleteElection(result[i]['election_id']);
         });
 
-
         tr.appendChild(td);
         tr.appendChild(td1);
         tr.appendChild(td2);
@@ -374,213 +298,6 @@ function popElections(result){
         tr.appendChild(td6);
         tbody.appendChild(tr);
     }
-}
-
-// Function to edit a faculty
-function editFaculty(id, name, email){
-    fac_id = id;
-    fac_name = name;
-    fac_email = email;
-
-    // POPING OUT THE MODAL
-    inner.innerHTML = '';
-    modal.style.display = 'flex';
-
-    // Creating the DOM elements
-    let topic = document.createElement('h3');
-    topic.innerHTML = 'Edit Faculty';
-    topic.style.marginBottom = '20px';
-
-    let lab1 = document.createElement('p');
-    lab1.innerHTML = 'Faculty Name';
-    lab1.style.padding = '0';
-    lab1.style.marginBottom = '3px';
-    lab1.style.textAlign = 'left';
-    lab1.style.fontWeight = 'bold';
-
-    let lab2 = document.createElement('p');
-    lab2.innerHTML = 'Faculty Email';
-    lab2.style.padding = '0';
-    lab2.style.marginBottom = '3px';
-    lab2.style.textAlign = 'left';
-    lab2.style.fontWeight = 'bold';
-
-    let txt1 = document.createElement('input');
-    txt1.setAttribute('type', 'text');
-    txt1.style.padding = '3px';
-    txt1.style.width = '100%';
-    txt1.style.marginBottom = '10px';
-    txt1.value = fac_name;
-
-    let txt2 = document.createElement('input');
-    txt2.setAttribute('type', 'text');
-    txt2.style.padding = '3px';
-    txt2.style.width = '100%';
-    txt2.style.marginBottom = '10px';
-    txt2.value = fac_name;
-
-    let btnDiv = document.createElement('div');
-    btnDiv.style.display = 'flex';
-
-    let btn = document.createElement('button');
-    btn. className = 'btn btn-primary btn-sm';
-    btn.style.marginRight = '10px';
-    btn.innerHTML = 'Save';
-    btn.addEventListener('click', () => {
-        let arr = ['editFac='+txt1.value, txt2.value, fac_id];
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../php/api/sendData/editFaculty.php', true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.onload = function(){
-            if(this.status == 200){
-                let response = this.responseText;
-                editFacModal(JSON.parse(response));
-                getFacultiesCreated();
-            }else{
-                alert(this.status);
-            }
-        }
-        xhr.send(arr);
-        // POPING OUT THE MODAL
-        inner1.innerHTML = '';
-        modal1.style.display = 'flex';
-    });
-
-    let exit = document.createElement('button');
-    exit.innerHTML = 'Cancel';
-    exit.className = 'btn btn-danger btn-sm';
-    exit.addEventListener('click', () => {
-        removeModal();
-    });
-
-    btnDiv.appendChild(btn);
-    btnDiv.appendChild(exit);
-
-    inner.appendChild(topic);
-    inner.appendChild(lab1);
-    inner.appendChild(txt1);
-    inner.appendChild(lab2);
-    inner.appendChild(txt2);
-    inner.appendChild(btnDiv);
-}
-
-// Function to edit an election
-function editElection(id, name, descrip){
-    elec_id = id;
-    elec_name = name;
-    elec_descrip = descrip;
-
-    // POPING OUT THE MODAL
-    inner.innerHTML = '';
-    modal.style.display = 'flex';
-
-    // Creating the DOM elements
-    let topic = document.createElement('h3');
-    topic.innerHTML = 'Edit Election';
-    topic.style.marginBottom = '20px';
-
-    let lab1 = document.createElement('p');
-    lab1.innerHTML = 'Election Name';
-    lab1.style.padding = '0';
-    lab1.style.marginBottom = '3px';
-    lab1.style.textAlign = 'left';
-    lab1.style.fontWeight = 'bold';
-
-    let lab2 = document.createElement('p');
-    lab2.innerHTML = 'Election Description';
-    lab2.style.padding = '0';
-    lab2.style.marginBottom = '3px';
-    lab2.style.textAlign = 'left';
-    lab2.style.fontWeight = 'bold';
-
-    let txt1 = document.createElement('input');
-    txt1.setAttribute('type', 'text');
-    txt1.style.padding = '3px';
-    txt1.style.width = '100%';
-    txt1.style.marginBottom = '10px';
-    txt1.value = elec_name;
-
-    let txt2 = document.createElement('textarea');
-    txt2.setAttribute('row', '3');
-    txt2.style.padding = '3px';
-    txt2.style.width = '100%';
-    txt2.style.marginBottom = '10px';
-    txt2.value = elec_descrip;
-
-    let btn = document.createElement('button');
-    btn. className = 'btn btn-primary btn-sm';
-    btn.style.margin = '0';
-    btn.style.width = '100%';
-    btn.innerHTML = 'Save';
-    btn.addEventListener('click', () => {
-        let arr = ['editElec='+txt1.value, txt2.value, elec_id];
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../php/api/sendData/editElection.php', true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.onload = function(){
-            if(this.status == 200){
-                let response = this.responseText;
-                editElecModal(JSON.parse(response));
-                getElectionsCreated();
-            }else{
-                alert(this.status);
-            }
-        }
-        xhr.send(arr);
-        // POPING OUT THE MODAL
-        inner1.innerHTML = '';
-        modal1.style.display = 'flex';
-    });
-
-    inner.appendChild(topic);
-    inner.appendChild(lab1);
-    inner.appendChild(txt1);
-    inner.appendChild(lab2);
-    inner.appendChild(txt2);
-    inner.appendChild(btn);
-}
-
-// Function to delete a faculty
-function deleteFaculty(id){
-    // POPING OUT THE MODAL
-    inner.innerHTML = '';
-    modal.style.display = 'flex';
-
-    let ok = document.createElement('button');
-    ok.style.margin = '10px';
-    ok.setAttribute('class', 'btn btn-primary btn-md');
-    ok.innerHTML = 'Yes';
-    ok.addEventListener('click', () => {
-        let arr = ['delete='+id];
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../php/api/sendData/deleteFaculty.php', true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.onload = function(){
-            if(this.status == 200){
-                let response = this.responseText;
-                delFacModal(JSON.parse(response));
-                getFacultiesCreated();
-            }else{
-                alert(this.status);
-            }
-        }
-        xhr.send(arr);
-        // POPING OUT THE MODAL
-        inner.innerHTML = '';
-        modal.style.display = 'flex';
-    });
-
-    let cancel = document.createElement('button');
-    cancel.style.margin = '10px';
-    cancel.setAttribute('class', 'btn btn-danger btn-md');
-    cancel.innerHTML = 'No';
-    cancel.addEventListener('click', () => {
-        removeModal();
-    });
-
-    inner1.innerHTML += 'Are You Sure You Want To Delete This Faculty?'+'<br>';
-    inner1.appendChild(ok);
-    inner1.appendChild(cancel);
 }
 
 // Function to delete an election
@@ -627,38 +344,6 @@ function deleteElection(id){
 }
 
 // Edit Modal PoPup
-function editFacModal(result){
-    // ELEMENTS TO POPULATE THE MODAL
-    let h3 = document.createElement('h3');
-    let p = document.createElement('p');
-    let a = document.createElement('a');
-
-    if(result['status'] == '1'){
-        h3.innerHTML = result['message'];
-        p.innerHTML = 'This faculty was edited successfully!';
-        a.innerHTML = 'Continue';
-        a.setAttribute('id', 'continue');
-        inner.appendChild(h3);
-        inner.appendChild(p);
-        inner.appendChild(a);
-        a.addEventListener('click', () => {
-            removeModal();
-        });
-    }else{
-        h3.innerHTML = result['message'];
-        p.innerHTML = 'Something went wrong';
-        a.innerHTML = 'Retry';
-        a.setAttribute('id', 'retry');
-        inner.appendChild(h3);
-        inner.appendChild(p);
-        inner.appendChild(a);
-        a.addEventListener('click', () => {
-            removeModal();
-        });
-    }
-}
-
-// Edit Modal PoPup
 function editElecModal(result){
     // ELEMENTS TO POPULATE THE MODAL
     let h3 = document.createElement('h3');
@@ -668,38 +353,6 @@ function editElecModal(result){
     if(result['status'] == '1'){
         h3.innerHTML = result['message'];
         p.innerHTML = 'This election was edited successfully!';
-        a.innerHTML = 'Continue';
-        a.setAttribute('id', 'continue');
-        inner.appendChild(h3);
-        inner.appendChild(p);
-        inner.appendChild(a);
-        a.addEventListener('click', () => {
-            removeModal();
-        });
-    }else{
-        h3.innerHTML = result['message'];
-        p.innerHTML = 'Something went wrong';
-        a.innerHTML = 'Retry';
-        a.setAttribute('id', 'retry');
-        inner.appendChild(h3);
-        inner.appendChild(p);
-        inner.appendChild(a);
-        a.addEventListener('click', () => {
-            removeModal();
-        });
-    }
-}
-
-// Delete Faculty Modal PoPup
-function delFacModal(result){
-    // ELEMENTS TO POPULATE THE MODAL
-    let h3 = document.createElement('h3');
-    let p = document.createElement('p');
-    let a = document.createElement('a');
-
-    if(result['status'] == '1'){
-        h3.innerHTML = result['message'];
-        p.innerHTML = 'This faculty was deleted successfully!';
         a.innerHTML = 'Continue';
         a.setAttribute('id', 'continue');
         inner.appendChild(h3);
@@ -753,50 +406,6 @@ function delElecModal(result){
         });
     }
 }
-
-// Function To Preopare Registration Modal
-function RegPOP(result){
-
-    // ELEMENTS TO POPULATE THE MODAL
-    let h3 = document.createElement('h3');
-    let p = document.createElement('p');
-    let h5a = document.createElement('h5');
-    let h5b = document.createElement('h5');
-    let a = document.createElement('a');
-
-
-    // POPULATING THE MODAL DOM ACCORDING TO THE MESSAGE STATUS
-    if(result['status'] === '1'){
-        h3.innerHTML = result['message'];
-        p.innerHTML = 'Your Faculty has been successfully registered on the SureVote platform. Your admin Login details are given below. You would also receive a mail to activate your account. The admin Login details can be changed after Login.';
-        h5a.innerHTML = "LoginID :  "+result['adminusername'];   
-        h5b.innerHTML = "Password :  "+result['adminpassword'];
-        a.innerHTML = 'Login';
-        a.setAttribute('id', 'continue');
-        a.setAttribute('href', '');
-        inner.appendChild(h3);
-        inner.appendChild(p);
-        inner.appendChild(h5a);
-        inner.appendChild(h5b);
-        inner.appendChild(a);
-    }else{
-        h3.innerHTML = result['message'];
-        p.innerHTML = 'Something went wrong in your registration. Try again';
-        h5a.innerHTML = '';   
-        h5b.innerHTML = '';
-        a.innerHTML = 'Retry';
-        a.setAttribute('id', 'retry');
-        inner.appendChild(h3);
-        inner.appendChild(p);
-        inner.appendChild(h5a);
-        inner.appendChild(h5b);
-        inner.appendChild(a);
-        a.addEventListener('click', () => {
-            removeModal();
-        });
-    }
-}
-
 
 // Function to pop modal after adding an election
 function AddElectionPOP(result){

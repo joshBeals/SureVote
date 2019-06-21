@@ -64,19 +64,34 @@
 
         // Get All Faculties
         public function readDepts(){
-            $query = 'SELECT * FROM '. $this->deptable .'';
+            // Create Table
+            $query = "CREATE TABLE IF NOT EXISTS departments (
+                dept_id INT(11) NOT NULL AUTO_INCREMENT,
+                dept_name VARCHAR(255) NOT NULL,
+                dept_email VARCHAR(255) NOT NULL,
+                faculty_id INT(11),
+                created_at DATETIME NOT NULL,
+                PRIMARY KEY(dept_id),
+                FOREIGN KEY (faculty_id) REFERENCES faculties(faculty_id)
+            )";
 
-            // Prepred statement
             $stmt = $this->conn->prepare($query);
 
-            // Execute the statement
-            $stmt->execute();
+            if($stmt->execute()){
+                $query = 'SELECT * FROM '. $this->deptable .'';
 
-            // Return the data
-            if($stmt){
-                return $stmt;
-            }else{
-                return null;
+                // Prepred statement
+                $stmt = $this->conn->prepare($query);
+
+                // Execute the statement
+                $stmt->execute();
+
+                // Return the data
+                if($stmt){
+                    return $stmt;
+                }else{
+                    return null;
+                }
             }
         }
 
@@ -98,7 +113,49 @@
             }
         }
 
-        // Get Faculties of a particular school
+        // Get Department of a particular school
+        public function readSchoolDept($schID){
+            // Create Table
+            $query = "CREATE TABLE IF NOT EXISTS departments (
+                dept_id INT(11) NOT NULL AUTO_INCREMENT,
+                dept_name VARCHAR(255) NOT NULL,
+                dept_email VARCHAR(255) NOT NULL,
+                faculty_id INT(11),
+                created_at DATETIME NOT NULL,
+                PRIMARY KEY(dept_id),
+                FOREIGN KEY (faculty_id) REFERENCES faculties(faculty_id)
+            )";
+
+            $stmt = $this->conn->prepare($query);
+
+            if($stmt->execute()){
+                $query = "SELECT 
+                            *
+                        FROM
+                            departments
+                        INNER JOIN
+                            faculties
+                        ON
+                            departments.faculty_id = faculties.faculty_id
+                        WHERE
+                            faculties.school_id = $schID";
+
+                // Prepared statement
+                $stmt = $this->conn->prepare($query);
+    
+                // Execute the statement
+                $stmt->execute();
+    
+                // Return the data
+                if($stmt){
+                    return $stmt;
+                }else{
+                    return null;
+                }
+            }   
+        }
+
+        // Get Department of a particular faculty
         public function readDepartment($facID){
             // Create Table
             $query = "CREATE TABLE IF NOT EXISTS departments (
@@ -147,7 +204,7 @@
             $stmt = $this->conn->prepare($query);
 
             if($stmt->execute()){
-                $query = "SELECT * FROM ". $this->school_elections ." WHERE school_id=$schID";  
+                $query = "SELECT * FROM school_elections WHERE school_id=".$schID;  
 
                 // Prepared statement
                 $stmt = $this->conn->prepare($query);
@@ -235,15 +292,81 @@
 
                 // Execute query
                 if($stmt->execute()){
-                    return true;
+                $facID = 0;
+                $query = "SELECT faculty_id FROM faculties WHERE faculty_name='$this->faculty_name'";
+                $stmt = $this->conn->prepare($query);
+                if($stmt->execute()){
+                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                        $facID = $row['faculty_id'];
+                    }
                 }
-
-                // Print error if something goes wrong
-                printf("Error: %s.\n", $stmt->error);
-
-                return false;
+                    return $facID;
+                }else{
+                    // Print error if something goes wrong
+                    printf("Error: %s.\n", $stmt->error);
+                    return 0;
+                }
             }else{
-                return false;
+                header('location: .../loginTemp.php');
+            }
+           
+        }
+
+         // Create Department
+         public function insertDept(){
+            // Create Table
+            $query = "CREATE TABLE IF NOT EXISTS departments (
+                dept_id INT(11) NOT NULL AUTO_INCREMENT,
+                dept_name VARCHAR(255) NOT NULL,
+                dept_email VARCHAR(255) NOT NULL,
+                faculty_id INT(11),
+                created_at DATETIME NOT NULL,
+                PRIMARY KEY(dept_id),
+                FOREIGN KEY (faculty_id) REFERENCES faculties(faculty_id)
+            )";
+            
+            $stmt = $this->conn->prepare($query);
+
+            if($stmt->execute()){
+                 // Insert into the table
+                $query = 'INSERT INTO departments
+                SET 
+                    dept_name = :dept_name,
+                    dept_email = :dept_email,
+                    faculty_id = :faculty_id,
+                    created_at = CURRENT_TIMESTAMP';
+
+                // Prepre Statement
+                $stmt = $this->conn->prepare($query);
+
+                // Clean data
+                $this->dept_name = htmlspecialchars(strip_tags($this->dept_name));
+                $this->dept_email = htmlspecialchars(strip_tags($this->dept_email));
+                $this->faculty_id = htmlspecialchars(strip_tags($this->faculty_id));
+
+                // Bind data
+                $stmt->bindParam(':dept_name', $this->dept_name);
+                $stmt->bindParam(':dept_email', $this->dept_email);
+                $stmt->bindParam(':faculty_id', $this->faculty_id);
+
+                // Execute query
+                if($stmt->execute()){
+                    $depID = 0;
+                    $query = "SELECT dept_id FROM departments WHERE dept_name='$this->dept_name'";
+                    $stmt = $this->conn->prepare($query);
+                    if($stmt->execute()){
+                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                            $depID = $row['dept_id'];
+                        }
+                    }
+                    return $depID;
+                }else{
+                    // Print error if something goes wrong
+                    printf("Error: %s.\n", $stmt->error);
+                    return 0;
+                }
+            }else{
+                header('location: .../loginTemp.php');
             }
            
         }

@@ -19,7 +19,9 @@ let canddrop = document.getElementById('canddrop');
 
 // Sidebar Targets
 let dashboard = document.getElementById('dashboard');
+let registerDept = document.getElementById('registerDept');
 let registerFaculty = document.getElementById('registerFaculty');
+let viewDept = document.getElementById('viewDept');
 let viewFaculty = document.getElementById('viewFaculty');
 let viewVoters = document.getElementById('viewVoters');
 let addElection = document.getElementById('addElection');
@@ -35,6 +37,7 @@ let signout = document.getElementById('signout');
 // Templates
 let content = document.getElementById('content');
 let f_reg = document.getElementById('f_reg');
+let d_reg = document.getElementById('d_reg');
 let AddElection = document.getElementById('AddElection');
 let viewElections = document.getElementById('viewElections');
 let positions = document.getElementById('positions');
@@ -756,16 +759,19 @@ menuToogle.addEventListener('click', () => {
 dashboard.addEventListener('click', () => {
     content.className = 'showTemp';
     f_reg.className = 'hideTemp';
+    d_reg.className = 'hideTemp';
     AddElection.className = 'hideTemp';
     viewElections.className = 'hideTemp';
     positions.className = 'hideTemp';
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
     f_regV.className = 'hideTemp';
+    d_regV.className = 'hideTemp';
 });
 
 registerFaculty.addEventListener('click', () => {
     f_reg.className = 'showTemp';
+    d_reg.className = 'hideTemp';
     content.className = 'hideTemp';
     AddElection.className = 'hideTemp';
     viewElections.className = 'hideTemp';
@@ -773,11 +779,40 @@ registerFaculty.addEventListener('click', () => {
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
     f_regV.className = 'hideTemp';
+    d_regV.className = 'hideTemp';
+});
+
+registerDept.addEventListener('click', () => {
+    d_reg.className = 'showTemp';
+    f_reg.className = 'hideTemp';
+    content.className = 'hideTemp';
+    AddElection.className = 'hideTemp';
+    viewElections.className = 'hideTemp';
+    positions.className = 'hideTemp';
+    candidates.className = 'hideTemp';
+    viewCand.className = 'hideTemp';
+    f_regV.className = 'hideTemp';
+    d_regV.className = 'hideTemp';
 });
 
 viewFaculty.addEventListener('click', () => {
     f_regV.className = 'showTemp';
     f_reg.className = 'hideTemp';
+    d_reg.className = 'hideTemp';
+    content.className = 'hideTemp';
+    AddElection.className = 'hideTemp';
+    viewElections.className = 'hideTemp';
+    positions.className = 'hideTemp';
+    candidates.className = 'hideTemp';
+    viewCand.className = 'hideTemp';
+    d_regV.className = 'hideTemp';
+});
+
+viewDept.addEventListener('click', () => {
+    d_regV.className = 'showTemp';
+    f_regV.className = 'hideTemp';
+    f_reg.className = 'hideTemp';
+    d_reg.className = 'hideTemp';
     content.className = 'hideTemp';
     AddElection.className = 'hideTemp';
     viewElections.className = 'hideTemp';
@@ -789,12 +824,14 @@ viewFaculty.addEventListener('click', () => {
 addElection.addEventListener('click', () => {
     AddElection.className = 'showTemp';
     content.className = 'hideTemp';
+    d_reg.className = 'hideTemp';
     f_reg.className = 'hideTemp';
     viewElections.className = 'hideTemp';
     positions.className = 'hideTemp';
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
     f_regV.className = 'hideTemp';
+    d_regV.className = 'hideTemp';
 });
 
 votingList.addEventListener('click', () => {
@@ -806,6 +843,8 @@ votingList.addEventListener('click', () => {
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
     f_regV.className = 'hideTemp';
+    d_reg.className = 'hideTemp';
+    d_regV.className = 'hideTemp';
 });
 
 addPositions.addEventListener('click', () => {
@@ -817,6 +856,8 @@ addPositions.addEventListener('click', () => {
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
     f_regV.className = 'hideTemp';
+    d_reg.className = 'hideTemp';
+    d_regV.className = 'hideTemp';
 });
 
 addCandidates.addEventListener('click', () => {
@@ -828,6 +869,8 @@ addCandidates.addEventListener('click', () => {
     f_reg.className = 'hideTemp';
     viewCand.className = 'hideTemp';
     f_regV.className = 'hideTemp';
+    d_reg.className = 'hideTemp';
+    d_regV.className = 'hideTemp';
 });
 
 viewCandidates.addEventListener('click', () => {
@@ -839,4 +882,6 @@ viewCandidates.addEventListener('click', () => {
     content.className = 'hideTemp';
     f_reg.className = 'hideTemp';
     f_regV.className = 'hideTemp';
+    d_reg.className = 'hideTemp';
+    d_regV.className = 'hideTemp';
 });

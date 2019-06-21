@@ -16,11 +16,11 @@ $db = $database->connect();
 // Creating an object of the Data class
 $data = new Data($db);
 
-$query = "SELECT school_id From faculties WHERE faculty_id = $id";
+$query = "SELECT school_id From faculties WHERE faculty_id=".$id;
 $stmt = $db->prepare($query);
 if($stmt->execute()){
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        $sch = $row['school_id'];
+        $query = $row['school_id'];
     }
 }
 
@@ -28,7 +28,7 @@ if($stmt->execute()){
 $schData = $data->readSchools();
 $TotFac = $data->readFaculties();
 $deptData = $data->readDepartment($id);
-$ElecCr = $data->readElections($sch);
+$ElecCr = $data->readElections($query);
 $FacElecCr = $data->readFacElections($id);
 $TotdeptData = $data->readDepts();
 

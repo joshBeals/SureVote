@@ -259,32 +259,32 @@ body{
     box-sizing: border-box;
     padding: 10px;
 }
-#f_regV{
+#f_regV, #d_regV{
     min-height: 400px;
     box-sizing: border-box;
     padding: 20px 0px;
     font-family: 'Alegreya Sans SC', sans-serif;
     animation: anim 300ms; 
 }
-#f_regV .ffv{
+#f_regV .ffv, #d_regV .ffv{
     height: 100%;
     background: white;
     box-sizing: border-box;
     padding: 20px;
 }
-#f_reg{
+#f_reg, #d_reg{
     font-family: 'Alegreya Sans SC', sans-serif;
     width: 100%;
     min-height: 450px;
     animation: anim 300ms; 
 }
-#f_reg .fff{
+#f_reg .fff, #d_reg .fff{
     display: flex;
     width: 100%;
     height: 100%;
 
 }
-#f_reg .fff .left{
+#f_reg .fff .left, #d_reg .fff .left{
     flex: 1;
     display: flex;
     background-image: 
@@ -301,15 +301,16 @@ body{
     color: #BFC0C2;
     box-sizing: border-box;
     padding: 30px;
+    border-radius: 0px 0px 0px 10px;
 }
-#f_reg .fff .left div{
+#f_reg .fff .left div, #d_reg .fff .left div{
     font-family: 'Alegreya Sans SC', sans-serif;
     font-size: 20px;
     text-align: center;
     box-sizing: border-box;
     padding: 10px;
 }
-#f_reg .fff .right {
+#f_reg .fff .right{
     flex: 1.5;
     text-align: center;
     background: white;
@@ -317,7 +318,15 @@ body{
     box-sizing: border-box;
     padding: 30px;
 }
-#f_reg .fff .right  div{
+#d_reg .fff .right{
+    flex: 1.5;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 0px 30px 10px 30px;
+}
+#f_reg .fff .right  div, #d_reg .fff .right  div{
     flex: 1;
     box-sizing: border-box;
 }
@@ -328,7 +337,14 @@ body{
     font-size: 30px;
     font-weight: lighter;
 }
-#f_reg .fff .right  p{
+#d_reg .fff .right  h3{
+    flex: 1;
+    color: #062A4A;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: lighter;
+}
+#f_reg .fff .right  p, #d_reg .fff .right  p{
     margin-bottom: 0;
 }
 a{
@@ -339,18 +355,18 @@ a{
 a:hover{
     color: #0B508E;
 }
-#f_reg .fff .right  form{
+#f_reg .fff .right  form, #d_reg .fff .right  form{
     flex: 1;
     display: flex;
     flex-direction: column;
     text-align: left;
 }
-#f_reg .fff .right  form label{
+#f_reg .fff .right  form label, #d_reg .fff .right  form label{
     color: #062A4A;
     font-size: 20px;
     margin-bottom: 10px;
 }
-#RegisterBtn{
+#RegisterBtn, #RegisterBtn1{
     box-sizing: border-box;
     padding: 15px;
     margin-top: 10px;
@@ -359,10 +375,10 @@ a:hover{
     background: #062A4A;
     transition: 300ms ease-in-out;
 }
-#RegisterBtn:hover{
+#RegisterBtn:hover, #RegisterBtn1:hover{
     background: #0B508E;
 }
-#f_reg .fff .right form input{
+#f_reg .fff .right form input, #d_reg .fff .right form input, #d_reg .fff .right form select{
     font-size: 20px;
     margin-bottom: 20px;
     box-sizing: border-box;

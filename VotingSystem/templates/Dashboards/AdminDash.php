@@ -42,6 +42,14 @@
                         <i class="far fa-eye"></i>
                         <p id="viewFaculty">View Faculties</p>
                     </li>
+                    <li class="dropdown">
+                        <i class="fas fa-building"></i> 
+                        <p id="registerDept">Register Department</p>
+                    </li>
+                    <li class="dropdown">
+                        <i class="far fa-eye"></i>
+                        <p id="viewDept">View Departments</p>
+                    </li>
                 </ul>       
             </div>
             <!--Voting Division-->
@@ -141,7 +149,7 @@
                         <div class="boxes" id="departments">
                             <i class="far fa-building"></i> 
                             <div class="info">
-                                <h2 id='departmemtsRegistered'>0</h2>
+                                <h2 id='departmentsRegistered'>0</h2>
                                 <p>Departments Registered</p>
                             </div>
                         </div>
@@ -225,13 +233,35 @@
                 </div> 
             </div>
 
+            <!--View Department Registration Form-->
+            <div class="hideTemp" id="d_regV">
+                <div class="ffv">
+                    <h4>Department List</h4>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Department Name</th>
+                            <th>Department Email</th>
+                            <th>Faculty Name</th>
+                            <th>Created at</th>
+                            <th colspan="3">Operations</th>
+                        </tr>
+                        </thead>
+                        <tbody id='tbodyD'>
+
+                        </tbody>
+                    </table>
+                </div> 
+            </div>
+
             <!--Faculty Registration Form-->
             <div class="hideTemp" id="f_reg"id="f_reg">
                 <div class="fff">
                 <div class="left">
                     <div>
                     Register Faculties under your school here.
-                    These would enable the reistered faculties conduct 
+                    These would enable the registered faculties conduct 
                     their sub elections without disturbing the school authority
                     </div>
                 </div>
@@ -252,6 +282,42 @@
                         <label for="faculty_email">Faculty Email</label>
                         <input type="email" name="faculty_email" id="faculty_email" required>
                         <input type="submit" name="register" value="Register" id="RegisterBtn">
+                    </form>
+                    <p>Do you have an account? <a href="../loginTemp.php">LOGIN</a></p>   
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--Department Registration Form-->
+            <div class="hideTemp" id="d_reg"id="d_reg">
+                <div class="fff">
+                <div class="left">
+                    <div>
+                    Register Departments under your school here.
+                    These would enable the registered departments conduct 
+                    their sub elections without disturbing the school authority
+                    </div>
+                </div>
+                <div class="right">
+                    <div>
+                    <h3>Register Departments on SureVote</h3>
+                    <form action="" method="POST">
+                        <input type="hidden" id="school_id" value=
+                        <?php 
+                        if (isset($_GET['school'])){
+                            echo($_GET['school']);
+                        }else{
+                            session_unset();
+                        }
+                        ?>>
+                        <label for="dept_name">Department Name</label>
+                        <input type="text" name="dept_name" id="dept_name" required>
+                        <label for="dept_email">Department Email</label>
+                        <input type="email" name="dept_email" id="dept_email" required>
+                        <label for="fac">Faculty Name</label>
+                        <select id="fac"></select>
+                        <input type="submit" name="register" value="Register" id="RegisterBtn1">
                     </form>
                     <p>Do you have an account? <a href="../loginTemp.php">LOGIN</a></p>   
                     </div>

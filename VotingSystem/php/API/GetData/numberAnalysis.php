@@ -19,6 +19,8 @@ $data = new Data($db);
 // Getting the school Details
 $schData = $data->readSchools();
 $TotFac = $data->readFaculties();
+$TotdeptData = $data->readDepts();
+$dept = $data->readSchoolDept($id);
 $facData = $data->readFaculty($id);
 $ElecCr = $data->readElections($id);
 
@@ -27,8 +29,10 @@ $numSch = $schData->rowCount();
 $numFac = $facData->rowCount();
 $TotFacData = $TotFac->rowCount();
 $ElecCreated = $ElecCr->rowCount();
+$numDept = $dept->rowCount();
+$TotalDept = $TotdeptData->rowCount();
 
 // Sending number of schools
-echo(json_encode(array('NumberOfSchools'=>$numSch, 'NumberOfFaculties'=>$numFac, 'TotalFaculties'=>$TotFacData, 'NumberOfElectionsCreated'=>$ElecCreated)));
+echo(json_encode(array('NumberOfSchools'=>$numSch, 'departments'=>$numDept, 'NumberOfFaculties'=>$numFac, 'TotalFaculties'=>$TotFacData, 'NumberOfElectionsCreated'=>$ElecCreated, 'TotalDept'=>$TotalDept)));
 
 ?>

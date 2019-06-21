@@ -14,26 +14,26 @@ $database = new Database();
 $db = $database->connect();
 
 if(isset($_POST)){
-    $data = explode(',', $_POST['editFac']);
+    $data = explode(',', $_POST['editDept']);
     
     // Query Statement
     $query = "UPDATE 
-                faculties 
+                departments 
             SET 
-                faculty_name = '$data[0]',
-                faculty_email = '$data[1]'
+                dept_name = '$data[0]',
+                dept_email = '$data[1]'
             WHERE 
-                faculty_id = $data[2]";
+                dept_id = $data[2]";
     
     $stmt = $db->prepare($query);
 
     if($stmt->execute()){
-        echo(json_encode(array('status'=>'1', 'message'=>'Faculty Edited Successfully!')));
+        echo(json_encode(array('status'=>'1', 'message'=>'Department Edited Successfully!')));
     }else{
-        echo(json_encode(array('status'=>'0', 'message'=>'Faculty Not Edited!')));
+        echo(json_encode(array('status'=>'0', 'message'=>'Department Not Edited!')));
     }
 }else{
-    echo(json_encode(array('status'=>'0', 'message'=>'Faculty Not Edited!')));
+    echo(json_encode(array('status'=>'0', 'message'=>'Department Not Edited!')));
 }
 
 ?>

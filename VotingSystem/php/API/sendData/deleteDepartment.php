@@ -17,22 +17,22 @@ if(isset($_POST)){
     $data = $_POST['delete'];
     
     // Query Statement
-    $query = "DELETE FROM faculties WHERE faculty_id=$data";
+    $query = "DELETE FROM departments WHERE dept_id=$data";
     
     $stmt = $db->prepare($query);
 
     if($stmt->execute()){
-        $query = "DELETE FROM faculty_admins WHERE faculty_id=$data";
+        $query = "DELETE FROM dept_admins WHERE dept_id=$data";
     
         $stmt = $db->prepare($query);
 
         if($stmt->execute()){
-            echo(json_encode(array('status'=>'1', 'message'=>'Faculty Deleted Successfully!')));
+            echo(json_encode(array('status'=>'1', 'message'=>'Department Deleted Successfully!')));
         }else{
-            echo(json_encode(array('status'=>'0', 'message'=>'Faculty Not Deleted!')));
+            echo(json_encode(array('status'=>'0', 'message'=>'Department Not Deleted!')));
         }
     }else{
-        echo(json_encode(array('status'=>'0', 'message'=>'Faculty Not Deleted!')));
+        echo(json_encode(array('status'=>'0', 'message'=>'Department Not Deleted!')));
     }
 }else{
     echo(json_encode(array('status'=>'0', 'message'=>'Faculty Not Deleted!')));

@@ -21,7 +21,7 @@
                 $tbName = 'faculty_admins';
                 break;
             case 303:
-                $tbName = 'departments';
+                $tbName = 'dept_admins';
                 break;
         }
     }else{

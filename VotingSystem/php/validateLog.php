@@ -14,17 +14,17 @@
         $username = $logindetails[0];
         $password = $logindetails[1];
         $role = $logindetails[2];
-        $val = 0;
+        
         if($role == 101){
-            $role = 'school_admins';
-            $val = 'school_id';
-        }else if($role == 1202){
+            $role = 'school_admins';    
+        }else if($role == 202){
             $role = 'faculty_admins';
-            $val = 'faculty_id';
         }else if($role == 303){
-            $role = 'departments';
-            $val = 'dept_id';
+            $role = 'dept_admins';
         }
+        
+        $val = explode('_', $role);
+        $value = $val[0] .= '_id';
 
         $mysqli = new mysqli('localhost', 'root', '', 'e-voting') or die(mysqli_error($mysqli));
         $query1 = "SELECT COUNT(*) FROM ".$role." WHERE admin_name = '$username'";
@@ -32,12 +32,13 @@
         $stmt = $mysqli->query($query1);
         $result = $mysqli->query($query2);
         $data = false;
+        $id = 0;
         if($result){           
             while($row = $result->fetch_array()){
                 $pass = password_verify($password, $row['admin_password']);
                 if(password_verify($password, $row['admin_password'])){
                     $data = true; 
-                    $id =  $row[$val];             
+                    $id =  $row[$value];             
                 }
             }
 
@@ -48,11 +49,11 @@
                 $array = array('status'=>'1', 'message'=>'Login Successful', 'id'=>$id, 'role'=>$logindetails[2]);
                 echo(json_encode($array));
             }else{
-                $array = array('status'=>'0', 'message'=>'Invalid Login Details');
+                $array = array('status'=>'0', 'message'=>'Invalid Login Details!');
                 echo(json_encode($array));
             }
         }else{
-            $array = array('status'=>'0', 'message'=>"User isn't on the Database yet!");
+            $array = array('status'=>'0', 'message'=>"Invalid Login Details!");
             echo(json_encode($array));
         }
     }

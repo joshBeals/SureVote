@@ -11,16 +11,34 @@
 </head>
 <body>
     <?php
-    session_start();
-    if(!isset($_GET['faculty']) || ($_GET['faculty'] != $_SESSION['id'])){
-        session_unset();
-    }else{
-        
-    }
+        session_start();
+        if(!isset($_GET['faculty']) || ($_GET['faculty'] != $_SESSION['id'])){
+            session_unset();
+        }else{
 
-    if(!isset($_SESSION['login'])){
-        header('location: ../loginTemp.php');
-    }
+            // Including Database files
+            include_once('../../php/config/database.php');
+            include_once('../../php/models/data.php');
+
+            // Database connection
+            $database = new Database();
+            $db = $database->connect();
+
+            // Creating an object of the Data class
+            $data = new Data($db);
+
+            $query = "SELECT * FROM faculties WHERE faculty_id=".$_GET['faculty'];
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            $num = $stmt->rowCount();
+            if($num <= 0){
+                session_unset();
+            }
+        }
+
+        if(!isset($_SESSION['login'])){
+            header('location: ../loginTemp.php');
+        }
     ?>
 
     <div class="cont">
@@ -28,24 +46,6 @@
             <!--Dashboard-->
             <div class="dashboard" id="dashboard">
                 <h5>Faculty's Dashboard</h5>
-            </div>
-            <!--Registration Division-->
-            <div class="division registrations hidebackground" id='reg'>
-                <div class="holder" id='regclick'>
-                    <i class="fas fa-user-plus"></i> 
-                    <h4>Registrations</h4>
-                    <p id='regdrop' class='hidedrop'></p>
-                </div>
-                <ul class='hide' id='regul'>
-                    <li class="dropdown">
-                        <i class="fas fa-building"></i> 
-                        <p id="registerFaculty">Register Department</p>
-                    </li>
-                    <li class="dropdown">
-                        <i class="far fa-eye"></i>
-                        <p id="viewFaculty">View Departments</p>
-                    </li>
-                </ul>       
             </div>
             <!--Voting Division-->
             <div class="division voting hidebackground" id='vote'>
@@ -228,47 +228,13 @@
                 </div> 
             </div>
 
-            <!--Faculty Registration Form-->
-            <div class="hideTemp" id="f_reg"id="f_reg">
-                <div class="fff">
-                <div class="left">
-                    <div>
-                    Register Departments under your Faculty here.
-                    These would enable the reistered departments conduct 
-                    their sub elections without disturbing the school authority
-                    </div>
-                </div>
-                <div class="right">
-                    <div>
-                    <h3>Register Department on SureVote</h3>
-                    <form action="" method="POST">
-                        <input type="hidden" id="faculty_id" value=
-                        <?php 
-                        if (isset($_GET['faculty'])){
-                            echo($_GET['faculty']);
-                        }else{
-                            session_unset();
-                        }
-                        ?>>
-                        <label for="dept_name">Department Name</label>
-                        <input type="text" name="dept_name" id="dept_name" required>
-                        <label for="dept_email">Department Email</label>
-                        <input type="email" name="dept_email" id="dept_email" required>
-                        <input type="submit" name="register" value="Register" id="RegisterBtn">
-                    </form>
-                    <p>Do you have an account? <a href="../loginTemp.php">LOGIN</a></p>   
-                    </div>
-                </div>
-                </div>
-            </div>
-
             <!--Add Election-->
             <div class="hideTemp" id="AddElection">
                 <div class="comb">
                     <div class="left">
                         <h5>Add Election</h5>
                         <form action="" method="POST">
-                        <input type="hidden" id="sch_id" value=
+                        <input type="hidden" id="fac_id" value=
                         <?php 
                         if (isset($_GET['faculty'])){
                             echo($_GET['faculty']);

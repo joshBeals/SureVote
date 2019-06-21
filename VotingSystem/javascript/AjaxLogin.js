@@ -53,7 +53,7 @@ function LogPOP(result){
         }else if(result['role'] == 'faculty_admins'){
             redirect  = 'facultyDash';
             text = 'faculty';
-        }else if(result['role'] == 'departments'){
+        }else if(result['role'] == 'dept_admins'){
             redirect  = 'deptDash';
             text = 'dept';
         }

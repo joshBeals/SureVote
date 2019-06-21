@@ -720,16 +720,6 @@ voteclick.addEventListener('click', () => {
     vote.classList.toggle('showbackground');
 });
 
-regclick.addEventListener('click', () => {
-    if(regdrop.className == 'hidedrop'){
-        regdrop.className = 'showdrop';
-    }else{
-        regdrop.className = 'hidedrop'
-    }
-    regul.classList.toggle('show');
-    reg.classList.toggle('showbackground');
-});
-
 candclick.addEventListener('click', () => {
     if(canddrop.className == 'hidedrop'){
         canddrop.className = 'showdrop';
@@ -762,28 +752,6 @@ dashboard.addEventListener('click', () => {
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
     f_regV.className = 'hideTemp';
-});
-
-registerFaculty.addEventListener('click', () => {
-    f_reg.className = 'showTemp';
-    content.className = 'hideTemp';
-    AddElection.className = 'hideTemp';
-    viewElections.className = 'hideTemp';
-    positions.className = 'hideTemp';
-    candidates.className = 'hideTemp';
-    viewCand.className = 'hideTemp';
-    f_regV.className = 'hideTemp';
-});
-
-viewFaculty.addEventListener('click', () => {
-    f_regV.className = 'showTemp';
-    f_reg.className = 'hideTemp';
-    content.className = 'hideTemp';
-    AddElection.className = 'hideTemp';
-    viewElections.className = 'hideTemp';
-    positions.className = 'hideTemp';
-    candidates.className = 'hideTemp';
-    viewCand.className = 'hideTemp';
 });
 
 addElection.addEventListener('click', () => {
