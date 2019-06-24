@@ -17,7 +17,7 @@ $db = $database->connect();
 $data = new Data($db);
 
 // Calling the readElections function
-$elections = $data->readFacElections($id);
+$elections = $data->readDeptElections($id);
 
 // Getting the number of elections created
 $num = $elections->rowCount();
@@ -31,7 +31,7 @@ if($num > 0){
             'election_title' => $election_title,
             'election_description' => $election_description,
             'created_at' => $created_at,
-            'faculty_id' => $faculty_id
+            'dept_id' => $dept_id
         );
         array_push($arr, $elect_item);
     }

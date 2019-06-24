@@ -26,8 +26,8 @@
 
             // Creating an object of the Data class
             $data = new Data($db);
-
-            $query = "SELECT * FROM faculties WHERE faculty_id=".$_GET['faculty'];
+            $f = $_GET['faculty'];
+            $query = "SELECT * FROM faculties WHERE faculty_id=$f";
             $stmt = $db->prepare($query);
             $stmt->execute();
             $num = $stmt->rowCount();
@@ -51,7 +51,7 @@
             <div class="division voting hidebackground" id='vote'>
                 <div class="holder" id='voteclick'>
                     <i class="fas fa-poll"></i>
-                    <h4>Voting</h4>
+                    <h4>Election Settings</h4>
                     <p id='votedrop' class='hidedrop'></p>
                 </div>
                 <ul  class='hide' id='voteul'>
@@ -342,12 +342,8 @@
                         <input type="text" id="candName">
                         <h6>Candidate Matric No.</h6>
                         <input type="text" id="candMatric">
-                        <h6>Faculty</h6>
-                        <select id="candFac"></select>
                         <h6>Department</h6>
-                        <select id="candDept">
-                            <option value="1">default</option>
-                        </select>
+                        <select id="candDept"></select>
                         <h6>Election</h6>
                         <select id="candElec" onchange='showPos()'></select>
                         <h6>Position</h6>
@@ -378,7 +374,6 @@
                                         <th>SN</th>
                                         <th>FullName</th>
                                         <th>Matric</th>
-                                        <th>Faculty</th>
                                         <th>Department</th>
                                         <th>Candidate Position</th>
                                         <th colspan="2">Operations</th>

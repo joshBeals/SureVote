@@ -55,7 +55,7 @@ addP.addEventListener('click', () => {
     if(electList.value != ''){
         posContent.className = 'show';
         addP.innerHTML = 'Refresh';
-        showData(electList.value);
+        showData();
     }
 });
 
@@ -64,7 +64,7 @@ addC.addEventListener('click', () => {
     if(candElectList.value != ''){
         candContent.className = 'show';
         addC.innerHTML = 'Refresh';
-        showCand(candElectList.value);
+        showCand();
     }
 });
 
@@ -74,7 +74,7 @@ posBtn.addEventListener('click', () => {
     posTxt.value = '';
     // Creating the AJAX element to add positions
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../php/api/sendData/addFacElectionPositions.php', true);
+    xhr.open('POST', '../../php/api/sendData/addDeptElectionPositions.php', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.onload = function(){
         if(this.status == 200){
@@ -94,7 +94,7 @@ posBtn.addEventListener('click', () => {
 function showData(){
     // Creating the AJAX element to add positions
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../php/api/GetData/getFacPositions.php?id='+electList.value, true);
+    xhr.open('POST', '../../php/api/GetData/getDeptPositions.php?id='+electList.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
@@ -107,10 +107,11 @@ function showData(){
 function showPos1(){
     // Creating the AJAX element to add positions
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../php/api/GetData/getFacPositions.php?id='+candElec.value, true);
+    xhr.open('POST', '../../php/api/GetData/getDeptPositions.php?id='+candElec.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
+            alert(response);
             popData(JSON.parse(response));
         }
     }
@@ -153,7 +154,7 @@ function popModal(result){
 function showCand(){
     // Creating the AJAX element to add positions
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../php/api/GetData/getFacCandidates.php?id='+candElectList.value, true);
+    xhr.open('POST', '../../php/api/GetData/getDeptCandidates.php?id='+candElectList.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
@@ -423,7 +424,7 @@ function editPosition(name, id){
     btn.addEventListener('click', () => {
         let arr = ['edit='+txtbox.value, pos_id];
         let xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../php/api/sendData/editFacPositions.php', true);
+        xhr.open('POST', '../../php/api/sendData/editDeptPositions.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onload = function(){
             if(this.status == 200){
@@ -458,7 +459,7 @@ function deleteCandidate(id){
     ok.addEventListener('click', () => {
         let arr = ['delete='+id];
         let xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../php/api/sendData/deleteFacCandidates.php', true);
+        xhr.open('POST', '../../php/api/sendData/deleteDeptCandidates.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onload = function(){
             if(this.status == 200){
@@ -501,7 +502,7 @@ function deletePosition(id){
     ok.addEventListener('click', () => {
         let arr = ['delete='+id];
         let xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../php/api/sendData/deleteFacPositions.php', true);
+        xhr.open('POST', '../../php/api/sendData/deleteDeptPositions.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onload = function(){
             if(this.status == 200){

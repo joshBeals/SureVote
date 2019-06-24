@@ -7,6 +7,7 @@
         private $schooltable = 'schools';
         private $facultytable = 'faculties';
         private $deptable = 'departments';
+        private $dept_elections = 'dept_elections';
         private $faculty_elections = 'faculty_elections';
         private $school_elections = 'school_elections';
 
@@ -221,6 +222,38 @@
             }
         }
 
+        public function readDeptElections($deptID){
+            // Create Table
+            $query = "CREATE TABLE IF NOT EXISTS dept_elections (
+                election_id INT(11) NOT NULL AUTO_INCREMENT,
+                election_title VARCHAR(255) NOT NULL,
+                election_description VARCHAR(255) NOT NULL,
+                dept_id INT(11),
+                created_at DATETIME NOT NULL,
+                PRIMARY KEY(election_id),
+                FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+            )";
+
+            $stmt = $this->conn->prepare($query);
+
+            if($stmt->execute()){
+                $query = "SELECT * FROM ". $this->dept_elections ." WHERE dept_id=$deptID";  
+
+                // Prepared statement
+                $stmt = $this->conn->prepare($query);
+
+                // Execute the statement
+                $stmt->execute();
+
+                // Return the data
+                if($stmt){
+                    return $stmt;
+                }else{
+                    return null;
+                }
+            }
+        }
+
         public function readFacElections($facID){
             // Create Table
             $query = "CREATE TABLE IF NOT EXISTS faculty_elections (
@@ -369,6 +402,137 @@
                 header('location: .../loginTemp.php');
             }
            
+        }
+
+        // Add Dept Election to the DeptAccount
+        public function addDeptElection($deptID){
+
+            // Create Table
+            $query = "CREATE TABLE IF NOT EXISTS dept_elections (
+                election_id INT(11) NOT NULL AUTO_INCREMENT,
+                election_title VARCHAR(255) NOT NULL,
+                election_description VARCHAR(255) NOT NULL,
+                dept_id INT(11),
+                created_at DATETIME NOT NULL,
+                PRIMARY KEY(election_id),
+                FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+            )";
+            
+            $stmt = $this->conn->prepare($query);
+
+            if($stmt->execute()){
+                $elecTitle = $this->election_title;
+                $query = "SELECT * FROM dept_elections WHERE election_title='$elecTitle' and dept_id=$deptID";
+                
+                // Prepared statement
+                $stmt = $this->conn->prepare($query);
+                
+                // Execute the statement
+                if($stmt->execute()){
+                    $num = $stmt->rowCount();
+                    if($num > 0){
+                        echo(json_encode(array('status'=>'0', 'message'=>'Election Already Exists!')));
+                    }else{
+                        // Insert into the table
+                        $query = 'INSERT INTO dept_elections
+                        SET 
+                            election_title = :election_title,
+                            election_description = :election_description,
+                            dept_id = :dept_id,
+                            created_at = CURRENT_TIMESTAMP';
+
+                        // Prepre Statement
+                        $stmt = $this->conn->prepare($query);
+
+                        // Clean data
+                        $this->election_title = htmlspecialchars(strip_tags($this->election_title));
+                        $this->election_description = htmlspecialchars(strip_tags($this->election_description));
+                        $deptID = htmlspecialchars(strip_tags($deptID));
+
+                        // Bind data
+                        $stmt->bindParam(':election_title', $this->election_title);
+                        $stmt->bindParam(':election_description', $this->election_description);
+                        $stmt->bindParam(':dept_id', $deptID);
+
+                        if($stmt->execute()){
+                                echo(json_encode(array('status'=>'1', 'message' => "Election added successfully!")));
+                        }else{
+                                echo(json_encode(array('status'=>'0', 'message' => "Election wasn't added!")));
+                        }
+                    }
+                }else{
+                    echo(json_encode(array('status'=>'0', 'message'=>"Election wasn't added!")));
+                }   
+            }else{
+                echo(json_encode(array('status'=>'0', 'message'=>"Election wasn't added!")));
+            }
+
+        }
+
+        // Add Faculty Election to the FacultyAccount
+        public function addFacElection($facID){
+            // Create Table
+            $query = "CREATE TABLE IF NOT EXISTS faculty_elections (
+                election_id INT(11) NOT NULL AUTO_INCREMENT,
+                election_title VARCHAR(255) NOT NULL,
+                election_description VARCHAR(255) NOT NULL,
+                faculty_id INT(11),
+                created_at DATETIME NOT NULL,
+                PRIMARY KEY(election_id),
+                FOREIGN KEY (faculty_id) REFERENCES faculties(faculty_id)
+            )";
+            
+            $stmt = $this->conn->prepare($query);
+
+            if($stmt->execute()){
+                $elecTitle = $this->election_title;
+                $query = "SELECT * FROM faculty_elections WHERE election_title='$elecTitle' and faculty_id=$facID";
+                
+                // Prepared statement
+                $stmt = $this->conn->prepare($query);
+                
+                // Execute the statement
+                if($stmt->execute()){
+                    $num = $stmt->rowCount();
+                    if($num > 0){
+                        echo(json_encode(array('status'=>'0', 'message'=>'Election Already Exists!')));
+                    }else{
+                        // Insert into the table
+                        $query = 'INSERT INTO faculty_elections
+                        SET 
+                            election_title = :election_title,
+                            election_description = :election_description,
+                            faculty_id = :faculty_id,
+                            created_at = CURRENT_TIMESTAMP';
+
+                        // Prepre Statement
+                        $stmt = $this->conn->prepare($query);
+
+                        // Clean data
+                        $this->election_title = htmlspecialchars(strip_tags($this->election_title));
+                        $this->election_description = htmlspecialchars(strip_tags($this->election_description));
+                        $facID = htmlspecialchars(strip_tags($facID));
+
+                        // Bind data
+                        $stmt->bindParam(':election_title', $this->election_title);
+                        $stmt->bindParam(':election_description', $this->election_description);
+                        $stmt->bindParam(':faculty_id', $facID);
+
+                        if($stmt->execute()){
+                                echo(json_encode(array('status'=>'1', 'message' => "Election added successfully!")));
+                        }else{
+                                echo(json_encode(array('status'=>'0', 'message' => "Election wasn't added!")));
+                        }
+                    }
+                }else{
+                    echo(json_encode(array('status'=>'0', 'message'=>"Election wasn't added!")));
+                }   
+            }else{
+                echo(json_encode(array('status'=>'0', 'message'=>"Election wasn't added!")));
+            }
+
+
+
         }
 
         // Add Election to the SchoolAcct

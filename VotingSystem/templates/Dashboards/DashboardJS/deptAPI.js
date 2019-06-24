@@ -1,7 +1,7 @@
 // Targetting DOM Elements
 // bowenuniverity 28888505 SCH
-let departmentsRegistered = document.getElementById('departmentsRegistered');
 let ElectionsCreated = document.getElementById('ElectionsCreated');
+let FacultyElections = document.getElementById('FacultyElections');
 let SchoolElections = document.getElementById('SchoolElections');
 let RegisteredVoters = document.getElementById('RegisteredVoters');
 let SchoolsRegistered = document.getElementById('SchoolsRegistered');
@@ -28,35 +28,16 @@ let addCand = document.getElementById('addCand');
 // Calling functions
 getNumberAnalysis();
 getElectionsCreated();
-getFacDepts();
 
 // Function to get NumberAnalysis
 function getNumberAnalysis(){
     // Creating the AJAX element to receive data
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../php/api/GetData/numberAnalysisFac.php?id='+fac_id.value, true);
+    xhr.open('GET', '../../php/api/GetData/numberAnalysisDept.php?id='+dept_id.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
-            // alert(response);
             populateDom(JSON.parse(response));
-        }else{
-            alert(this.status);
-        }
-    }
-    xhr.send();
-}
-
-// Function to get Departments
-function getFacDepts(){
-    // Creating the AJAX element to receive data
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../php/api/GetData/getFacDept.php?id='+fac_id.value, true);
-    xhr.onload = function(){
-        if(this.status == 200){
-            let response = this.responseText;
-            // alert(response);
-            candidateDepts(JSON.parse(response));
         }else{
             alert(this.status);
         }
@@ -68,15 +49,14 @@ function getFacDepts(){
 function getElectionsCreated(){
     // Creating the AJAX element to receive data
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../php/api/GetData/getFacElections.php?id='+fac_id.value, true);
+    xhr.open('GET', '../../php/api/GetData/getDeptElections.php?id='+dept_id.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
-            // alert(response);
             popElections(JSON.parse(response));
             popPositions(JSON.parse(response));
-            candidateElection(JSON.parse(response));
-            viewCandElect(JSON.parse(response));
+            // candidateElection(JSON.parse(response));
+            // viewCandElect(JSON.parse(response));
         }else{
             alert(this.status);
         }
@@ -88,19 +68,19 @@ addElec.addEventListener('click', e => {
 
     e.preventDefault();
 
-    let electArr = ['FacElection='+title.value, descrip.value, fac_id.value];
+    let electArr = ['deptElection='+title.value, descrip.value, dept_id.value];
     title.value = '';
     descrip.value = '';
-    fac_id.value = '';
+    dept_id.value = '';
 
     // Creating the AJAX element to add election
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../php/api/sendData/addFacElection.php', true);
+    xhr.open('POST', '../../php/api/sendData/addDeptElection.php', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
-            // alert(response);
+            alert(response);
             AddElectionPOP(JSON.parse(response));
         }else{
             alert(this.status);
@@ -117,8 +97,8 @@ addElec.addEventListener('click', e => {
 function populateDom(result){
     SchoolsRegistered.innerHTML = result['NumberOfSchools'];
     TotalAppUsers.innerHTML = result['NumberOfSchools'] + result['TotalFaculties'] + result['TotalDepts'];
-    departmemtsRegistered.innerHTML = result['NumberOfDepartments'];
-    ElectionsCreated.innerHTML = result['NumberOfFacElectionsCreated'];
+    FacultyElections.innerHTML = result['NumberOfFacElectionsCreated'];
+    ElectionsCreated.innerHTML = result['NumberOfDeptElectionsCreated'];
     SchoolElections.innerHTML = result['NumberOfElectionsCreated'];
 }
 
@@ -156,7 +136,7 @@ function candidateElection(result){
         opt.text = result[i]['election_title'];
         opt.value = result[i]['election_id'];
         candElec.appendChild(opt);
-        showPos();
+        showPos1();
     }
 }
 
@@ -178,7 +158,7 @@ function viewCandElect(result){
 function showPos(){
     // Creating the AJAX element to add positions
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../php/api/GetData/getFacPositions.php?id='+candElec.value, true);
+    xhr.open('POST', '../../php/api/GetData/getDeptPositions.php?id='+candElec.value, true);
     xhr.onload = function(){
         if(this.status == 200){
             let response = this.responseText;
@@ -346,9 +326,9 @@ function editElection(id, name, descrip){
     btn.style.width = '100%';
     btn.innerHTML = 'Save';
     btn.addEventListener('click', () => {
-        let arr = ['editFacElec='+txt1.value, txt2.value, elec_id];
+        let arr = ['editDeptElec='+txt1.value, txt2.value, elec_id];
         let xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../php/api/sendData/editFacElection.php', true);
+        xhr.open('POST', '../../php/api/sendData/editDeptElection.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onload = function(){
             if(this.status == 200){
