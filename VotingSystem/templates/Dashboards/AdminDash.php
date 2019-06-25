@@ -489,6 +489,43 @@
                 </div>
             </div>
 
+            <!--Change Password-->
+            <div class="hideTemp" id="passChange">
+                <div class="fff">
+                <div class="left">
+                    <div>
+                    You can change your Administrator login password here.
+                    Once changed, the old password will remain invalid and you would 
+                    only be allowed access to your normal Administrator rights
+                    when you login with this new password.
+                    </div>
+                </div>
+                <div class="right">
+                    <div>
+                    <h3>Change Your Login Password</h3>
+                    <form action="" method="POST">
+                        <input type="hidden" id="school_id" value=
+                        <?php 
+                        if (isset($_GET['school'])){
+                            echo($_GET['school']);
+                        }else{
+                            session_unset();
+                        }
+                        ?>>
+                        <label for="oldPass">Old Password</label>
+                        <input type="password" name="faculty_name" id="oldPass" required>
+                        <label for="newPass">New Password</label>
+                        <input type="password" name="faculty_email" id="newPass" required>
+                        <label for="newPassRep">Re-enter New Password</label>
+                        <input type="password" name="faculty_email" id="newPassRep" required>
+                        <input type="submit" name="change" value="Change Password" id="change">
+                    </form>
+                    <p>Do you have an account? <a href="../loginTemp.php">LOGIN</a></p>   
+                    </div>
+                </div>
+                </div>
+            </div>
+
             <!--Main Content-->
             <div class="footer">
                 <?php

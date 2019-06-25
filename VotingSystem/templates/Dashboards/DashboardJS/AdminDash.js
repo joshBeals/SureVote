@@ -34,6 +34,12 @@ let changepassword = document.getElementById('changepassword');
 let settings = document.getElementById('settings');
 let signout = document.getElementById('signout');
 
+// Change Password
+let change = document.getElementById('change');
+let oldPass = document.getElementById('oldPass');
+let newPass = document.getElementById('newPass');
+let newPassRep = document.getElementById('newPassRep');
+
 // Templates
 let content = document.getElementById('content');
 let f_reg = document.getElementById('f_reg');
@@ -55,6 +61,85 @@ let inner1 = document.getElementById('inner');
 
 // Candidates
 let candElectList = document.getElementById('candElectList');
+
+// Change Password
+change.addEventListener('click', e => {
+
+    e.preventDefault();
+
+    if((oldPass.value == '') || (newPass.value == '') || (newPassRep.value == '')){
+
+        output = {
+            'status': '0',
+            'message': 'Fields cannot be left empty!'
+        };
+        changePassDom(output);
+
+    }else if(newPass.value != newPassRep.value){
+
+        output = {
+            'status': '0',
+            'message': 'New Passwords do not match!'
+        };
+        changePassDom(output);
+
+    }else{
+
+        let pass = ['text='+oldPass.value,newPass.value,schl_id.value];
+
+        oldPass.value = '';
+        newPass.value = '';
+        newPassRep.value = '';
+
+        // Creating the AJAX element to add positions
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../php/api/passwordChange/schoolPassChange.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function(){
+            if(this.status == 200){
+                let response = this.responseText;
+                alert(response);
+                changePassDom(JSON.parse(response));
+            }
+        }
+        xhr.send(pass);
+    }
+});
+
+// show data on the modal
+function changePassDom(result){
+    inner1.innerHTML = '';
+    modal1.style.display = 'flex';
+
+    // ELEMENTS TO POPULATE THE MODAL
+    let h3 = document.createElement('h3');
+    let p = document.createElement('p');
+    let a = document.createElement('a');
+
+    if(result['status'] == '1'){
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'Password Changed Successfully!';
+        a.innerHTML = 'Continue';
+        a.setAttribute('id', 'continue');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }else{
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'Something went wrong';
+        a.innerHTML = 'Retry';
+        a.setAttribute('id', 'retry');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }
+}
 
 // Displaying the posContent if conditions are met
 addP.addEventListener('click', () => {
@@ -786,6 +871,7 @@ dashboard.addEventListener('click', () => {
     viewCand.className = 'hideTemp';
     f_regV.className = 'hideTemp';
     d_regV.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 registerFaculty.addEventListener('click', () => {
@@ -799,6 +885,7 @@ registerFaculty.addEventListener('click', () => {
     viewCand.className = 'hideTemp';
     f_regV.className = 'hideTemp';
     d_regV.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 registerDept.addEventListener('click', () => {
@@ -812,6 +899,7 @@ registerDept.addEventListener('click', () => {
     viewCand.className = 'hideTemp';
     f_regV.className = 'hideTemp';
     d_regV.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 viewFaculty.addEventListener('click', () => {
@@ -825,6 +913,7 @@ viewFaculty.addEventListener('click', () => {
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
     d_regV.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 viewDept.addEventListener('click', () => {
@@ -838,6 +927,7 @@ viewDept.addEventListener('click', () => {
     positions.className = 'hideTemp';
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 addElection.addEventListener('click', () => {
@@ -851,6 +941,7 @@ addElection.addEventListener('click', () => {
     viewCand.className = 'hideTemp';
     f_regV.className = 'hideTemp';
     d_regV.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 votingList.addEventListener('click', () => {
@@ -864,6 +955,7 @@ votingList.addEventListener('click', () => {
     f_regV.className = 'hideTemp';
     d_reg.className = 'hideTemp';
     d_regV.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 addPositions.addEventListener('click', () => {
@@ -877,6 +969,7 @@ addPositions.addEventListener('click', () => {
     f_regV.className = 'hideTemp';
     d_reg.className = 'hideTemp';
     d_regV.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 addCandidates.addEventListener('click', () => {
@@ -890,10 +983,26 @@ addCandidates.addEventListener('click', () => {
     f_regV.className = 'hideTemp';
     d_reg.className = 'hideTemp';
     d_regV.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 viewCandidates.addEventListener('click', () => {
     viewCand.className = 'showTemp';
+    candidates.className = 'hideTemp';
+    positions.className = 'hideTemp';
+    viewElections.className = 'hideTemp';
+    AddElection.className = 'hideTemp';
+    content.className = 'hideTemp';
+    f_reg.className = 'hideTemp';
+    f_regV.className = 'hideTemp';
+    d_reg.className = 'hideTemp';
+    d_regV.className = 'hideTemp';
+    passChange.className = 'hideTemp';
+});
+
+changepassword.addEventListener('click', () => {
+    passChange.className = 'showTemp';
+    viewCand.className = 'hideTemp';
     candidates.className = 'hideTemp';
     positions.className = 'hideTemp';
     viewElections.className = 'hideTemp';
