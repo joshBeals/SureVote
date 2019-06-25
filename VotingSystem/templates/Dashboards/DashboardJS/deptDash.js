@@ -211,8 +211,6 @@ function popCand(result){
         td1.innerHTML = result[i]['candidate_name'];
         let td2 = document.createElement('td');
         td2.innerHTML = result[i]['candidate_matric'];
-        let td3 = document.createElement('td');
-        td3.innerHTML = result[i]['dept_name'];
         let td5 = document.createElement('td');
         td5.innerHTML = result[i]['position_name'];
         let td6 = document.createElement('button');
@@ -233,7 +231,6 @@ function popCand(result){
         tr.appendChild(td);
         tr.appendChild(td1);
         tr.appendChild(td2);
-        tr.appendChild(td3);
         tr.appendChild(td5);
         tr.appendChild(td6);
         tr.appendChild(td7);

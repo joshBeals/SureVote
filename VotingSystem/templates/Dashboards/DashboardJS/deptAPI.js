@@ -1,5 +1,4 @@
 // Targetting DOM Elements
-// bowenuniverity 28888505 SCH
 let ElectionsCreated = document.getElementById('ElectionsCreated');
 let FacultyElections = document.getElementById('FacultyElections');
 let SchoolElections = document.getElementById('SchoolElections');
@@ -55,8 +54,8 @@ function getElectionsCreated(){
             let response = this.responseText;
             popElections(JSON.parse(response));
             popPositions(JSON.parse(response));
-            // candidateElection(JSON.parse(response));
-            // viewCandElect(JSON.parse(response));
+            candidateElection(JSON.parse(response));
+            viewCandElect(JSON.parse(response));
         }else{
             alert(this.status);
         }
@@ -136,7 +135,7 @@ function candidateElection(result){
         opt.text = result[i]['election_title'];
         opt.value = result[i]['election_id'];
         candElec.appendChild(opt);
-        showPos1();
+        showPos();
     }
 }
 
@@ -182,11 +181,11 @@ function candidatePosition(result){
 
 // Ajax to addCandidates
 addCand.addEventListener('click', () => {
-    let arr = ['info='+candName.value,candMatric.value,candDept.value,candElec.value,candpos.value];
+    let arr = ['info='+candName.value,candMatric.value,candElec.value,candpos.value];
     candName.value = '';
     candMatric.value = '';
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../php/api/sendData/addFacCandidates.php', true);
+    xhr.open('POST', '../../php/api/sendData/addDeptCandidates.php', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.onload = function(){
         if(this.status == 200){

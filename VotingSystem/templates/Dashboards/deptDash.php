@@ -135,7 +135,7 @@
                 <div class="mainDash">
                     <div class="analysis">
                         <div class="boxes" id="elections">
-                            <i class="fas fa-poll-h"></i> 
+                            <i class="fas fa-vote-yea"></i>
                             <div class="info">
                                 <h2 id='ElectionsCreated'>0</h2>
                                 <p>Elections Created</p>
@@ -372,7 +372,6 @@
                                         <th>SN</th>
                                         <th>FullName</th>
                                         <th>Matric</th>
-                                        <th>Department</th>
                                         <th>Candidate Position</th>
                                         <th colspan="2">Operations</th>
                                     </tr>

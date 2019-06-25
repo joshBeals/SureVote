@@ -142,7 +142,7 @@
                             </div>
                         </div>
                         <div class="boxes" id="elections">
-                            <i class="fas fa-poll-h"></i> 
+                            <i class="fas fa-vote-yea"></i>
                             <div class="info">
                                 <h2 id='ElectionsCreated'>0</h2>
                                 <p>Elections Created</p>
