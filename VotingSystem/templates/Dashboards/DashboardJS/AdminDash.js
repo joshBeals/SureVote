@@ -98,7 +98,6 @@ change.addEventListener('click', e => {
         xhr.onload = function(){
             if(this.status == 200){
                 let response = this.responseText;
-                alert(response);
                 changePassDom(JSON.parse(response));
             }
         }

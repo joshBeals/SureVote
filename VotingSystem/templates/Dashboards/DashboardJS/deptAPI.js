@@ -8,7 +8,6 @@ let TotalAppUsers = document.getElementById('TotalAppUsers');
 let VotersNumbers = document.getElementById('VotersNumbers');
 let ElectionsStarted = document.getElementById('ElectionsStarted');
 
-
 // Targetting the Add Election
 let title = document.getElementById('title');
 let descrip = document.getElementById('descrip');

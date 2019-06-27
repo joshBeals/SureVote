@@ -1,7 +1,5 @@
 // Declarations
 
-let schl_id = document.getElementById('school_id');
-
 let sidebar = document.getElementById('sidebar');
 let menuToogle = document.getElementById('menuToogle');
 let vote = document.getElementById('vote');
@@ -38,6 +36,12 @@ let positions = document.getElementById('positions');
 let candidates = document.getElementById('candidates');
 let viewCand = document.getElementById('viewCand');
 
+// Change Password
+let change = document.getElementById('change');
+let oldPass = document.getElementById('oldPass');
+let newPass = document.getElementById('newPass');
+let newPassRep = document.getElementById('newPassRep');
+
 // Positions
 let posContent = document.getElementById('posContent');
 let electList = document.getElementById('electList');
@@ -49,6 +53,84 @@ let inner1 = document.getElementById('inner');
 
 // Candidates
 let candElectList = document.getElementById('candElectList');
+
+// Change Password
+change.addEventListener('click', e => {
+
+    e.preventDefault();
+
+    if((oldPass.value == '') || (newPass.value == '') || (newPassRep.value == '')){
+
+        output = {
+            'status': '0',
+            'message': 'Fields cannot be left empty!'
+        };
+        changePassDom(output);
+
+    }else if(newPass.value != newPassRep.value){
+
+        output = {
+            'status': '0',
+            'message': 'New Passwords do not match!'
+        };
+        changePassDom(output);
+
+    }else{ 
+
+        let pass = ['text='+oldPass.value,newPass.value,fac_id.value];
+
+        oldPass.value = '';
+        newPass.value = '';
+        newPassRep.value = '';
+
+        // Creating the AJAX element to add positions
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../php/api/passwordChange/facultyPassChange.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function(){
+            if(this.status == 200){
+                let response = this.responseText;
+                changePassDom(JSON.parse(response));
+            }
+        }
+        xhr.send(pass);
+    }
+});
+
+// show data on the modal
+function changePassDom(result){
+    inner1.innerHTML = '';
+    modal1.style.display = 'flex';
+
+    // ELEMENTS TO POPULATE THE MODAL
+    let h3 = document.createElement('h3');
+    let p = document.createElement('p');
+    let a = document.createElement('a');
+
+    if(result['status'] == '1'){
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'Password Changed Successfully!';
+        a.innerHTML = 'Continue';
+        a.setAttribute('id', 'continue');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }else{
+        h3.innerHTML = result['message'];
+        p.innerHTML = 'Something went wrong';
+        a.innerHTML = 'Retry';
+        a.setAttribute('id', 'retry');
+        inner.appendChild(h3);
+        inner.appendChild(p);
+        inner.appendChild(a);
+        a.addEventListener('click', () => {
+            removeModal();
+        });
+    }
+}
 
 // Displaying the posContent if conditions are met
 addP.addEventListener('click', () => {
@@ -707,6 +789,7 @@ dashboard.addEventListener('click', () => {
     positions.className = 'hideTemp';
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 addElection.addEventListener('click', () => {
@@ -716,6 +799,7 @@ addElection.addEventListener('click', () => {
     positions.className = 'hideTemp';
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 votingList.addEventListener('click', () => {
@@ -725,6 +809,7 @@ votingList.addEventListener('click', () => {
     positions.className = 'hideTemp';
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 addPositions.addEventListener('click', () => {
@@ -734,6 +819,7 @@ addPositions.addEventListener('click', () => {
     content.className = 'hideTemp';
     candidates.className = 'hideTemp';
     viewCand.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 addCandidates.addEventListener('click', () => {
@@ -743,10 +829,22 @@ addCandidates.addEventListener('click', () => {
     AddElection.className = 'hideTemp';
     content.className = 'hideTemp';
     viewCand.className = 'hideTemp';
+    passChange.className = 'hideTemp';
 });
 
 viewCandidates.addEventListener('click', () => {
     viewCand.className = 'showTemp';
+    candidates.className = 'hideTemp';
+    positions.className = 'hideTemp';
+    viewElections.className = 'hideTemp';
+    AddElection.className = 'hideTemp';
+    content.className = 'hideTemp';
+    passChange.className = 'hideTemp';
+});
+
+changepassword.addEventListener('click', () => {
+    passChange.className = 'showTemp';
+    viewCand.className = 'hideTemp';
     candidates.className = 'hideTemp';
     positions.className = 'hideTemp';
     viewElections.className = 'hideTemp';

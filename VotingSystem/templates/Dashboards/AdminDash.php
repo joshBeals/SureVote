@@ -513,14 +513,13 @@
                         }
                         ?>>
                         <label for="oldPass">Old Password</label>
-                        <input type="password" name="faculty_name" id="oldPass" required>
+                        <input type="password" id="oldPass" required>
                         <label for="newPass">New Password</label>
-                        <input type="password" name="faculty_email" id="newPass" required>
+                        <input type="password" id="newPass" required>
                         <label for="newPassRep">Re-enter New Password</label>
-                        <input type="password" name="faculty_email" id="newPassRep" required>
+                        <input type="password" id="newPassRep" required>
                         <input type="submit" name="change" value="Change Password" id="change">
-                    </form>
-                    <p>Do you have an account? <a href="../loginTemp.php">LOGIN</a></p>   
+                    </form> 
                     </div>
                 </div>
                 </div>

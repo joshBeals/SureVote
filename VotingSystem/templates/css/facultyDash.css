@@ -260,32 +260,19 @@ body{
     box-sizing: border-box;
     padding: 10px;
 }
-#f_regV{
-    min-height: 400px;
-    box-sizing: border-box;
-    padding: 20px 0px;
-    font-family: 'Alegreya Sans SC', sans-serif;
-    animation: anim 300ms; 
-}
-#f_regV .ffv{
-    height: 100%;
-    background: white;
-    box-sizing: border-box;
-    padding: 20px;
-}
-#f_reg{
+#passChange{
     font-family: 'Alegreya Sans SC', sans-serif;
     width: 100%;
     min-height: 450px;
     animation: anim 300ms; 
 }
-#f_reg .fff{
+#passChange .fff{
     display: flex;
     width: 100%;
     height: 100%;
 
 }
-#f_reg .fff .left{
+#passChange .fff .left{
     flex: 1;
     display: flex;
     background-image: 
@@ -302,34 +289,35 @@ body{
     color: #BFC0C2;
     box-sizing: border-box;
     padding: 30px;
+    border-radius: 0px 0px 0px 10px;
 }
-#f_reg .fff .left div{
+#passChange .fff .left div{
     font-family: 'Alegreya Sans SC', sans-serif;
     font-size: 20px;
     text-align: center;
     box-sizing: border-box;
     padding: 10px;
 }
-#f_reg .fff .right {
+#passChange .fff .right {
     flex: 1.5;
     text-align: center;
     background: white;
     border-radius: 10px;
     box-sizing: border-box;
-    padding: 30px;
+    padding: 0px 30px 10px 30px;
 }
-#f_reg .fff .right  div{
+#passChange .fff .right  div{
     flex: 1;
     box-sizing: border-box;
 }
-#f_reg .fff .right  h3{
+#passChange .fff .right  h3{
     flex: 1;
     color: #062A4A;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
     font-size: 30px;
     font-weight: lighter;
 }
-#f_reg .fff .right  p{
+#passChange .fff .right  p{
     margin-bottom: 0;
 }
 a{
@@ -340,18 +328,18 @@ a{
 a:hover{
     color: #0B508E;
 }
-#f_reg .fff .right  form{
+#passChange .fff .right  form{
     flex: 1;
     display: flex;
     flex-direction: column;
     text-align: left;
 }
-#f_reg .fff .right  form label{
+#passChange .fff .right  form label{
     color: #062A4A;
     font-size: 20px;
     margin-bottom: 10px;
 }
-#RegisterBtn{
+#change{
     box-sizing: border-box;
     padding: 15px;
     margin-top: 10px;
@@ -360,10 +348,11 @@ a:hover{
     background: #062A4A;
     transition: 300ms ease-in-out;
 }
-#RegisterBtn:hover{
+#change:hover{
     background: #0B508E;
 }
-#f_reg .fff .right form input{
+#passChange .fff .right form input{
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     margin-bottom: 20px;
     box-sizing: border-box;
